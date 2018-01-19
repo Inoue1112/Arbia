@@ -30,9 +30,8 @@ private:
 
 	bool m_bPushButtun;//ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©.
 
-	unique_ptr<clsSprite2D> m_smpEndingNameTxt;
-	unique_ptr<clsSprite2D> m_smpEndingSiteTxt;
-	unique_ptr<clsSprite2D> m_smpEndingThankTxt;
+	unique_ptr<clsSprite2D> m_smpEndRoll;
+	unique_ptr<clsSprite2D> m_smpEndRoll;
 
 	unique_ptr<clsPushTxt>  m_smpPushTxt;
 };
