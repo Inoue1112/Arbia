@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{29F95654-C871-44AB-B379-2BAE56D02E03}</ProjectGuid>
+    <RootNamespace>Arbia</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>SourceCodo\Effekseer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>SourceCodo\Effekseer\lib</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>SourceCodo\Effekseer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>SourceCodo\Effekseer\lib</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\DebugText.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\Mesh.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS_Main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS_Main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\MeshSkin.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VSSkin</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VSSkin</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\PointSprite.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\Ray.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\Simple.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS</EntryPointName>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Shader\Sprite2D.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VS_Main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">VS_Main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SourceCodo\CheckPoint.cpp" />
+    <ClCompile Include="SourceCodo\CheckPointMgr.cpp" />
+    <ClCompile Include="SourceCodo\NumGroup.cpp" />
+    <ClCompile Include="SourceCodo\CharaSkin.cpp" />
+    <ClCompile Include="SourceCodo\CharaStatic.cpp" />
+    <ClCompile Include="SourceCodo\Collision.cpp" />
+    <ClCompile Include="SourceCodo\CollisionRay.cpp" />
+    <ClCompile Include="SourceCodo\Common.cpp" />
+    <ClCompile Include="SourceCodo\CoverManager.cpp" />
+    <ClCompile Include="SourceCodo\CXInput.cpp" />
+    <ClCompile Include="SourceCodo\D3DXSKINMESH.cpp" />
+    <ClCompile Include="SourceCodo\DebugText.cpp" />
+    <ClCompile Include="SourceCodo\DoorManager.cpp" />
+    <ClCompile Include="SourceCodo\DX9Mesh.cpp" />
+    <ClCompile Include="SourceCodo\DxInput.cpp" />
+    <ClCompile Include="SourceCodo\Effects.cpp" />
+    <ClCompile Include="SourceCodo\Enemy.cpp" />
+    <ClCompile Include="SourceCodo\EnemyManager.cpp" />
+    <ClCompile Include="SourceCodo\File.cpp" />
+    <ClCompile Include="SourceCodo\Floor.cpp" />
+    <ClCompile Include="SourceCodo\GageSprite2D.cpp" />
+    <ClCompile Include="SourceCodo\GameObject.cpp" />
+    <ClCompile Include="SourceCodo\GoalManager.cpp" />
+    <ClCompile Include="SourceCodo\Main.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DJewel.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DJewelSet.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrActTxt.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrDiscover.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrEnding.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrLives.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrMain.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrOver.cpp" />
+    <ClCompile Include="SourceCodo\Particle.cpp" />
+    <ClCompile Include="SourceCodo\Pendulum.cpp" />
+    <ClCompile Include="SourceCodo\Player.cpp" />
+    <ClCompile Include="SourceCodo\Ray.cpp" />
+    <ClCompile Include="SourceCodo\Resource.cpp" />
+    <ClCompile Include="SourceCodo\SceneManager.cpp" />
+    <ClCompile Include="SourceCodo\Sound.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrOverTxt.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrPushButn.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrResult.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DTimer.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DTimerGroup.cpp" />
+    <ClCompile Include="SourceCodo\SpiaFloor.cpp" />
+    <ClCompile Include="SourceCodo\SpiaFloorManager.cpp" />
+    <ClCompile Include="SourceCodo\SpiaWall.cpp" />
+    <ClCompile Include="SourceCodo\SpiaWallManager.cpp" />
+    <ClCompile Include="SourceCodo\Sprite.cpp" />
+    <ClCompile Include="SourceCodo\Sprite2D.cpp" />
+    <ClCompile Include="SourceCodo\SpShadow.cpp" />
+    <ClCompile Include="SourceCodo\StepBox.cpp" />
+    <ClCompile Include="SourceCodo\StepCylinder.cpp" />
+    <ClCompile Include="SourceCodo\Sp2DMgrTitle.cpp" />
+    <ClCompile Include="SourceCodo\UiManager.cpp" />
+    <ClCompile Include="SourceCodo\Wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SourceCodo\CheckPoint.h" />
+    <ClInclude Include="SourceCodo\CheckPointMgr.h" />
+    <ClInclude Include="SourceCodo\NumGroup.h" />
+    <ClInclude Include="SourceCodo\CharaSkin.h" />
+    <ClInclude Include="SourceCodo\CharaStatic.h" />
+    <ClInclude Include="SourceCodo\Collision.h" />
+    <ClInclude Include="SourceCodo\CollisionRay.h" />
+    <ClInclude Include="SourceCodo\Common.h" />
+    <ClInclude Include="SourceCodo\CoverManager.h" />
+    <ClInclude Include="SourceCodo\CXInput.h" />
+    <ClInclude Include="SourceCodo\D3DXSKINMESH.h" />
+    <ClInclude Include="SourceCodo\DebugText.h" />
+    <ClInclude Include="SourceCodo\DoorManager.h" />
+    <ClInclude Include="SourceCodo\DX9Mesh.h" />
+    <ClInclude Include="SourceCodo\DxInput.h" />
+    <ClInclude Include="SourceCodo\Effects.h" />
+    <ClInclude Include="SourceCodo\Enemy.h" />
+    <ClInclude Include="SourceCodo\EnemyManager.h" />
+    <ClInclude Include="SourceCodo\File.h" />
+    <ClInclude Include="SourceCodo\Floor.h" />
+    <ClInclude Include="SourceCodo\GageSprite2D.h" />
+    <ClInclude Include="SourceCodo\GameObject.h" />
+    <ClInclude Include="SourceCodo\Global.h" />
+    <ClInclude Include="SourceCodo\GoalManager.h" />
+    <ClInclude Include="SourceCodo\Main.h" />
+    <ClInclude Include="SourceCodo\Sp2DJewel.h" />
+    <ClInclude Include="SourceCodo\Sp2DJewelSet.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrActTxt.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrDiscover.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrEnding.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrLives.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrMain.h" />
+    <ClInclude Include="SourceCodo\MyMacro.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrOver.h" />
+    <ClInclude Include="SourceCodo\Particle.h" />
+    <ClInclude Include="SourceCodo\Pendulum.h" />
+    <ClInclude Include="SourceCodo\Player.h" />
+    <ClInclude Include="SourceCodo\Ray.h" />
+    <ClInclude Include="SourceCodo\Resource.h" />
+    <ClInclude Include="SourceCodo\SceneManager.h" />
+    <ClInclude Include="SourceCodo\Sound.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrOverTxt.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrPushButn.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrResult.h" />
+    <ClInclude Include="SourceCodo\Sp2DTimer.h" />
+    <ClInclude Include="SourceCodo\Sp2DTimerGroup.h" />
+    <ClInclude Include="SourceCodo\SpiaFloor.h" />
+    <ClInclude Include="SourceCodo\SpiaFloorManager.h" />
+    <ClInclude Include="SourceCodo\SpiaWall.h" />
+    <ClInclude Include="SourceCodo\SpiaWallManager.h" />
+    <ClInclude Include="SourceCodo\Sprite.h" />
+    <ClInclude Include="SourceCodo\Sprite2D.h" />
+    <ClInclude Include="SourceCodo\SpShadow.h" />
+    <ClInclude Include="SourceCodo\StepBox.h" />
+    <ClInclude Include="SourceCodo\StepCylinder.h" />
+    <ClInclude Include="SourceCodo\Sp2DMgrTitle.h" />
+    <ClInclude Include="SourceCodo\UiManager.h" />
+    <ClInclude Include="SourceCodo\Wall.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EffekseerProject>
+  <Root>
+    <Name>Root</Name>
+    <Children>
+      <Node>
+        <CommonValues>
+          <GenerationTime>
+            <Center>100</Center>
+            <Max>100</Max>
+            <Min>100</Min>
+          </GenerationTime>
+        </CommonValues>
+        <RendererCommonValues>
+          <ColorTexture>Effekseer110/Effekseer110/Sample/00_Basic/Texture/Particle01.png</ColorTexture>
+          <AlphaBlend>2</AlphaBlend>
+        </RendererCommonValues>
+        <Name>Node</Name>
+        <Children />
+      </Node>
+    </Children>
+  </Root>
+  <ToolVersion>1.10</ToolVersion>
+  <Version>3</Version>
+  <StartFrame>0</StartFrame>
+  <EndFrame>120</EndFrame>
+  <IsLoop>True</IsLoop>
+</EffekseerProject>

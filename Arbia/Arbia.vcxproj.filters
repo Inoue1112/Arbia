@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="000">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="030Model">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="010SuperClass">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="999ShaderFile">
+      <UniqueIdentifier>{caf67048-9046-4519-888d-6c23f3f5132c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="100Trap">
+      <UniqueIdentifier>{47a1733b-6d1d-43d6-a56f-04a191680e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="150Charactor">
+      <UniqueIdentifier>{8a46c215-891c-4d51-b7cf-a15373ef3b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="900System">
+      <UniqueIdentifier>{ee5558f6-1121-4a47-9229-19e7f911fa5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="080Stage">
+      <UniqueIdentifier>{9ff24425-661f-4205-b1a9-809fa7e0985f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="100Trap\100Child">
+      <UniqueIdentifier>{d203636b-d447-4887-9cdc-aee4735a52fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="800GameSystem">
+      <UniqueIdentifier>{0360c799-ae5f-444a-899a-ab90d2dbb5c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="050Sprite">
+      <UniqueIdentifier>{2bdeb74f-e020-48e9-a6cc-a84e07223921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="080Stage\100DontMove">
+      <UniqueIdentifier>{8fbe3c68-98f2-463a-b5a6-c7b39dfa9b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="060Sprite2D">
+      <UniqueIdentifier>{3a7b3fa6-174b-40b4-ba9b-4541bd4bb5fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="060Sprite2D\UiManagerChildren">
+      <UniqueIdentifier>{8c8b286c-347d-4bde-b7aa-2e8311d3b9a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="060Sprite2D\NumUI">
+      <UniqueIdentifier>{2e9dba00-49da-4bcb-b729-b240ff72ab1c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\DebugText.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Mesh.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\MeshSkin.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\PointSprite.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Ray.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Simple.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Sprite2D.hlsl">
+      <Filter>999ShaderFile</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SourceCodo\Particle.cpp">
+      <Filter>000</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CharaSkin.cpp">
+      <Filter>010SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CharaStatic.cpp">
+      <Filter>010SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\GameObject.cpp">
+      <Filter>010SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\D3DXSKINMESH.cpp">
+      <Filter>030Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\DX9Mesh.cpp">
+      <Filter>030Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Pendulum.cpp">
+      <Filter>100Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Enemy.cpp">
+      <Filter>150Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Player.cpp">
+      <Filter>150Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Resource.cpp">
+      <Filter>900System</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Ray.cpp">
+      <Filter>030Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\EnemyManager.cpp">
+      <Filter>150Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Common.cpp">
+      <Filter>010SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SpiaFloorManager.cpp">
+      <Filter>100Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SpiaWallManager.cpp">
+      <Filter>100Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SpiaWall.cpp">
+      <Filter>100Trap\100Child</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SpiaFloor.cpp">
+      <Filter>100Trap\100Child</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CoverManager.cpp">
+      <Filter>100Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\GoalManager.cpp">
+      <Filter>080Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Collision.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CollisionRay.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\DxInput.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Main.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Effects.cpp">
+      <Filter>900System</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\File.cpp">
+      <Filter>900System</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sound.cpp">
+      <Filter>900System</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\StepBox.cpp">
+      <Filter>080Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\StepCylinder.cpp">
+      <Filter>080Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\DoorManager.cpp">
+      <Filter>080Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SpShadow.cpp">
+      <Filter>050Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Floor.cpp">
+      <Filter>080Stage\100DontMove</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Wall.cpp">
+      <Filter>080Stage\100DontMove</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\SceneManager.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CXInput.cpp">
+      <Filter>800GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\GageSprite2D.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sprite2D.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sprite.cpp">
+      <Filter>050Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\DebugText.cpp">
+      <Filter>900System</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrMain.cpp">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrOver.cpp">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrTitle.cpp">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrResult.cpp">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\NumGroup.cpp">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DTimer.cpp">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DTimerGroup.cpp">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrActTxt.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrPushButn.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrLives.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\UiManager.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrOverTxt.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DJewel.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DJewelSet.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrDiscover.cpp">
+      <Filter>060Sprite2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CheckPointMgr.cpp">
+      <Filter>050Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\CheckPoint.cpp">
+      <Filter>050Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCodo\Sp2DMgrEnding.cpp">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SourceCodo\Particle.h">
+      <Filter>000</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CharaSkin.h">
+      <Filter>010SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CharaStatic.h">
+      <Filter>010SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\GameObject.h">
+      <Filter>010SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\D3DXSKINMESH.h">
+      <Filter>030Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\DX9Mesh.h">
+      <Filter>030Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Pendulum.h">
+      <Filter>100Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Enemy.h">
+      <Filter>150Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Player.h">
+      <Filter>150Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Global.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\MyMacro.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Resource.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Ray.h">
+      <Filter>030Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\EnemyManager.h">
+      <Filter>150Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Common.h">
+      <Filter>010SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SpiaFloorManager.h">
+      <Filter>100Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SpiaWallManager.h">
+      <Filter>100Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SpiaWall.h">
+      <Filter>100Trap\100Child</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SpiaFloor.h">
+      <Filter>100Trap\100Child</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CoverManager.h">
+      <Filter>100Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\GoalManager.h">
+      <Filter>080Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Collision.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CollisionRay.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\DxInput.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Main.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Effects.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\File.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sound.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\StepBox.h">
+      <Filter>080Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\StepCylinder.h">
+      <Filter>080Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\DoorManager.h">
+      <Filter>080Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SpShadow.h">
+      <Filter>050Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Floor.h">
+      <Filter>080Stage\100DontMove</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Wall.h">
+      <Filter>080Stage\100DontMove</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\SceneManager.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CXInput.h">
+      <Filter>800GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\GageSprite2D.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sprite2D.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sprite.h">
+      <Filter>050Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\DebugText.h">
+      <Filter>900System</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrMain.h">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrOver.h">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrTitle.h">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrResult.h">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\NumGroup.h">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DTimer.h">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DTimerGroup.h">
+      <Filter>060Sprite2D\NumUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrActTxt.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrPushButn.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrLives.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\UiManager.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrOverTxt.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DJewel.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DJewelSet.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrDiscover.h">
+      <Filter>060Sprite2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CheckPointMgr.h">
+      <Filter>050Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\CheckPoint.h">
+      <Filter>050Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCodo\Sp2DMgrEnding.h">
+      <Filter>060Sprite2D\UiManagerChildren</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
