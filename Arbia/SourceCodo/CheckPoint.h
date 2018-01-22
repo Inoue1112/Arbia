@@ -7,8 +7,8 @@ class clsCheckPoint
 	: public clsSprite
 {
 public:
-	
-		enum enMode
+
+	enum enMode
 	{
 		enM_AHEAD = 0,//ë“ã@.
 		enM_IN,
@@ -22,34 +22,28 @@ public:
 	clsCheckPoint();
 	~clsCheckPoint();
 
-	
 	//èâä˙âª.
-	HRESULT Create( ID3D11Device* pDevice11,
+	HRESULT Create(ID3D11Device* pDevice11,
 		ID3D11DeviceContext* pContext11,
-		LPSTR sFileName );
+		LPSTR sFileName);
 
 	void Init();
 
-
 	bool Stay();
 
-
-	void SetMove( bool bMove ){
+	void SetMove(bool bMove){
 		m_bMobe = bMove;
 	}
 	bool GetMove(){
 		return m_bMobe;
 	}
 
-
 	enMode m_enMode;
-
 
 private:
 
 	////”√ﬁŸçÏê¨.
 	virtual HRESULT InitModel();
-
 
 	LPSTR	m_sFileName;
 
@@ -58,7 +52,6 @@ private:
 
 	float	m_fFloat;//Ç”ÇÌÇ”ÇÌ.
 	bool	m_bAcc;
-
 };
 
 #endif //#ifndef _CHECK_POINT_H_

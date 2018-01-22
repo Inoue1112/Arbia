@@ -1,21 +1,20 @@
 #include "Common.h"
 
-
 //============================================================
 //“§‰ß(±ÙÌ§ÌÞÚÝÄÞ)Ý’è‚ÌØ‚è‘Ö‚¦.
 //============================================================
-void clsCommon::SetBlend( bool flg )
+void clsCommon::SetBlend(bool flg)
 {
 	//±ÙÌ§ÌÞÚÝÄÞ—pÌÞÚÝÄÞ½Ã°Ä\‘¢‘Ì.
 	//pngÌ§²Ù“à‚É±ÙÌ§î•ñ‚ª‚ ‚é‚Ì‚ÅA
 	//“§‰ß‚·‚é‚æ‚¤‚ÉÌÞÚÝÄÞ½Ã°Ä‚ðÝ’è‚·‚é.
 	D3D11_BLEND_DESC blendDesc;
-	ZeroMemory( &blendDesc, sizeof( D3D11_BLEND_DESC ) );//‰Šú‰».
+	ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));//‰Šú‰».
 
 	blendDesc.IndependentBlendEnable
 		= false;//false:RenderTarget[0]‚ÌÒÝÊÞ°‚Ì‚Ý‚ªŽg—p‚·‚é.
-				//true :RenderTarget[0`7]‚ªŽg—p‚Å‚«‚é.
-				//      (ÚÝÀÞ°À°¹Þ¯Ä–ˆ‚É“Æ—§‚µ‚½ÌÞÚÝÄÞˆ—)
+	//true :RenderTarget[0`7]‚ªŽg—p‚Å‚«‚é.
+	//      (ÚÝÀÞ°À°¹Þ¯Ä–ˆ‚É“Æ—§‚µ‚½ÌÞÚÝÄÞˆ—)
 	blendDesc.AlphaToCoverageEnable
 		= false;//true :±ÙÌ§Ä©¶ÊÞÚ¯¼Þ‚ðŽg—p‚·‚é.
 	blendDesc.RenderTarget[0].BlendEnable
@@ -40,22 +39,15 @@ void clsCommon::SetBlend( bool flg )
 		= D3D11_COLOR_WRITE_ENABLE_ALL;				//	‘S‚Ä‚Ì¬•ª(RGBA)‚Ö‚ÌÃÞ°À‚ÌŠi”[‚ð‹–‰Â‚·‚é.
 
 	//ÌÞÚÝÄÞ½Ã°Äì¬.
-	if( FAILED(
+	if (FAILED(
 		m_pDevice11->CreateBlendState(
-			&blendDesc, &m_pBlendState ) ) )
+		&blendDesc, &m_pBlendState)))
 	{
-		MessageBox( NULL, "ÌÞÚÝÄÞ½Ã°Äì¬Ž¸”s", "clsCommon::SetBlend", MB_OK );
+		MessageBox(NULL, "ÌÞÚÝÄÞ½Ã°Äì¬Ž¸”s", "clsCommon::SetBlend", MB_OK);
 	}
 
 	//ÌÞÚÝÄÞ½Ã°Ä‚ÌÝ’è.
 	UINT mask = 0xffffffff;	//Ï½¸’l.
 	m_pDeviceContext11->OMSetBlendState(
-		m_pBlendState, NULL, mask );
-
+		m_pBlendState, NULL, mask);
 }
-
-
-
-
-
-

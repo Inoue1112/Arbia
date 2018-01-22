@@ -8,9 +8,9 @@ class clsRay
 	: public clsCommon	//共通ｸﾗｽ継承.
 {
 public:
-//============================================================
-//	構造体.
-//============================================================
+	//============================================================
+	//	構造体.
+	//============================================================
 	//ｺﾝｽﾀﾝﾄﾊﾞｯﾌｧのｱﾌﾟﾘ側の定義(Ray.hlsl).
 	//ｼｪｰﾀﾞ内のｺﾝｽﾀﾝﾄﾊﾞｯﾌｧと一致している必要あり.
 	struct SHADER_CONSTANT_BUFFER
@@ -34,7 +34,7 @@ public:
 		FLOAT		fYaw;		//Y回転軸.
 		RAY()
 		{
-			ZeroMemory( this, sizeof( RAY ) );
+			ZeroMemory(this, sizeof(RAY));
 			//vDirection;	= 0;//一個一個こうした方が事故が少ない.
 		}
 	};
@@ -44,11 +44,10 @@ public:
 	~clsRay();
 
 	//初期化.
-	HRESULT Init( ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
+	HRESULT Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
 
 	//描画.
-	void Render( D3DXMATRIX& mView, D3DXMATRIX& mProj );
-
+	void Render(D3DXMATRIX& mView, D3DXMATRIX& mProj);
 
 private:
 	//ｼｪｰﾀﾞ初期化.
@@ -64,11 +63,6 @@ private:
 
 	//↓ﾓﾃﾞﾙごとに用意.
 	ID3D11Buffer*			m_pVertexBuffer;	//頂点ﾊﾞｯﾌｧ.
-
-
 };
-
-
-
 
 #endif//#ifndef _CRAY_H_.

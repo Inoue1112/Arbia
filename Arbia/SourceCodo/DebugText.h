@@ -2,7 +2,7 @@
 #define _DEBUG_TEXT_H_
 
 //警告についてのｺｰﾄﾞ分析を無効にする.4005:再定義.
-#pragma warning( disable:4005 )	
+#pragma warning( disable:4005 )
 
 //============================================================
 //	ｲﾝｸﾙｰﾄﾞ.
@@ -17,7 +17,6 @@
 
 #include	"MyMacro.h"
 
-
 //============================================================
 //	ﾗｲﾌﾞﾗﾘ.
 //============================================================
@@ -28,14 +27,12 @@
 
 #pragma comment( lib, "d3dx10.lib" )//「D3DX～」の定義使用時に必要.
 
-
 //============================================================
 //	定数.
 //============================================================
 #define DIMENSION		(12.0f)
 #define WDIMENSION		(10.0f)
 #define TEX_DIMENSION	(128.0f)
-
 
 //構造体.
 struct  TEXT_CONSTANT_BUFFER
@@ -51,7 +48,6 @@ struct TextVertex
 	D3DXVECTOR3	Pos;	//位置.
 	D3DXVECTOR2	Tex;	//ﾃｸｽﾁｬ座標.
 };
-
 
 //ﾃｷｽﾄｸﾗｽ.
 class clsDebugText
@@ -75,7 +71,6 @@ private:
 
 	ID3D11BlendState*			m_pBlendState;	//ﾌﾞﾚﾝﾄﾞｽﾃｰﾄ.
 
-
 	DWORD	m_dwWindowWidth;	//ｳｨﾝﾄﾞｳ幅.
 	DWORD	m_dwWindowHeight;	//ｳｨﾝﾄﾞｳ高さ.
 
@@ -86,31 +81,23 @@ private:
 
 	D3DXMATRIX m_mView;	//ﾋﾞｭｰ行列.
 	D3DXMATRIX m_mProj;	//ﾌﾟﾛｼﾞｪｸｼｮﾝ行列.
-	
-
-
 
 public:
 	clsDebugText();	//ｺﾝｽﾄﾗｸﾀ.
 	~clsDebugText();//ﾃﾞｽﾄﾗｸﾀ.
 
-	HRESULT Init( ID3D11DeviceContext* pContext,
+	HRESULT Init(ID3D11DeviceContext* pContext,
 		DWORD dwWidth, DWORD dwHeight,
-		float fSize, D3DXVECTOR4 vColor );
-
-
+		float fSize, D3DXVECTOR4 vColor);
 
 	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
-	void SetBlend( bool flg );
+	void SetBlend(bool flg);
 
 	//ﾚﾝﾀﾞﾘﾝｸﾞ関数.
-	void Render( char* text, int x, int y );
+	void Render(char* text, int x, int y);
 
 	//ﾌｫﾝﾄﾚﾝﾀﾞﾘﾝｸﾞ関数.
-	void RenderFont( int FontIndex, int x, int y );
-
-
+	void RenderFont(int FontIndex, int x, int y);
 };
-
 
 #endif//#define _DEBUG_TEXT_H_

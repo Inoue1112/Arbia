@@ -33,20 +33,20 @@ void clsSp2dMgrEnding::InitSetPos()
 	//m_smpEndingSiteTxt->
 	//m_smpEndingThankTxt->
 	m_bEndingEnd = false;
-	m_bPushButtun= false;
+	m_bPushButtun = false;
 	m_smpEndRoll->SetDispW(WND_W);
 	m_smpEndRoll->UpDateSpriteSs();
 
 	m_smpThank->SetDispW(WND_W);
 	m_smpThank->UpDateSpriteSs();
 
-	m_smpEndRoll->SetPos(0.0f,WND_H);
+	m_smpEndRoll->SetPos(0.0f, WND_H);
 
-	m_smpThank->SetPos(0.0f,m_smpEndRoll->GetSs().Disp.h+m_smpEndRoll->GetPos().y);
+	m_smpThank->SetPos(0.0f, m_smpEndRoll->GetSs().Disp.h + m_smpEndRoll->GetPos().y);
 }
 void clsSp2dMgrEnding::Render()
 {
-	if ( m_smpThank->GetPos().y > 0.0f  )
+	if (m_smpThank->GetPos().y > 0.0f)
 	{
 		if (m_bPushButtun)
 		{
@@ -62,7 +62,7 @@ void clsSp2dMgrEnding::Render()
 		m_bEndingEnd = true;
 	}
 
-	m_smpThank->SetPosY(m_smpEndRoll->GetSs().Disp.h+m_smpEndRoll->GetPos().y);
+	m_smpThank->SetPosY(m_smpEndRoll->GetSs().Disp.h + m_smpEndRoll->GetPos().y);
 
 	m_smpEndRoll->Render();
 

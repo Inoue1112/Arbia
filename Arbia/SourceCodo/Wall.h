@@ -11,9 +11,6 @@ public:
 	~clsWall();
 
 private:
-
 };
-
-
 
 #endif//#ifndef _WALL_H_

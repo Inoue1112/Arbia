@@ -14,17 +14,11 @@
 #include <d3dx10.h>
 #include <d3dx11.h>
 
-
-
 #include "Global.h"
-
-
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
-
-
 
 // 最大ボーン数.
 #define MAX_BONES		255
@@ -36,8 +30,6 @@
 #define SAFE_DELETE(p)		{ if(p) { delete (p);     (p)=NULL; } }
 #define SAFE_DELETE_ARRAY(p){ if(p) { delete[] (p);   (p)=NULL; } }
 
-
-
 ////方向列挙体.
 //enum enDirection
 //{
@@ -48,11 +40,9 @@
 //	enDirection_RightTurn	//右回転.
 //};
 
-
-
 // シェーダーに渡す値.
 struct SHADER_SKIN_GLOBAL0
-{	
+{
 	D3DXVECTOR4 vLightDir;	// ライト方向.
 	D3DXVECTOR4 vEye;		// カメラ位置.
 };
@@ -72,9 +62,9 @@ struct SHADER_GLOBAL_BONES
 	D3DXMATRIX mBone[MAX_BONES];
 	SHADER_GLOBAL_BONES()
 	{
-		for( int i=0; i<MAX_BONES; i++ )
+		for (int i = 0; i < MAX_BONES; i++)
 		{
-			D3DXMatrixIdentity( &mBone[i] );
+			D3DXMatrixIdentity(&mBone[i]);
 		}
 	}
 };
@@ -91,11 +81,11 @@ struct MY_SKINMATERIAL
 	DWORD dwNumFace;	// そのマテリアルであるポリゴン数.
 	MY_SKINMATERIAL()
 	{
-		ZeroMemory( this, sizeof( MY_SKINMATERIAL ) );
+		ZeroMemory(this, sizeof(MY_SKINMATERIAL));
 	}
 	~MY_SKINMATERIAL()
 	{
-		SAFE_RELEASE( pTexture );
+		SAFE_RELEASE(pTexture);
 	}
 };
 
@@ -109,7 +99,7 @@ struct MY_SKINVERTEX
 	float bBoneWeight[4];	// ボーン 重み.
 	MY_SKINVERTEX()
 	{
-		ZeroMemory( this, sizeof( MY_SKINVERTEX ) );
+		ZeroMemory(this, sizeof(MY_SKINVERTEX));
 	}
 };
 // ボーン構造体.
@@ -123,14 +113,14 @@ struct BONE
 
 	BONE()
 	{
-		ZeroMemory( this, sizeof( BONE ) );
-		D3DXMatrixIdentity( &mBindPose );
-		D3DXMatrixIdentity( &mNewPose );
+		ZeroMemory(this, sizeof(BONE));
+		D3DXMatrixIdentity(&mBindPose);
+		D3DXMatrixIdentity(&mNewPose);
 	}
 };
 
 // パーツメッシュ構造体.
-struct SKIN_PARTS_MESH 
+struct SKIN_PARTS_MESH
 {
 	DWORD	dwNumVert;
 	DWORD	dwNumFace;
@@ -151,14 +141,12 @@ struct SKIN_PARTS_MESH
 
 	SKIN_PARTS_MESH()
 	{
-		ZeroMemory( this, sizeof( SKIN_PARTS_MESH ) );
+		ZeroMemory(this, sizeof(SKIN_PARTS_MESH));
 		pVertexBuffer = NULL;
 		ppIndexBuffer = NULL;
 		pBoneArray = NULL;
 	}
 };
-
-
 
 // デバイス関係受取用構造体.
 struct CD3DXSKINMESH_INIT
@@ -170,17 +158,17 @@ struct CD3DXSKINMESH_INIT
 
 // 派生フレーム構造体.
 //	それぞれのメッシュ用の最終ワールド行列を追加する.
-struct MYFRAME: public D3DXFRAME
+struct MYFRAME : public D3DXFRAME
 {
 	D3DXMATRIX CombinedTransformationMatrix;
 	SKIN_PARTS_MESH* pPartsMesh;
 	MYFRAME(){
-		ZeroMemory( this, sizeof( MYFRAME ));
+		ZeroMemory(this, sizeof(MYFRAME));
 	}
 };
 // 派生メッシュコンテナー構造体.
 //	コンテナーがテクスチャを複数持てるようにポインターのポインターを追加する
-struct MYMESHCONTAINER: public D3DXMESHCONTAINER
+struct MYMESHCONTAINER : public D3DXMESHCONTAINER
 {
 	LPDIRECT3DTEXTURE9*  ppTextures;
 	DWORD dwWeight;				// 重みの個数（重みとは頂点への影響。）.
@@ -191,15 +179,15 @@ struct MYMESHCONTAINER: public D3DXMESHCONTAINER
 };
 // Xファイル内のアニメーション階層を読み下してくれるクラスを派生させる.
 //	ID3DXAllocateHierarchyは派生すること想定して設計されている.
-class MY_HIERARCHY: public ID3DXAllocateHierarchy
+class MY_HIERARCHY : public ID3DXAllocateHierarchy
 {
 public:
 	MY_HIERARCHY(){}
-	STDMETHOD(CreateFrame)(THIS_ LPCSTR , LPD3DXFRAME *);
-	STDMETHOD(CreateMeshContainer)(THIS_ LPCSTR ,CONST D3DXMESHDATA* ,CONST D3DXMATERIAL* , 
-		CONST D3DXEFFECTINSTANCE* , DWORD , CONST DWORD *, LPD3DXSKININFO , LPD3DXMESHCONTAINER *);
-	STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME );
-	STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER );	
+	STDMETHOD(CreateFrame)(THIS_ LPCSTR, LPD3DXFRAME *);
+	STDMETHOD(CreateMeshContainer)(THIS_ LPCSTR, CONST D3DXMESHDATA*, CONST D3DXMATERIAL*,
+		CONST D3DXEFFECTINSTANCE*, DWORD, CONST DWORD *, LPD3DXSKININFO, LPD3DXMESHCONTAINER *);
+	STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME);
+	STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER);
 };
 
 //==================================================================================================
@@ -217,54 +205,53 @@ public:
 	LPD3DXANIMATIONCONTROLLER m_pAnimController;//ﾃﾞﾌｫﾙﾄで一つ.
 	LPD3DXANIMATIONSET m_pAnimSet[MAX_ANIM_SET];
 
-	HRESULT LoadMeshFromX( LPDIRECT3DDEVICE9, LPSTR );
-	HRESULT AllocateBoneMatrix( LPD3DXMESHCONTAINER );
-	HRESULT AllocateAllBoneMatrices( LPD3DXFRAME );
-	VOID UpdateFrameMatrices( LPD3DXFRAME, LPD3DXMATRIX );
+	HRESULT LoadMeshFromX(LPDIRECT3DDEVICE9, LPSTR);
+	HRESULT AllocateBoneMatrix(LPD3DXMESHCONTAINER);
+	HRESULT AllocateAllBoneMatrices(LPD3DXFRAME);
+	VOID UpdateFrameMatrices(LPD3DXFRAME, LPD3DXMATRIX);
 
-
-	int GetNumVertices( MYMESHCONTAINER* pContainer );
-	int GetNumFaces( MYMESHCONTAINER* pContainer );
-	int GetNumMaterials( MYMESHCONTAINER* pContainer );
-	int GetNumUVs( MYMESHCONTAINER* pContainer );
-	int GetNumBones( MYMESHCONTAINER* pContainer );
-	int GetNumBoneVertices( MYMESHCONTAINER* pContainer, int iBoneIndex);
-	DWORD GetBoneVerticesIndices( MYMESHCONTAINER* pContainer, int iBoneIndex, int iIndexInGroup );
-	double GetBoneVerticesWeights( MYMESHCONTAINER* pContainer, int iBoneIndex, int iIndexInGroup );
-	D3DXVECTOR3 GetVertexCoord( MYMESHCONTAINER* pContainer, DWORD iIndex );
-	D3DXVECTOR3 GetNormal( MYMESHCONTAINER* pContainer, DWORD iIndex );
-	D3DXVECTOR2 GetUV( MYMESHCONTAINER* pContainer, DWORD iIndex );
-	int GetIndex( MYMESHCONTAINER* pContainer, DWORD iIndex );
-	D3DXVECTOR4 GetAmbient( MYMESHCONTAINER* pContainer, int iIndex );
-	D3DXVECTOR4 GetDiffuse( MYMESHCONTAINER* pContainer, int iIndex );
-	D3DXVECTOR4 GetSpecular( MYMESHCONTAINER* pContainer, int iIndex );
-	CHAR* GetTexturePath( MYMESHCONTAINER* pContainer, int index );
-	float GetSpecularPower( MYMESHCONTAINER* pContainer, int iIndex );
-	int GeFaceMaterialIndex( MYMESHCONTAINER* pContainer, int iFaceIndex );
-	int GetFaceVertexIndex( MYMESHCONTAINER* pContainer, int iFaceIndex, int iIndexInFace );
-	D3DXMATRIX GetBindPose( MYMESHCONTAINER* pContainer, int iBoneIndex );
-	D3DXMATRIX GetNewPose( MYMESHCONTAINER* pContainer, int iBoneIndex );
-	CHAR* GetBoneName( MYMESHCONTAINER* pContainer, int iBoneIndex );
+	int GetNumVertices(MYMESHCONTAINER* pContainer);
+	int GetNumFaces(MYMESHCONTAINER* pContainer);
+	int GetNumMaterials(MYMESHCONTAINER* pContainer);
+	int GetNumUVs(MYMESHCONTAINER* pContainer);
+	int GetNumBones(MYMESHCONTAINER* pContainer);
+	int GetNumBoneVertices(MYMESHCONTAINER* pContainer, int iBoneIndex);
+	DWORD GetBoneVerticesIndices(MYMESHCONTAINER* pContainer, int iBoneIndex, int iIndexInGroup);
+	double GetBoneVerticesWeights(MYMESHCONTAINER* pContainer, int iBoneIndex, int iIndexInGroup);
+	D3DXVECTOR3 GetVertexCoord(MYMESHCONTAINER* pContainer, DWORD iIndex);
+	D3DXVECTOR3 GetNormal(MYMESHCONTAINER* pContainer, DWORD iIndex);
+	D3DXVECTOR2 GetUV(MYMESHCONTAINER* pContainer, DWORD iIndex);
+	int GetIndex(MYMESHCONTAINER* pContainer, DWORD iIndex);
+	D3DXVECTOR4 GetAmbient(MYMESHCONTAINER* pContainer, int iIndex);
+	D3DXVECTOR4 GetDiffuse(MYMESHCONTAINER* pContainer, int iIndex);
+	D3DXVECTOR4 GetSpecular(MYMESHCONTAINER* pContainer, int iIndex);
+	CHAR* GetTexturePath(MYMESHCONTAINER* pContainer, int index);
+	float GetSpecularPower(MYMESHCONTAINER* pContainer, int iIndex);
+	int GeFaceMaterialIndex(MYMESHCONTAINER* pContainer, int iFaceIndex);
+	int GetFaceVertexIndex(MYMESHCONTAINER* pContainer, int iFaceIndex, int iIndexInFace);
+	D3DXMATRIX GetBindPose(MYMESHCONTAINER* pContainer, int iBoneIndex);
+	D3DXMATRIX GetNewPose(MYMESHCONTAINER* pContainer, int iBoneIndex);
+	CHAR* GetBoneName(MYMESHCONTAINER* pContainer, int iBoneIndex);
 
 	// メッシュコンテナを取得する.
-	LPD3DXMESHCONTAINER GetMeshContainer( LPD3DXFRAME pFrame );
+	LPD3DXMESHCONTAINER GetMeshContainer(LPD3DXFRAME pFrame);
 
 	// アニメーションセットの切り替え.
-	void ChangeAnimSet( int index, LPD3DXANIMATIONCONTROLLER pAC=NULL );
+	void ChangeAnimSet(int index, LPD3DXANIMATIONCONTROLLER pAC = NULL);
 	// アニメーションセットの切り替え(開始フレーム指定可能版).
-	void ChangeAnimSet_StartPos( int index, double dStartFramePos, LPD3DXANIMATIONCONTROLLER pAC=NULL );
+	void ChangeAnimSet_StartPos(int index, double dStartFramePos, LPD3DXANIMATIONCONTROLLER pAC = NULL);
 
 	// アニメーション停止時間を取得.
-	double GetAnimPeriod( int index );
+	double GetAnimPeriod(int index);
 	// アニメーション数を取得.
-	int GetAnimMax( LPD3DXANIMATIONCONTROLLER pAC=NULL );
+	int GetAnimMax(LPD3DXANIMATIONCONTROLLER pAC = NULL);
 
 	// 指定したボーン情報(座標・行列)を取得する関数.
-	bool GetMatrixFromBone( char* sBoneName, D3DXMATRIX* pOutMat );
-	bool GetPosFromBone( char* sBoneName, D3DXVECTOR3* pOutPos );
+	bool GetMatrixFromBone(char* sBoneName, D3DXMATRIX* pOutMat);
+	bool GetPosFromBone(char* sBoneName, D3DXVECTOR3* pOutPos);
 
 	// メッシュ解放.
-	HRESULT ReleaseMesh( LPD3DXFRAME pFrame );
+	HRESULT ReleaseMesh(LPD3DXFRAME pFrame);
 
 	// 一括解放処理.
 	HRESULT Release();
@@ -295,61 +282,52 @@ public:
 
 	float			m_fSpd;
 
-
 	//アニメーション速度.
 	double m_dAnimSpeed;
 
-
 	ID3D11BlendState*	m_pBlendState;	//ﾌﾞﾚﾝﾄﾞｽﾃｰﾄ.
-
-
 
 	// メソッド.
 	clsD3DXSKINMESH();
 	~clsD3DXSKINMESH();
 
-	HRESULT Init( CD3DXSKINMESH_INIT* si );
+	HRESULT Init(CD3DXSKINMESH_INIT* si);
 	// Xファイルからスキンメッシュを作成する.
-	HRESULT CreateFromX( CHAR* szFileName );
+	HRESULT CreateFromX(CHAR* szFileName);
 	// 描画関数.
-	void Render( D3DXMATRIX& mView, D3DXMATRIX& mProj, D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
-				 D3DXVECTOR4 &vColor = D3DXVECTOR4( 1.0f, 1.0f, 1.0f ,1.0f ),
-				 bool alphaFlg = false, LPD3DXANIMATIONCONTROLLER pAC = NULL );
+	void Render(D3DXMATRIX& mView, D3DXMATRIX& mProj, D3DXVECTOR3& vLight, D3DXVECTOR3& vEye,
+		D3DXVECTOR4 &vColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f),
+		bool alphaFlg = false, LPD3DXANIMATIONCONTROLLER pAC = NULL);
 
-	double GetAnimSpeed()				{ return m_dAnimSpeed;		}
-	void SetAnimSpeed( double dSpeed )	{ m_dAnimSpeed = dSpeed;	}
+	double GetAnimSpeed()				{ return m_dAnimSpeed; }
+	void SetAnimSpeed(double dSpeed)	{ m_dAnimSpeed = dSpeed; }
 
 	// アニメーションセットの切り替え.
-	void ChangeAnimSet( int index, LPD3DXANIMATIONCONTROLLER pAC=NULL );
+	void ChangeAnimSet(int index, LPD3DXANIMATIONCONTROLLER pAC = NULL);
 	// アニメーションセットの切り替え(開始フレーム指定可能版).
-	void ChangeAnimSet_StartPos( int index, double dStartFramePos, LPD3DXANIMATIONCONTROLLER pAC=NULL );
+	void ChangeAnimSet_StartPos(int index, double dStartFramePos, LPD3DXANIMATIONCONTROLLER pAC = NULL);
 
 	// アニメーション停止時間を取得.
-	double GetAnimPeriod( int index );
+	double GetAnimPeriod(int index);
 	// アニメーション数を取得.
-	int GetAnimMax( LPD3DXANIMATIONCONTROLLER pAC=NULL );
-
+	int GetAnimMax(LPD3DXANIMATIONCONTROLLER pAC = NULL);
 
 	//ﾊﾟｰｻｰｸﾗｽからｱﾆﾒｰｼｮﾝｺﾝﾄﾛｰﾗを取得する.
 	LPD3DXANIMATIONCONTROLLER GetAnimController(){
 		return m_pD3dxMesh->m_pAnimController;
 	}
 
-		
-		//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
-	void SetBlend( bool flg );
-
+	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
+	void SetBlend(bool flg);
 
 	// 解放関数.
 	HRESULT Release();
 
-
 	// 指定したボーン情報(座標・行列)を取得する関数.
-	bool GetMatrixFromBone( char* sBoneName, D3DXMATRIX* pOutMat );
-	bool GetPosFromBone( char* sBoneName, D3DXVECTOR3* pOutPos );
-//	//ﾘｿｰｽ用ﾎﾞｰﾝ取得関数.
-//	bool GetPosFromBoneResouse( char* sBoneName, D3DXVECTOR3* pOutPos, LPD3DXANIMATIONCONTROLLER pAC = NULL );
-
+	bool GetMatrixFromBone(char* sBoneName, D3DXMATRIX* pOutMat);
+	bool GetPosFromBone(char* sBoneName, D3DXVECTOR3* pOutPos);
+	//	//ﾘｿｰｽ用ﾎﾞｰﾝ取得関数.
+	//	bool GetPosFromBoneResouse( char* sBoneName, D3DXVECTOR3* pOutPos, LPD3DXANIMATIONCONTROLLER pAC = NULL );
 
 private:
 	HWND m_hWnd;
@@ -376,40 +354,39 @@ private:
 	// アニメーションフレーム.
 	int		m_iFrame;
 
-	HRESULT CreateDeviceDx9( HWND hWnd );
+	HRESULT CreateDeviceDx9(HWND hWnd);
 	HRESULT InitShader();
-	HRESULT CreateIndexBuffer( DWORD dwSize, int* pIndex, ID3D11Buffer** ppIndexBuffer );
-	void RecursiveSetNewPoseMatrices( BONE* pBone,D3DXMATRIX* pmParent );
+	HRESULT CreateIndexBuffer(DWORD dwSize, int* pIndex, ID3D11Buffer** ppIndexBuffer);
+	void RecursiveSetNewPoseMatrices(BONE* pBone, D3DXMATRIX* pmParent);
 
 	// 全てのメッシュを作成する.
-	void BuildAllMesh( D3DXFRAME* pFrame );
-	
+	void BuildAllMesh(D3DXFRAME* pFrame);
+
 	// メッシュを作成する.
-	HRESULT CreateAppMeshFromD3DXMesh( LPD3DXFRAME pFrame );
+	HRESULT CreateAppMeshFromD3DXMesh(LPD3DXFRAME pFrame);
 
 	// Xファイルからスキン関連の情報を読み出す関数.
-	HRESULT ReadSkinInfo( MYMESHCONTAINER* pContainer, MY_SKINVERTEX* pvVB, SKIN_PARTS_MESH* pParts );
+	HRESULT ReadSkinInfo(MYMESHCONTAINER* pContainer, MY_SKINVERTEX* pvVB, SKIN_PARTS_MESH* pParts);
 
 	// ボーンを次のポーズ位置にセットする関数.
-	void SetNewPoseMatrices( SKIN_PARTS_MESH* pParts, int frame, MYMESHCONTAINER* pContainer );
+	void SetNewPoseMatrices(SKIN_PARTS_MESH* pParts, int frame, MYMESHCONTAINER* pContainer);
 	// 次の(現在の)ポーズ行列を返す関数.
-	D3DXMATRIX GetCurrentPoseMatrix( SKIN_PARTS_MESH* pParts, int index );
+	D3DXMATRIX GetCurrentPoseMatrix(SKIN_PARTS_MESH* pParts, int index);
 
 	// フレーム描画.
-	void DrawFrame( LPD3DXFRAME pFrame,
-					D3DXVECTOR4 &vColor,
-					bool alphaFlg );
+	void DrawFrame(LPD3DXFRAME pFrame,
+		D3DXVECTOR4 &vColor,
+		bool alphaFlg);
 
 	// パーツ描画.
-	void DrawPartsMesh( SKIN_PARTS_MESH* p, D3DXMATRIX World, MYMESHCONTAINER* pContainer,
-						D3DXVECTOR4 &vColor, bool alphaFlg );
+	void DrawPartsMesh(SKIN_PARTS_MESH* p, D3DXMATRIX World, MYMESHCONTAINER* pContainer,
+		D3DXVECTOR4 &vColor, bool alphaFlg);
 
-
-	void DrawPartsMeshStatic( SKIN_PARTS_MESH* pMesh, D3DXMATRIX World, MYMESHCONTAINER* pContainer );
+	void DrawPartsMeshStatic(SKIN_PARTS_MESH* pMesh, D3DXMATRIX World, MYMESHCONTAINER* pContainer);
 
 	// 全てのメッシュを削除.
-	void DestroyAllMesh( D3DXFRAME* pFrame );
-	HRESULT DestroyAppMeshFromD3DXMesh( LPD3DXFRAME p );
+	void DestroyAllMesh(D3DXFRAME* pFrame);
+	HRESULT DestroyAppMeshFromD3DXMesh(LPD3DXFRAME p);
 };
 
 #endif//#ifndef _CD3DXSKINMESH_H_

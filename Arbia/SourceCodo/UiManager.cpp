@@ -5,10 +5,9 @@ const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
 
 const WHSIZE_FLOAT ICONSIZE = { 180.0f, 180.0f };
 
-const WHSIZE_FLOAT ICONPOS  = { 980.0f, 5.0f };
+const WHSIZE_FLOAT ICONPOS = { 980.0f, 5.0f };
 
-const WHSIZE_FLOAT NUMSIZE  = { 64.0f, 64.0f };
-
+const WHSIZE_FLOAT NUMSIZE = { 64.0f, 64.0f };
 
 clsUiManagar::clsUiManagar()
 {
@@ -20,7 +19,7 @@ clsUiManagar::~clsUiManagar()
 	Delete();
 }
 
-void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsUiManagar::Init(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
 	m_smpBlack = make_unique<clsSprite2D>();  //暗転用.
 
@@ -31,13 +30,13 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	m_smpTitleScene = make_unique<clsSp2dMgrTitle>();	 //タイトル用.
 
 	m_smpMainScene = make_unique<clsSp2dMgrMain>();
-	m_smpActTxt  = make_unique<clsActTxt>();	//ジャンプ、攻撃ねぇでやんす.
+	m_smpActTxt = make_unique<clsActTxt>();	//ジャンプ、攻撃ねぇでやんす.
 	m_smpXButton = make_unique<clsSprite2D>();	//Xボタンねぇでやんす.
 	m_smpAButton = make_unique<clsSprite2D>();	//Aボタン.
 
 	//ゲームオーバ用.
 	m_smpOverScene = make_unique<clsSp2dMgrOver>();
-	m_smpOverScene->Init( pDevice11, pContext11 );
+	m_smpOverScene->Init(pDevice11, pContext11);
 
 	//リザルト用.
 	m_smpResult = make_unique<clsSp2dMgrReslt>();
@@ -53,21 +52,19 @@ void clsUiManagar::Init( HWND hWnd,ID3D11Device* pDevice11, ID3D11DeviceContext*
 	m_smpTitleScene->Init(pDevice11, pContext11);
 
 	//メインシーン.
-	m_smpMainScene->Init( hWnd, pDevice11, pContext11);
+	m_smpMainScene->Init(hWnd, pDevice11, pContext11);
 
 	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
 	m_smpXButton->Init(pDevice11, pContext11, "Data\\Image\\XButtun.png");
 	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
 
-
 	//リザルト用.
-	m_smpResult->Init( hWnd, pDevice11, pContext11 );
+	m_smpResult->Init(hWnd, pDevice11, pContext11);
 
 	//エンディング用.
 	m_smpEndingScene->Init(pDevice11, pContext11);
 	InitPos();
-
 }
 void clsUiManagar::RenderTitle()
 {
@@ -130,7 +127,6 @@ void clsUiManagar::ChangeMainInit()
 {
 	m_smpMainScene->InitSetPos();
 	m_smpMainScene->ActTxtMoveIn();
-
 }
 
 void clsUiManagar::ChangeResultInit()
@@ -144,10 +140,10 @@ void clsUiManagar::ChangeOverInit()
 {
 	InitPos();
 
-//	m_smpGameOverTxt->SetPosX(CENTER_POS.w - m_smpGameOverTxt->GetCenterDisp().w);
-//	m_smpGameOverTxt->SetPosY(-1 * (m_smpGameOverTxt->GetSs().Disp.h));
+	//	m_smpGameOverTxt->SetPosX(CENTER_POS.w - m_smpGameOverTxt->GetCenterDisp().w);
+	//	m_smpGameOverTxt->SetPosY(-1 * (m_smpGameOverTxt->GetSs().Disp.h));
 
-//	m_smpAButton->SetAlpha(1.0f);
+	//	m_smpAButton->SetAlpha(1.0f);
 }
 void clsUiManagar::ChangeEndingInit()
 {
@@ -156,14 +152,14 @@ void clsUiManagar::ChangeEndingInit()
 
 void clsUiManagar::BlackStart(float ChaAmo, bool Color)
 {
-	if ( m_smpBlack->m_BlackMode == Idle && Color )
+	if (m_smpBlack->m_BlackMode == Idle && Color)
 	{
 		m_fChangePoint = ChaAmo;
 		m_bColor = Color;
 		m_smpBlack->m_BlackMode = In;
 		m_smpBlack->SetAlpha(0.0f);
 	}
-	else if ( m_smpWhite->m_BlackMode == Idle && !Color )
+	else if (m_smpWhite->m_BlackMode == Idle && !Color)
 	{
 		m_fChangePoint = ChaAmo;
 		m_bColor = Color;
@@ -255,7 +251,7 @@ void clsUiManagar::InitPos()
 	m_smpXButton->InitSetPos();	//Xボタンねぇでやんす.
 	m_smpAButton->InitSetPos();	//Aボタン.
 	//ゲームオーバ用.
-//	m_smpGameOverTxt->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
+	//	m_smpGameOverTxt->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
 	m_smpOverScene->InitSetPos();	//ゲームオーバーテキストねぇでやんす.
 
 	//リザルト用.
@@ -313,7 +309,6 @@ void clsUiManagar::Delete()
 	if (m_smpEndingScene){
 		m_smpEndingScene.reset();
 	}
-
 
 #endif // 0
 }

@@ -2,24 +2,20 @@
 #define _SPRITE_H_
 
 //警告についてのｺｰﾄﾞ分析を無効にする.4005:再定義.
-#pragma warning( disable:4005 )	
+#pragma warning( disable:4005 )
 
 //============================================================
 //	ｲﾝｸﾙｰﾄﾞ.
 //============================================================
 #include "Common.h"//共通ｸﾗｽ.
 
-
 //============================================================
 //	ﾗｲﾌﾞﾗﾘ.
 //============================================================
 
-
-
 //============================================================
 //	定数.
 //============================================================
-
 
 //============================================================
 //	構造体.
@@ -40,9 +36,6 @@ struct SPRITESHADER_CONSTANT_BUFFER
 //	D3DXVECTOR2 vTex;	//ﾃｸｽﾁｬ座標.
 //};
 
-
-
-
 //============================================================
 //	ｽﾌﾟﾗｲﾄｸﾗｽ.
 //============================================================
@@ -57,13 +50,12 @@ public:
 
 	bool	m_bDispFlg;//表示ﾌﾗｸﾞ.
 
-
 	clsSprite();	//ｺﾝｽﾄﾗｸﾀ.
 	virtual ~clsSprite();	//ﾃﾞｽﾄﾗｸﾀ.
 
 	//初期化.
-	HRESULT Init( ID3D11Device* pDevice11,
-		ID3D11DeviceContext* pContext11 );
+	HRESULT Init(ID3D11Device* pDevice11,
+		ID3D11DeviceContext* pContext11);
 
 	//ｼｪｰﾀﾞ作成.
 	HRESULT InitShader();
@@ -71,10 +63,10 @@ public:
 	virtual HRESULT InitModel();
 
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)(※DX9MESH内とMain内で2つ存在するので注意).
-	virtual void Render( D3DXMATRIX& mView, D3DXMATRIX& mProj,
-				 D3DXVECTOR3 &vEye );
+	virtual void Render(D3DXMATRIX& mView, D3DXMATRIX& mProj,
+		D3DXVECTOR3 &vEye);
 
-	void SetScale( float fScale ){
+	void SetScale(float fScale){
 		m_fScale = fScale;
 	}
 
@@ -92,12 +84,7 @@ protected:
 	ID3D11ShaderResourceView*	m_pTexture;		//ﾃｸｽﾁｬ.
 	ID3D11SamplerState*			m_pSampleLinear;//ﾃｸｽﾁｬのｻﾝﾌﾟﾗｰ:/ﾃｸｽﾁｬに各種ﾌｨﾙﾀをかける.
 
-
-
 	float m_fScale;
-
-
 };
-
 
 #endif	//#ifndef _SPRITE_H_

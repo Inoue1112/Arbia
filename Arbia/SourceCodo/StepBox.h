@@ -11,7 +11,7 @@ public:
 	~clsStepBox();
 
 	//動きの確定.
-	void CreateMove( bool bRight, bool bEast );
+	void CreateMove(bool bRight, bool bEast);
 
 	virtual void Init();
 
@@ -20,12 +20,11 @@ public:
 
 	//キャラが乗っている時に動かす量を返す.
 	D3DXVECTOR3 GetCarryRange(){
-		return D3DXVECTOR3( m_fMovePower, 0.0f, 0.0f );
+		return D3DXVECTOR3(m_fMovePower, 0.0f, 0.0f);
 	}
 	float GetCarryRangeX(){
 		return m_fMovePower;
 	}
-
 
 private:
 
@@ -35,7 +34,6 @@ private:
 	bool	m_bInitFlg;	//どう初期化するかのフラグ.
 
 	D3DXVECTOR3 m_vStartPos;
-
 };
 
 #endif//#ifndef _STEP_BOX_H_

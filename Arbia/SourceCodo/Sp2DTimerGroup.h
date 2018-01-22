@@ -15,22 +15,20 @@ public:
 	~clsTimerGrp();
 
 	//ç≈èâÇÃèâä˙âª.
-	void Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
-	
+	void Create(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+
 	//ìÒâÒñ⁄à»ç~ÇÃèâä˙âª.
 	virtual void ReSet();
-
 
 	void Move();
 
 	void Render();
 
+	void SetPos(D3DXVECTOR3 vPos);
+	void AddPos(D3DXVECTOR3 vPos);
+	void AddPosY(float fPos);
 
-	void SetPos( D3DXVECTOR3 vPos );
-	void AddPos( D3DXVECTOR3 vPos );
-	void AddPosY( float fPos );
-
-	void SetStop( bool bStop ){
+	void SetStop(bool bStop){
 		m_bStop = bStop;
 	}
 
@@ -49,11 +47,7 @@ private:
 	bool m_bStop;//trueÇ≈ÉJÉEÉìÉgÇµÇ»Ç¢.
 	bool m_bStopOld;
 
-
-
-
 	clsSound* m_pSe;
-
 };
 
 #endif//#ifndef _SP2D_TIMER_GROUP_H_

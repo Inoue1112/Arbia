@@ -21,11 +21,11 @@ struct VS_OUT
 };
 
 //í∏ì_º™∞¿ﬁ.
-VS_OUT	VS( float4 Pos	: POSITION,
-			float2 Tex	: TEXCOORD )
+VS_OUT	VS(float4 Pos	: POSITION,
+	float2 Tex : TEXCOORD)
 {
 	VS_OUT Out = (VS_OUT)0;
-	Out.Pos = mul( Pos, g_mWVP );
+	Out.Pos = mul(Pos, g_mWVP);
 	//√∏Ω¡¨ç¿ïW.
 	Out.Tex = Tex;
 
@@ -33,12 +33,10 @@ VS_OUT	VS( float4 Pos	: POSITION,
 }
 
 //Àﬂ∏æŸº™∞¿ﬁ.
-float4 PS( VS_OUT In )	: SV_Target
+float4 PS(VS_OUT In) : SV_Target
 {
 	float4 color
-		= g_vColor * g_texColor.Sample( g_samLinear, In.Tex );
+	= g_vColor * g_texColor.Sample(g_samLinear, In.Tex);
 
 	return color * g_fAlpha.x;
 }
-
-

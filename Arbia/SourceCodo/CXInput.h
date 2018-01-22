@@ -14,8 +14,6 @@
 #define INPUT_VIBRATION_MIN	(0)
 #define INPUT_VIBRATION_MAX	(65535)
 
-
-
 //キー.
 #define XINPUT_UP		( XINPUT_GAMEPAD_DPAD_UP )
 #define XINPUT_DOWN		( XINPUT_GAMEPAD_DPAD_DOWN )
@@ -32,7 +30,6 @@
 #define XINPUT_X		( XINPUT_GAMEPAD_X )
 #define XINPUT_Y		( XINPUT_GAMEPAD_Y )
 
-
 class clsXInput
 {
 public:
@@ -45,21 +42,20 @@ public:
 	};
 
 	clsXInput(){
-		ZeroMemory( this, sizeof( clsXInput ) );
+		ZeroMemory(this, sizeof(clsXInput));
 	}
 	~clsXInput(){}
 
 	bool UpdateStatus();
 	bool UpdateKeyStatus();
 
-	bool IsPressEnter( const WORD _padKey );
-	bool IsPressStay( const WORD _padKey );
-	bool IsPressExit( const WORD _padKey );
-
+	bool IsPressEnter(const WORD _padKey);
+	bool IsPressStay(const WORD _padKey);
+	bool IsPressExit(const WORD _padKey);
 
 	void EndProc(){
-		SetVibration( 0, 0 );
-//		XInputEnable( false );
+		SetVibration(0, 0);
+		//		XInputEnable( false );
 	}
 
 	BYTE GetLTrigger(){
@@ -81,7 +77,6 @@ public:
 		return m_state.Gamepad.sThumbRY;
 	}
 
-
 	//左スティックの角度.
 	float GetLStickTheta();
 	//右スティックの角度.
@@ -91,20 +86,18 @@ public:
 	enSTICK_SLOPE GetLStickSlope();
 	enSTICK_SLOPE GetRStickSlope();
 
-
 	//振動を与えよう.
-	void SetVibPowerL( int iVibL, int iTime, int iVibDecL = 0 );
-	void SetVibPowerR( int iVibR, int iTime, int iVibDecR = 0 );
+	void SetVibPowerL(int iVibL, int iTime, int iVibDecL = 0);
+	void SetVibPowerR(int iVibR, int iTime, int iVibDecR = 0);
 
 private:
 	//振動.
-	bool SetVibration( WORD LMotorSpd, WORD RMotorSpd );
+	bool SetVibration(WORD LMotorSpd, WORD RMotorSpd);
 
 	//スティックの角度.
-	float GetStickTheta( SHORT lY, SHORT lX );
+	float GetStickTheta(SHORT lY, SHORT lX);
 	//スティックの傾き.
-	float GetStickSlope( SHORT lY, SHORT lX );
-
+	float GetStickSlope(SHORT lY, SHORT lX);
 
 	DWORD				m_padId;
 	XINPUT_STATE		m_state;
@@ -112,10 +105,9 @@ private:
 	XINPUT_KEYSTROKE	m_keystroke;
 	XINPUT_VIBRATION	m_vibration;
 
-
 	//振動補助.
-	void VibSafe( int &iVibPower, int &iVibDec );//範囲内に収める.
-	void VibDecrease( int &iVibPower, int iDecPower );//減衰.
+	void VibSafe(int &iVibPower, int &iVibDec);//範囲内に収める.
+	void VibDecrease(int &iVibPower, int iDecPower);//減衰.
 	void VibTimerCnt();//タイマーカウント.
 	int		m_iVibL;//振動力.
 	int		m_iVibR;
@@ -123,10 +115,6 @@ private:
 	int		m_iVibDecR;
 	int		m_iVibTimerL;//収まる時間.
 	int		m_iVibTimerR;
-	
-
 };
 
 #endif//#ifndef _C_XINPUT_H_
-
-

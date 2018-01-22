@@ -6,7 +6,6 @@
 
 #include "Sound.h"
 
-
 class clsGoalMgr
 	: public clsGameObject
 {
@@ -14,30 +13,25 @@ public:
 	clsGoalMgr();
 	~clsGoalMgr();
 
-
-	void Create( HWND hWnd, ID3D11Device* pDevice, 
-		ID3D11DeviceContext* pContext );
+	void Create(HWND hWnd, ID3D11Device* pDevice,
+		ID3D11DeviceContext* pContext);
 	virtual void Init();
 	void Release();
 	virtual void UpDateModel(){};
 
 	//描画.
-	virtual void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye );
+	virtual void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye);
 
-	virtual void SetPosition( D3DXVECTOR3 vPos );
+	virtual void SetPosition(D3DXVECTOR3 vPos);
 
-
-	void Move( float fEarZ );
+	void Move(float fEarZ);
 
 	//箱を開ける.
 	void BoxBreak();
 
-
 	//あたり判定用.
-	void SetColPos( D3DXVECTOR3 vPos );
-
-
+	void SetColPos(D3DXVECTOR3 vPos);
 
 	//地形あたり判定用.
 	clsCharaStatic*	GetFloorColPointer(){
@@ -72,7 +66,7 @@ private:
 		enSOUND_MAX,
 	};
 	//効果音.
-	void PlaySe( enSound enSe );
+	void PlaySe(enSound enSe);
 	clsSound**	m_ppSe;
 	int			m_iSeMax;
 
@@ -81,11 +75,9 @@ private:
 	clsCharaSkin*	m_pTreasurer;//宝箱.
 	clsCharaStatic*	m_pTrBoxCol;//宝箱に重ならない用( Ray ).
 
-
 	//箱のあたり判定用.
 	COL_STATE	ColState;
 	bool		m_bOpen;
-
 
 	//ｱﾆﾒｰｼｮﾝ番号.
 	enum enAnimation
@@ -99,9 +91,8 @@ private:
 	enAnimation m_enAnimNo;
 	void Animation();
 	//アニメーションモードを変更.
-	void ChangeAnimMode( enAnimation anim );
+	void ChangeAnimMode(enAnimation anim);
 	double m_dAnimTimer;
-
 };
 
 #endif//#ifndef _GOAL_MANAGER_H_

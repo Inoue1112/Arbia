@@ -7,4 +7,3 @@ clsWall::clsWall()
 clsWall::~clsWall()
 {
 }
-

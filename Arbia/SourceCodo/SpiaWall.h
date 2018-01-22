@@ -3,9 +3,6 @@
 
 #include "CharaStatic.h"
 
-
-
-
 class clsSpiaWall
 	: public clsCharaStatic
 {
@@ -27,15 +24,14 @@ public:
 		enSOUND_VIB = 0,
 		enSOUND_UP,
 		enSOUND_DOWN,
-		  
+
 		enSOUND_MAX,	//最大数.
 	};
 
 	//最初の初期化.
-	void Create( bool bRightFlg, int iNo );
+	void Create(bool bRightFlg, int iNo);
 
-	virtual void Init( D3DXVECTOR3 vInitPos, bool bRightFlg = false );//true = .
-
+	virtual void Init(D3DXVECTOR3 vInitPos, bool bRightFlg = false);//true = .
 
 	bool Move();
 
@@ -56,13 +52,11 @@ public:
 private:
 
 	virtual void UpdateColState();//ﾑｰﾌﾞの最後に使う.
-	
-	
+
 	//振動動作.
 	void Vibration();
 
 	D3DXVECTOR3 m_vInitPos;
-
 
 	bool	m_bRight;//右側フラグ.
 
@@ -73,7 +67,6 @@ private:
 	bool	m_bVib;	//がたがたが右に行くか左へ行くか.
 
 	bool	m_bSpnRight;//回転が右回転.
-
 };
 
 #endif//#ifndef _C_SPIA_WALL_H_

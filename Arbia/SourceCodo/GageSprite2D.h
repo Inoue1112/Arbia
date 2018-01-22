@@ -50,24 +50,24 @@ public:
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)
 	void Render();
 
-	void SetPos( D3DXVECTOR3 Pos )
+	void SetPos(D3DXVECTOR3 Pos)
 	{
 		m_vPos = Pos;
 	}
-	
-	void SetAlpha( float Alpha )
+
+	void SetAlpha(float Alpha)
 	{
 		m_fAlpha = Alpha;
 	}
 
 	//横のパターン.
-	void SetPatarnU( float Patarn )
+	void SetPatarnU(float Patarn)
 	{
 		m_fUVStart.w = Patarn;
 	}
 
 	//縦のパターン.
-	void SetPatarnV( float Patarn )
+	void SetPatarnV(float Patarn)
 	{
 		m_fUVStart.h = Patarn;
 	}
@@ -92,7 +92,6 @@ private:
 
 	ID3D11ShaderResourceView*	m_pTexture;//ﾃｸｽﾁｬ.
 	ID3D11SamplerState*			m_pSampleLinear;//ﾃｸｽﾁｬのｻﾝﾌﾟﾗ-:ﾃｸｽﾁｬーに各種ﾌｨﾙﾀをかける.
-
 };
 
 #endif//#ifndef _C_GAGESPRITE_2D_H_

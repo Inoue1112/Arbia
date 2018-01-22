@@ -78,26 +78,23 @@ public:
 		static clsResource s_Instance;
 		return &s_Instance;
 	}
-//	clsResource();
+	//	clsResource();
 	~clsResource();
 
-
-
 	//Ω¿√®Ø∏”√ﬁŸ.
-	HRESULT		InitStaticModel( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
-	HRESULT		CreateStaticModel( LPSTR fileName, enStaticModel enModel );
-	HRESULT		ReleaseStaticModel( enStaticModel enModel );
-	clsDX9Mesh* GetStaticModels( enStaticModel enModel );
-
+	HRESULT		InitStaticModel(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	HRESULT		CreateStaticModel(LPSTR fileName, enStaticModel enModel);
+	HRESULT		ReleaseStaticModel(enStaticModel enModel);
+	clsDX9Mesh* GetStaticModels(enStaticModel enModel);
 
 	//Ω∑›”√ﬁŸ.
-	HRESULT		InitSkinModel( HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
+	HRESULT		InitSkinModel(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* pContext);
 	HRESULT		CreateSkinModel(LPSTR fileName, enSkinModel enModel);
 	HRESULT		ReleaseSkinModel(enSkinModel enModel);
 	clsD3DXSKINMESH*	GetSkinModels(enSkinModel enModel);
 
 #ifdef Inoue
-	enStaticModel ItoE( int Num ){
+	enStaticModel ItoE(int Num){
 		return static_cast<enStaticModel>(Num);
 	}
 
@@ -109,8 +106,8 @@ public:
 private:
 	//ê∂ê¨Ç‚∫Àﬂ∞Çã÷é~Ç∑ÇÈ.
 	clsResource();
-	clsResource( const clsResource& rhs );
-	clsResource& operator = ( const clsResource& rhs );
+	clsResource(const clsResource& rhs);
+	clsResource& operator = (const clsResource& rhs);
 
 	HWND					m_hWnd;
 	ID3D11Device*			m_pDevice11;
@@ -121,13 +118,10 @@ private:
 	clsD3DXSKINMESH**		m_ppSkinModels;
 
 	//îÕàÕì‡Ç©¡™Ø∏Ç∑ÇÈä÷êî.
-	bool IsRangeStaticModel( enStaticModel enModel );
-	bool IsRangeSkinModel( enSkinModel enModel );
-
+	bool IsRangeStaticModel(enStaticModel enModel);
+	bool IsRangeSkinModel(enSkinModel enModel);
 
 	char m_FilePath[256];
-
-
 };
 
 #endif//#ifndef _C_RESOURCE_H_

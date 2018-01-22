@@ -15,7 +15,6 @@ void clsSp2dMgrOver::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext
 
 	m_smpPushTxt->Init(pDevice11, pContext11);
 	m_smpOverTxt->Init(pDevice11, pContext11);
-
 }
 
 void clsSp2dMgrOver::InitSetPos()

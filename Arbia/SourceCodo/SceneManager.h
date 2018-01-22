@@ -12,7 +12,6 @@ enum enScene
 	enSCENE_MAX,
 };
 
-
 class clsSceneMgr
 {
 public:
@@ -20,7 +19,6 @@ public:
 	~clsSceneMgr();
 
 private:
-
 };
 
 #endif//#ifndef _SCENE_MANAGER_H_.
