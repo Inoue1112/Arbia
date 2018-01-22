@@ -141,7 +141,7 @@ public:
 	//メインの上のテキストを下におろして表示する関数.
 	void TopMainTxtMoveStart()
 	{
-		m_smpMainScene->MoveStartTopTxt();
+		m_smpMainScene->MoveStartTopTxt(0.7f);
 	}
 
 private:

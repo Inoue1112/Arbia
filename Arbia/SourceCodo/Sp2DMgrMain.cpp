@@ -72,6 +72,8 @@ void clsSp2dMgrMain::InitSetPos()
 		m_smpActTxt->GetSs().Disp.w));
 	m_smpAButton->SetAlpha(1.0f);
 
+	m_fMoveTopTxtPoint = 0.0f;
+
 #ifdef Tahara
 	//”Žš.
 	m_smpTimerGrp->SetPos( D3DXVECTOR3( 0.0f, -MainScene::ICONSIZE.h, 0.0f ) );

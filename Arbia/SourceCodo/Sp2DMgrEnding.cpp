@@ -23,23 +23,30 @@ void clsSp2dMgrEnding::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pConte
 
 	m_smpEndRoll = make_unique<clsSprite2D>();
 	m_smpEndRoll->Init(pDevice11, pContext11, "Data\\Image\\StaffLool.png");
+
+	m_smpThank = make_unique<clsSprite2D>();
+	m_smpThank->Init(pDevice11, pContext11, "Data\\Image\\EndingThankYou.png");
 }
 void clsSp2dMgrEnding::InitSetPos()
 {
 	//m_smpEndingNameTxt->
 	//m_smpEndingSiteTxt->
 	//m_smpEndingThankTxt->
-	m_smpPushTxt->InitSetPos();
 	m_bEndingEnd = false;
 	m_bPushButtun= false;
 	m_smpEndRoll->SetDispW(WND_W);
 	m_smpEndRoll->UpDateSpriteSs();
 
+	m_smpThank->SetDispW(WND_W);
+	m_smpThank->UpDateSpriteSs();
+
 	m_smpEndRoll->SetPos(0.0f,WND_H);
+
+	m_smpThank->SetPos(0.0f,m_smpEndRoll->GetSs().Disp.h+m_smpEndRoll->GetPos().y);
 }
 void clsSp2dMgrEnding::Render()
 {
-	if (m_smpEndRoll->GetPos().y > WND_H/2 - m_smpEndRoll->GetSs().Disp.h )
+	if ( m_smpThank->GetPos().y > 0.0f  )
 	{
 		if (m_bPushButtun)
 		{
@@ -55,7 +62,12 @@ void clsSp2dMgrEnding::Render()
 		m_bEndingEnd = true;
 	}
 
+	m_smpThank->SetPosY(m_smpEndRoll->GetSs().Disp.h+m_smpEndRoll->GetPos().y);
+
 	m_smpEndRoll->Render();
+
+	m_smpThank->Render();
+
 	if (m_bEndingEnd)
 	{
 		m_smpPushTxt->Render();
