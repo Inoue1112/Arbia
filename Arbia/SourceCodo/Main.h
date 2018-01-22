@@ -223,11 +223,13 @@ public:
 	void LoadRender();
 
 	/*=*=*=*=*=*=*=*=| ½Ìß×²Ä2D |=*=*=*=*=*=*=*=*/
-	clsSprite2D* m_pLoadBack;
-	SPRITE_STATE ss_LoadBack;
+	clsSprite2D* m_pLoadTxt;
+
+	unique_ptr<clsSprite2D> m_pLoadBack;
 
 	clsGageSprite2D* m_pLoadGage;
 	GAGE_SPRITE_STATE ss_LoadGage;
+	unique_ptr<clsSprite2D> m_pLoadGageBack;
 	/*=*=*=*=*=*=*=*=| ½Ìß×²Ä2D |=*=*=*=*=*=*=*=*/
 	int LoadStep;
 	int LoadGage;
@@ -456,7 +458,7 @@ private:
 	};
 	clsSound*	m_pSe[enSe_MAX];
 	void CreateSound();
-	
+
 
 
 

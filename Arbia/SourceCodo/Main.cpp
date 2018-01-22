@@ -4295,9 +4295,6 @@ void clsMain::NowLoading()
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_hanbun_R.X",
 				clsResource::enST_MODEL_FLOOR_HALF_R );
-			LoadGage += 50;
-			break;
-		case 2:
 			//ペンデュラム床.
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\yuka_kizu.X",
@@ -4318,9 +4315,9 @@ void clsMain::NowLoading()
 			m_pResource->CreateStaticModel(
 				"Data\\Stage\\mon.X",
 				clsResource::enST_MODEL_MON);
-			LoadGage += 10;
+			LoadGage += 50;
 			break;
-		case 3:
+		case 2:
 			//ゴールモデルを確認する.
 			m_pResource->CreateStaticModel(
 				"Data\\TrRoom\\gool.X",
@@ -4353,10 +4350,6 @@ void clsMain::NowLoading()
 			m_pResource->CreateStaticModel(
 				"Data\\Trap\\otosiana_R.x",
 				clsResource::enST_MODEL_COVER_R );
-
-			LoadGage += 10;
-			break;
-		case 4:
 			//定規用のブロック.
 			m_pResource->CreateStaticModel(
 				"Data\\Jikken\\1_1_1_kijyun.x",
@@ -4395,6 +4388,13 @@ void clsMain::NowLoading()
 			m_pResource->CreateSkinModel(
 				"Data\\TrRoom\\TrRoomBox.X",
 				clsResource::enSK_MODEL_TR_BOX );
+
+			LoadGage += 10;
+			break;
+		case 3:
+			LoadGage += 10;
+			break;
+		case 4:
 			LoadGage += 10;
 			break;
 		case 5:
@@ -4416,23 +4416,38 @@ void clsMain::NowLoading()
 // ﾛｰﾄﾞ画面初期化 //
 void clsMain::LoadSpriteInit()
 {
-	m_pLoadBack = new clsSprite2D;
-	m_pLoadBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
+	m_pLoadBack = make_unique<clsSprite2D>();
+	m_pLoadBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\Black.png");
 	m_pLoadBack->SetPos( D3DXVECTOR3 (0.0f, 0.0f, 0.0f) );
 	m_pLoadBack->SetPatarnU( 0.0f );
 	m_pLoadBack->SetPatarnV( 0.0f );
 	m_pLoadBack->SetAlpha( 1.0f );
 
+	m_pLoadTxt = new clsSprite2D;
+	m_pLoadTxt->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
+	m_pLoadTxt->SetPos( WND_W/2-m_pLoadTxt->GetSs().Disp.w/2 , 0.0f );
+	m_pLoadTxt->SetPatarnU( 0.0f );
+	m_pLoadTxt->SetPatarnV( 0.0f );
+	m_pLoadTxt->SetAlpha( 1.0f );
+
 	ss_LoadGage.Disp.w = 960.0f;
-	ss_LoadGage.Disp.h = 200.0f;
+	ss_LoadGage.Disp.h = 150.0f;
 	ss_LoadGage.Stride.w = ss_LoadGage.Disp.w/2;
 	ss_LoadGage.Stride.h = ss_LoadGage.Disp.h;
 	m_pLoadGage = new clsGageSprite2D;
-	m_pLoadGage->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGarge.png", ss_LoadGage);
+	m_pLoadGage->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGarge2.png", ss_LoadGage);
 	m_pLoadGage->SetPos( D3DXVECTOR3(0.0f, 0.0f, 0.0f ) );
 	m_pLoadGage->SetPatarnU( 0.0f );
 	m_pLoadGage->SetPatarnV( 0.0f );
 	m_pLoadGage->SetAlpha( 1.0f );
+
+	m_pLoadGageBack = make_unique<clsSprite2D>();
+	m_pLoadGageBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGargeType.png");
+	m_pLoadGageBack->SetDispW(960.0f);
+	m_pLoadGageBack->SetDispH(150.0f);
+	m_pLoadGageBack->UpDateSpriteSs();
+	m_pLoadGageBack->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f)-30.0f, 453.0f , -2.0f) );
+	m_pLoadGageBack->SetAlpha( 1.0f );
 
 	LoadGage = 0;
 	LoadGageUVTarget = 0.0f;
@@ -4448,9 +4463,17 @@ void clsMain::LoadRender()
 	//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾊﾞｯｸﾊﾞｯﾌｧ.
 	m_pDeviceContext->ClearDepthStencilView(m_pBackBuffer_DSTexDSV, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
+	SetDepth(false);
+	m_pLoadBack->Render();
+
+	m_pLoadGageBack->Render();
+
 	m_pLoadGage->Render();
 
-	m_pLoadBack->Render();
+	m_pLoadTxt->Render();
+
+	SetDepth(true);
+
 
 	//ﾚﾝﾀﾞﾘﾝｸﾞされたｲﾒｰｼﾞを表示.
 	m_pSwapChain->Present(0, 0);

@@ -13,8 +13,6 @@ namespace MainScene{
 	const WHSIZE_FLOAT ICONSIZE = { 108.0f, 108.0f };
 
 	const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
-
-	const float	MoveTopTxtPoint = 0.7f;	//上のテキストを下におろすときの変化量.
 }
 
 
@@ -60,22 +58,24 @@ public:
 		m_smpTimerGrp->SetStop( bStop );
 	}
 
-	void MoveStartTopTxt()
+	//変化量.
+	void MoveStartTopTxt(float fMovePoint )
 	{
 		m_iMoveTopTxtPoint = 0.0f;
-		m_bMoveTopTxt = true;
+		m_bMoveTopTxt      = true;
+		m_fMoveTopTxtPoint = fMovePoint;
 	}
 
 	void MoveTopTxt()
 	{
 		if (m_bMoveTopTxt)
 		{
-			m_smpTimerGrp->AddPos( D3DXVECTOR3( 0.0f, MainScene::MoveTopTxtPoint, 0.0f ) );
-			m_smpDisc->AddPos( D3DXVECTOR3( 0.0f, MainScene::MoveTopTxtPoint, 0.0f ) );
-			m_smpLives->AddPos( D3DXVECTOR3( 0.0f,MainScene::MoveTopTxtPoint, 0.0f ) );
+			m_smpTimerGrp->AddPos( D3DXVECTOR3( 0.0f, m_fMoveTopTxtPoint, 0.0f ) );
+			m_smpDisc->AddPos( D3DXVECTOR3( 0.0f, m_fMoveTopTxtPoint, 0.0f ) );
+			m_smpLives->AddPos( D3DXVECTOR3( 0.0f,m_fMoveTopTxtPoint, 0.0f ) );
 			if (m_iMoveTopTxtPoint < MainScene::ICONSIZE.h)
 			{
-				m_iMoveTopTxtPoint+=MainScene::MoveTopTxtPoint;
+				m_iMoveTopTxtPoint+=m_fMoveTopTxtPoint;
 			}
 			else
 			{
@@ -87,6 +87,8 @@ public:
 #endif//#ifdef Tahara
 
 private:
+	float	m_fMoveTopTxtPoint = 0.7f;	//上のテキストを下におろすときの変化量.
+
 	unique_ptr<clsSprite2D> m_smpXButton;	//Xボタンねぇでやんす.
 	unique_ptr<clsSprite2D> m_smpAButton;	//Aボタンねぇでやんす.
 	unique_ptr<clsActTxt>	m_smpActTxt;	//メインのジャンプなどの文字.
