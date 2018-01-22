@@ -3,12 +3,12 @@
 //定数.
 namespace ConstantPushTxt
 {
-	const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
+	const WHSIZE_FLOAT CENTER_POS = { WND_W/2, WND_H/2 };
 
-	float ADJUSTPUSHTXTH = 285.0f;
+	float ADJUSTPUSHTXTH   = 285.0f;
 
-	float ADJUSTABUTTONW = -90.0f;
-	float ADJUSTABUTTONH = 50.0f;
+	float ADJUSTABUTTONW   = -90.0f;
+	float ADJUSTABUTTONH   = 50.0f;
 }
 clsPushTxt::clsPushTxt()
 {
@@ -20,19 +20,20 @@ clsPushTxt::~clsPushTxt()
 
 void clsPushTxt::Init(ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
-	m_smpAButton = make_unique<clsSprite2D>();	//Aボタン.
-	m_smpPushTxt = make_unique<clsSprite2D>();	//PUSH KETねぇでやんす.
+	m_smpAButton             = make_unique<clsSprite2D>();	//Aボタン.
+	m_smpPushTxt             = make_unique<clsSprite2D>();	//PUSH KETねぇでやんす.
 
-	m_smpPushTxt->Init(pDevice11, pContext11, "Data\\Image\\PushButtun.png");
+	m_smpPushTxt->Init( pDevice11, pContext11, "Data\\Image\\PushButtun.png");
 	m_smpPushTxt->MulDisp(0.5f);
 	m_smpPushTxt->UpDateSpriteSs();
 	m_smpPushTxt->SetAlpha(1.0f);
 
 	m_smpAButton->Init(pDevice11, pContext11, "Data\\Image\\AButtun.png");
-	m_smpAButton->SetDispW(m_smpPushTxt->GetSs().Disp.w / 4);
-	m_smpAButton->SetDispH(m_smpPushTxt->GetSs().Disp.w / 4);
+	m_smpAButton->SetDispW(m_smpPushTxt->GetSs().Disp.w/4);
+	m_smpAButton->SetDispH(m_smpPushTxt->GetSs().Disp.w/4);
 	m_smpAButton->SetAlpha(1.0f);
 	m_smpAButton->UpDateSpriteSs();
+
 }
 
 void clsPushTxt::InitSetPos()
