@@ -4226,16 +4226,9 @@ void clsMain::NowLoading()
 	//Ø¿°½¸×½.
 	m_pResource = clsResource::GetInstance();
 
-
-		//=====Static Model=====.
-
-
-
-
-
 	for (LoadStep = 0; LoadStep <= 6; LoadStep++)
 	{
-		m_pLoadGage->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f)-30.0f, 453.0f , -2.0f) );
+		m_pLoadGage->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f), 453.0f , -2.0f) );
 		LoadGageUVTarget = (0.5f - (0.5f / 100.0f) * LoadGage);
 		m_pLoadGage->SetPatarnU( LoadGageUVTarget );
 
@@ -4425,13 +4418,16 @@ void clsMain::LoadSpriteInit()
 
 	m_pLoadTxt = new clsSprite2D;
 	m_pLoadTxt->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
-	m_pLoadTxt->SetPos( WND_W/2-m_pLoadTxt->GetSs().Disp.w/2 , 0.0f );
+	m_pLoadTxt->SetDispW(m_pLoadTxt->GetSs().Base.w/2);
+	m_pLoadTxt->SetDispH(m_pLoadTxt->GetSs().Base.h/2);
+	m_pLoadTxt->UpDateSpriteSs();
+	m_pLoadTxt->SetPos( WND_W/2-m_pLoadTxt->GetSs().Disp.w/2 , m_pLoadTxt->GetSs().Disp.h );
 	m_pLoadTxt->SetPatarnU( 0.0f );
 	m_pLoadTxt->SetPatarnV( 0.0f );
 	m_pLoadTxt->SetAlpha( 1.0f );
 
 	ss_LoadGage.Disp.w = 960.0f;
-	ss_LoadGage.Disp.h = 150.0f;
+	ss_LoadGage.Disp.h = 50.0f;
 	ss_LoadGage.Stride.w = ss_LoadGage.Disp.w/2;
 	ss_LoadGage.Stride.h = ss_LoadGage.Disp.h;
 	m_pLoadGage = new clsGageSprite2D;
@@ -4444,9 +4440,9 @@ void clsMain::LoadSpriteInit()
 	m_pLoadGageBack = make_unique<clsSprite2D>();
 	m_pLoadGageBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGargeType.png");
 	m_pLoadGageBack->SetDispW(960.0f);
-	m_pLoadGageBack->SetDispH(150.0f);
+	m_pLoadGageBack->SetDispH(50.0f);
 	m_pLoadGageBack->UpDateSpriteSs();
-	m_pLoadGageBack->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f)-30.0f, 453.0f , -2.0f) );
+	m_pLoadGageBack->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f), 453.0f , -2.0f) );
 	m_pLoadGageBack->SetAlpha( 1.0f );
 
 	LoadGage = 0;
