@@ -21,7 +21,7 @@ public:
 	}
 	void SetPushButtun(bool bPushButtun)
 	{
-		m_bPushButtun=bPushButtun;
+		m_bPushButtun = bPushButtun;
 	}
 
 private:

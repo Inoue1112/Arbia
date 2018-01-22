@@ -5,7 +5,6 @@
 
 #include "Sound.h"
 
-
 class clsSpiaWallMgr
 	: public clsGameObject
 {
@@ -13,36 +12,32 @@ public:
 	clsSpiaWallMgr();
 	~clsSpiaWallMgr();
 
-	void CreateSpia( HWND hWnd, int iNo, int iMoveMode );
+	void CreateSpia(HWND hWnd, int iNo, int iMoveMode);
 	void Init();
 	void Release();
 	void UpDateModel(){};
 
-	virtual void SetPosition( D3DXVECTOR3 vPos );
+	virtual void SetPosition(D3DXVECTOR3 vPos);
 
+	void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye);
 
-	void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-				 D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye );
-
-	void Move( float fEarZ );
+	void Move(float fEarZ);
 	void MoveMutualL();
 	void MoveMutualR();
 	void MoveCloseL();
 	void MoveCloseR();
 
-
-
 	//ラップ.
 	void GoRight();
 	void GoLeft();
 	//0:左, 1:右, 2:両方, それ以外:無効.
-	void GoDown( int iRight );
+	void GoDown(int iRight);
 	int		m_iTimer;
-
 
 	//ゲットシリーズ.
 
-	COL_STATE* GetPointerSpiaCol( bool bRight, int i );
+	COL_STATE* GetPointerSpiaCol(bool bRight, int i);
 
 	int GetSpiaMax(){
 		return m_iSpiaMax;
@@ -75,21 +70,16 @@ private:
 	};
 	enMode	m_enMoveMode;
 
-
 	//効果音.
-	void PlaySe( clsSpiaWall::enSound enSe );
+	void PlaySe(clsSpiaWall::enSound enSe);
 	clsSound**	m_ppSe;
 	float		m_fEarZ;
-
 
 	int				m_iSpiaMax;
 	clsSpiaWall**	m_ppSpiaL;
 	clsSpiaWall**	m_ppSpiaR;
 
 	clsCharaStatic* m_pSpiaWall[2];//左右の二つの壁判定.
-
-
 };
-
 
 #endif//#ifndef _SPIA_WALL_MANAGER_H_

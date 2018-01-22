@@ -6,14 +6,10 @@
 //×²ÌŞ×Ø.
 #pragma comment( lib, "winmm.lib" )
 
-
-
 //•¶š—ñÊŞ¯Ì§.
 const int STR_BUFF_MAX = 256;
 
-
-	//-----  -----//
-
+//-----  -----//
 
 //============================================================
 //	»³İÄŞ¸×½.
@@ -33,36 +29,34 @@ public:
 		int  iMaxVolume;			//Å‘å‰¹—Ê.
 	};
 
-
 	//‰¹ºÌ§²Ù‚ğŠJ‚­.
-	bool Open( LPCTSTR sFName, const char *sAlias, HWND hWnd );
+	bool Open(LPCTSTR sFName, const char *sAlias, HWND hWnd);
 
 	//‰¹ºÌ§²Ù‚ğ•Â‚¶‚é.
 	bool Close();
 
 	//Ä¶ŠÖ”.
-	bool Play( bool bNotify = false );
+	bool Play(bool bNotify = false);
 
 	//’â~ŠÖ”.
 	bool Stop();
 
-//	//ˆê’â~.
-//	bool Pause();
-//	//ˆê’â~‚Ì‰ğœ.
-//	bool Resume();
-
+	//	//ˆê’â~.
+	//	bool Pause();
+	//	//ˆê’â~‚Ì‰ğœ.
+	//	bool Resume();
 
 	//Šª‚«–ß‚µŠÖ”(Ä¶ˆÊ’u‰Šú‰»).
 	bool SeekToStart();
 
 	//Šª‚«–ß‚µ‚ÄÄ¶.
-	void SeekPlay( bool bNotify = false ){
+	void SeekPlay(bool bNotify = false){
 		SeekToStart();
-		Play( bNotify );
+		Play(bNotify);
 	}
 
 	//ó‘Ôæ“¾ŠÖ”.
-	bool GetStatus( char *sStatus );
+	bool GetStatus(char *sStatus);
 
 	//‰¹‚Ì’â~‚ğŠm”F‚·‚éŠÖ”.
 	bool IsStopped();
@@ -70,32 +64,27 @@ public:
 	//‰¹‚ÌÄ¶’†‚ğŠm”F‚·‚éŠÖ”.
 	bool IsPlaying();
 
-
 	//‰¹—Ê‚ğİ’è‚·‚é.
-	bool SetVolume( int iVolume );
+	bool SetVolume(int iVolume);
 	//Å‘å‰¹—Ê‚ğİ’è‚·‚é.
-	void SetMaxVolume( int iVolume = 1000 ){
+	void SetMaxVolume(int iVolume = 1000){
 		m_iMaxVol = iVolume;
 	}
 
 	//‚»‚Ì‰¹‚ÌÅ‘å‰¹—Ê‚ÆÅ‘å‰¹—Ê(1000)‚ÌŠ„‡‚ğ•Ô‚·.
-	void GetMaxVolRate( int& iVol ){
+	void GetMaxVolRate(int& iVol){
 		float fRate = (float)m_iMaxVol / 1000.0f;
-		iVol = (int)( (float)iVol * fRate );
+		iVol = (int)((float)iVol * fRate);
 	}
-
-
 
 private:
 	//‰Šúİ’è.
-	void	SetInitParam( const char *sAlias, HWND hWnd );
+	void	SetInitParam(const char *sAlias, HWND hWnd);
 
 	HWND	m_hWnd;					//³¨İÄŞ³ÊİÄŞÙ.
 	char	m_sAlias[STR_BUFF_MAX];	//´²Ø±½.
 
-
 	int		m_iMaxVol;//Å‘å‰¹—Ê.
-
 };
 
 #endif//#define _C_SOUND_H_

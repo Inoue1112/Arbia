@@ -2,25 +2,20 @@
 #define _PARTICLE_H_
 
 //警告についてのｺｰﾄﾞ分析を無効にする.4005:再定義.
-#pragma warning( disable:4005 )	
+#pragma warning( disable:4005 )
 
 //============================================================
 //	ｲﾝｸﾙｰﾄﾞ.
 //============================================================
 #include "Common.h"//共通ｸﾗｽ.
 
-
-
 //============================================================
 //	ﾗｲﾌﾞﾗﾘ.
 //============================================================
 
-
-
 //============================================================
 //	定数.
 //============================================================
-
 
 //============================================================
 //	構造体.
@@ -30,17 +25,16 @@
 struct PSPRITESHADER_CONSTANT_BUFFER
 {
 	D3DXMATRIX	mWVP;	//ﾜｰﾙﾄﾞ,ﾋﾞｭｰ,射影の合成変換行列.
-//	D3DXVECTOR4	vColor;	//ｶﾗｰ(RGBAの型に合わせる) : ﾃｸｽﾁｬの上から色を載せる(赤っぽくも見せるためとか).
-//	D3DXVECTOR4	vUV;	//UV座標.
+	//	D3DXVECTOR4	vColor;	//ｶﾗｰ(RGBAの型に合わせる) : ﾃｸｽﾁｬの上から色を載せる(赤っぽくも見せるためとか).
+	//	D3DXVECTOR4	vUV;	//UV座標.
 };
 
 //頂点の構造体.
 struct PSpriteVertex
 {
 	D3DXVECTOR3 vPos;	//頂点座標(x,y,z).
-//	D3DXVECTOR2 vTex;	//ﾃｸｽﾁｬ座標.
+	//	D3DXVECTOR2 vTex;	//ﾃｸｽﾁｬ座標.
 };
-
 
 //ﾊﾟｰﾃｨｸﾙ用構造体.
 struct PART
@@ -52,11 +46,9 @@ struct PART
 
 	//構造体の初期化(ｺﾝｽﾄﾗｸﾀ).
 	PART(){
-		ZeroMemory( this, sizeof( PART ) );
+		ZeroMemory(this, sizeof(PART));
 	}
 };
-
-
 
 //============================================================
 //	ﾊﾟｰﾃｨｸﾙｸﾗｽ.
@@ -64,42 +56,35 @@ struct PART
 class clsParticle
 	: public clsCommon	//共通ｸﾗｽ継承
 {
-
 public:
 
-
 	clsParticle(){
-		ZeroMemory( this, sizeof( clsParticle ) );//ｺﾝｽﾄﾗｸﾀ.
-	};	
+		ZeroMemory(this, sizeof(clsParticle));//ｺﾝｽﾄﾗｸﾀ.
+	};
 	//ｵｰﾊﾞｰﾛｰﾄﾞ関数.
-	clsParticle( int MaxParticle, D3DXVECTOR3 &vEmitPos );//ｺﾝｽﾄﾗｸﾀ.
+	clsParticle(int MaxParticle, D3DXVECTOR3 &vEmitPos);//ｺﾝｽﾄﾗｸﾀ.
 	~clsParticle();	//ﾃﾞｽﾄﾗｸﾀ.
 
 	//初期化.
-	HRESULT Init( ID3D11Device* pDevice11,
-		ID3D11DeviceContext* pContext11 );
+	HRESULT Init(ID3D11Device* pDevice11,
+		ID3D11DeviceContext* pContext11);
 
 	//ｼｪｰﾀﾞ作成.
 	HRESULT InitShader();
 	////ﾎﾟｲﾝﾄｽﾌﾟﾗｲﾄ作成.
 	HRESULT InitPointSprite();
 	//ﾃｸｽﾁｬ読込&作成.
-	HRESULT InitTexture( char *pFileName );
-
-
+	HRESULT InitTexture(char *pFileName);
 
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)(※DX9MESH内とMain内で2つ存在するので注意).
-	void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-				 D3DXVECTOR3 &vEye, D3DXVECTOR3 &vPos );
-
+	void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vEye, D3DXVECTOR3 &vPos);
 
 	//ｼｪｰﾀﾞ無効化(ﾃﾞﾀｯﾁ).
 	void DetachShader();
 
 	//ﾊﾟｰﾃｨｸﾙの移動.
 	void Run();
-
-
 
 	D3DXVECTOR3		m_vPos;	//位置.
 
@@ -111,13 +96,10 @@ public:
 	PART*			m_pParticleArray;//ﾊﾟｰﾃｨｸﾙ配列.
 	int				m_Frame;		//ﾌﾚｰﾑ数.
 
-
-
-
 	//ﾊﾟｰﾃｨｸﾙ位置の取得.
-	D3DXVECTOR3& GetParticlePos( int index ){
+	D3DXVECTOR3& GetParticlePos(int index){
 		//配列の範囲かどうかﾁｪｯｸ.
-		if( 0 <= index && index < m_iMaxParticle ){
+		if (0 <= index && index < m_iMaxParticle){
 			return m_pParticleArray[index].vPos;
 		}
 		//範囲外の時は先頭を返す.
@@ -143,10 +125,6 @@ private:
 	ID3D11SamplerState*			m_pSampleLinear;//ﾃｸｽﾁｬのｻﾝﾌﾟﾗｰ:/ﾃｸｽﾁｬに各種ﾌｨﾙﾀをかける.
 
 	int				m_iMaxParticle;	//ﾊﾟｰﾃｨｸﾙ最大数.
-
-
-
 };
-
 
 #endif	//#ifndef __PARTICLE_H__H_

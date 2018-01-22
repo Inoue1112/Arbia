@@ -62,5 +62,4 @@ void clsSp2dMgrTitle::Release()
 	m_smpTitleLogo.reset();
 
 	m_smpPushTxt.reset();
-
 }

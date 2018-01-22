@@ -1,19 +1,10 @@
 #ifndef _C_GAME_OBJ_
 #define _C_GAME_OBJ_
 
-
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-
 #include "Global.h"
-
-
-
-
-
-
-
 
 class clsGameObject
 {
@@ -31,67 +22,58 @@ public:
 	//ï`âÊ.
 	virtual void Render(){};
 
-
 	//à íuê›íË.
-	virtual void SetPosition( D3DXVECTOR3 vPos );//SpiaMgeÇ≈virtual.
-	void SetPositionX( float fPosX );
-	void SetPositionY( float fPosY );
-	void SetPositionZ( float fPosZ );
+	virtual void SetPosition(D3DXVECTOR3 vPos);//SpiaMgeÇ≈virtual.
+	void SetPositionX(float fPosX);
+	void SetPositionY(float fPosY);
+	void SetPositionZ(float fPosZ);
 	//éÊìæ.
 	D3DXVECTOR3 GetPosition();
 	float GetPositionX();
 	float GetPositionY();
 	float GetPositionZ();
 	//ë´ÇµÇ±Ç›.
-	void AddPosition( D3DXVECTOR3 vMove );
-	void AddPositionX( float fMoveX );
-	void AddPositionY( float fMoveY );
-	void AddPositionZ( float fMoveZ );
-
+	void AddPosition(D3DXVECTOR3 vMove);
+	void AddPositionX(float fMoveX);
+	void AddPositionY(float fMoveY);
+	void AddPositionZ(float fMoveZ);
 
 	//âÒì]ê›íË.
 	//ê›íË.
-	void SetRotation( D3DXVECTOR3 vRot );
-	void SetRotationY( float fRotY );
-	void SetRotationZ( float fRotZ );
+	void SetRotation(D3DXVECTOR3 vRot);
+	void SetRotationY(float fRotY);
+	void SetRotationZ(float fRotZ);
 	//éÊìæ.
 	D3DXVECTOR3 GetRotation();
 	float GetRotationX();
 	float GetRotationY();
 	float GetRotationZ();
 	//ë´ÇµÇ±Ç›.
-	void AddRotation( D3DXVECTOR3 vMove );
-	void AddRotationY( float fMoveY );
-	void AddRotationZ( float fMoveZ );
-
+	void AddRotation(D3DXVECTOR3 vMove);
+	void AddRotationY(float fMoveY);
+	void AddRotationZ(float fMoveZ);
 
 	//ägèkê›íË.
-	void SetScale( float fScale );
+	void SetScale(float fScale);
 	float GetScale();
 
-
 	//ãóó£Ç≈âπó ÇïœÇ¶ÇÈ.
-	int ChangeVolumeDistance( float fEarPosZ, float fThisPosZ );
-
+	int ChangeVolumeDistance(float fEarPosZ, float fThisPosZ);
 
 protected:
 
 	//ç¿ïWÇ‚âÒì]ílÇçXêVÇ∑ÇÈ.
 	virtual void UpDateModel() = 0;
 	//360Å`0Ç…î[ÇﬂÇÈ.
-	void ThetaOverGuard( float& theta );
-	void ThetaOverGuard( double& theta );
+	void ThetaOverGuard(float& theta);
+	void ThetaOverGuard(double& theta);
 
-//public:
+	//public:
 	D3DXVECTOR3		m_vPos;		//à íu.
 	D3DXVECTOR3		m_vRot;		//âÒì].
 	float			m_fScale;	//ägèk.
 
 private:
-
-
 };
-
-
 
 #endif//#ifndef _C_GAME_OBJ_

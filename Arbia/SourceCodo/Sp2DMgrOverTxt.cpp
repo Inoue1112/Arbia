@@ -52,5 +52,4 @@ void clsSp2dMgrOverTxt::Render()
 void clsSp2dMgrOverTxt::Release()
 {
 	m_smpOverTxt->Release();
-
 }

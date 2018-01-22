@@ -18,8 +18,6 @@ public:
 private:
 	unique_ptr<clsPushTxt>		  m_smpPushTxt;
 	unique_ptr<clsSp2dMgrOverTxt> m_smpOverTxt;
-
-
 };
 
 #endif//#ifndef _SP_2D_MANAGER_OVER_SCENE_H_

@@ -17,7 +17,6 @@ public:
 private:
 
 	unique_ptr<clsSprite2D> m_smpOverTxt;
-
 };
 
 #endif//#ifndef _SP_2D_MANAGER_OVER_SCENE_TXT_H_

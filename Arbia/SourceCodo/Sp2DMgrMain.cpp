@@ -1,11 +1,9 @@
 #include "Sp2DMgrMain.h"
 
 #ifdef Tahara
-const float fLIVES_X = static_cast<float>( WND_W - 128 );
+const float fLIVES_X = static_cast<float>(WND_W - 128);
 const float fDISCOVER_X = 500.0f;//î≠å©êîUI.
 #endif //#ifdef Tahara
-
-
 
 clsSp2dMgrMain::clsSp2dMgrMain()
 {
@@ -14,9 +12,9 @@ clsSp2dMgrMain::clsSp2dMgrMain()
 	m_smpAButton = make_unique<clsSprite2D>();	//AÉ{É^Éì.
 
 #ifdef Tahara
-	m_smpTimerGrp	= make_unique<clsTimerGrp>();
-	m_smpDisc		= make_unique<clsDiscover>();
-	m_smpLives		= make_unique<clsLives>();
+	m_smpTimerGrp = make_unique<clsTimerGrp>();
+	m_smpDisc = make_unique<clsDiscover>();
+	m_smpLives = make_unique<clsLives>();
 #endif //#ifdef Tahara
 }
 
@@ -25,9 +23,8 @@ clsSp2dMgrMain::~clsSp2dMgrMain()
 	Release();
 }
 
-void clsSp2dMgrMain::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
+void clsSp2dMgrMain::Init(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11)
 {
-
 	m_smpActTxt->Init(pDevice11, pContext11, "Data\\Image\\MainTxt.png");
 
 	m_smpXButton->Init(pDevice11, pContext11, "Data\\Image\\XButtun.png");
@@ -35,11 +32,10 @@ void clsSp2dMgrMain::Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceConte
 
 #ifdef Tahara
 	//êîéö.
-	m_smpTimerGrp->Create( hWnd, pDevice11, pContext11 );
-	m_smpDisc->Create( pDevice11, pContext11 );
-	m_smpLives->Create( pDevice11, pContext11 );
+	m_smpTimerGrp->Create(hWnd, pDevice11, pContext11);
+	m_smpDisc->Create(pDevice11, pContext11);
+	m_smpLives->Create(pDevice11, pContext11);
 #endif//#ifdef Tahara
-
 }
 
 //ñàâÒí ÇÈ.
@@ -76,11 +72,10 @@ void clsSp2dMgrMain::InitSetPos()
 
 #ifdef Tahara
 	//êîéö.
-	m_smpTimerGrp->SetPos( D3DXVECTOR3( 0.0f, -MainScene::ICONSIZE.h, 0.0f ) );
-	m_smpDisc->SetPos( D3DXVECTOR3( fDISCOVER_X, -MainScene::ICONSIZE.h, 0.0f ) );
-	m_smpLives->SetPos( D3DXVECTOR3( MainScene::ICONPOS.w, -MainScene::ICONSIZE.h, 0.0f ) );
+	m_smpTimerGrp->SetPos(D3DXVECTOR3(0.0f, -MainScene::ICONSIZE.h, 0.0f));
+	m_smpDisc->SetPos(D3DXVECTOR3(fDISCOVER_X, -MainScene::ICONSIZE.h, 0.0f));
+	m_smpLives->SetPos(D3DXVECTOR3(MainScene::ICONPOS.w, -MainScene::ICONSIZE.h, 0.0f));
 #endif//#ifdef Tahara
-
 }
 
 void clsSp2dMgrMain::Render()

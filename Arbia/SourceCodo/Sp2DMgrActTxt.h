@@ -16,7 +16,7 @@ public:
 		In,
 		Out,
 	};
-	void Move( float PlusSize = 0.0f );
+	void Move(float PlusSize = 0.0f);
 	void InStart();
 	void OutStart();
 	en_State GetMoveState(){
@@ -25,6 +25,5 @@ public:
 private:
 
 	en_State m_enState;
-
 };
 #endif//#ifndef _SP_2D_MANAGER_ACT_TXT_H_

@@ -1,7 +1,7 @@
 #ifndef _DX9MESH_H_
 #define _DX9MESH_H_
 //警告についてのｺｰﾄﾞ分析を無効にする.4005:再定義.
-#pragma warning( disable:4005 )	
+#pragma warning( disable:4005 )
 
 #include <Windows.h>
 #include <D3DX11.h>
@@ -11,17 +11,13 @@
 #include <d3dx9.h>
 #include "MyMacro.h"
 
-
 #include "Global.h"
-
 
 #pragma comment( lib, "d3dx11.lib" )
 #pragma comment( lib, "d3d11.lib" )
 #pragma comment( lib, "d3dx10.lib" )
 #pragma comment( lib, "d3d9.lib" )
 #pragma comment( lib, "d3dx9.lib" )
-
-
 
 //============================================================
 //	列挙体.
@@ -36,7 +32,6 @@
 //	enDirection_RightTurn	//右回転.
 //};
 
-
 ////自機動きの種類.
 //enum enPlayerMove
 //{
@@ -47,7 +42,6 @@
 //	enPM_Dead		//ﾐｽ.
 //};//m_pEnemy_A->m_enPM
 //
-
 
 ////敵の動きの種類.
 //enum enEnemyMove
@@ -60,12 +54,6 @@
 //	enEM_Death
 //};//	enEnemyMove m_enEnemMod;//enEnemyMove.
 //
-
-
-
-
-
-
 
 //============================================================
 //	構造体.
@@ -88,7 +76,6 @@ struct MESHSHADER_CONSTANT_BUFFER_FIRST
 	D3DXVECTOR4	vSpecular;	//ｽﾍﾟｷｭﾗ色.
 };
 
-
 //頂点の構造体.
 struct MeshVertex
 {
@@ -108,19 +95,17 @@ struct MY_MATERIAL
 	DWORD	dwNumFace;			//そのﾏﾃﾘｱﾙのﾎﾟﾘｺﾞﾝ数.
 	//ｺﾝｽﾄﾗｸﾀ.
 	MY_MATERIAL(){
-		ZeroMemory( this, sizeof( MY_MATERIAL ) );
+		ZeroMemory(this, sizeof(MY_MATERIAL));
 	}
 	//ﾃﾞｽﾄﾗｸﾀ.
 	~MY_MATERIAL(){}
 };
-
 
 //ｽﾌｨｱ構造体.
 struct SPHERE
 {
 	D3DXVECTOR3	vCenter;	//中心.
 	float		fRadius;	//半径.
-
 };
 
 //Bﾎﾞｯｸｽ構造体.
@@ -136,18 +121,12 @@ struct BBOX
 	FLOAT		fLengthZ;	//Z長さ.
 	//初期化.
 	BBOX(){
-		ZeroMemory( this, sizeof( BBOX ) );
-		vAxisX = D3DXVECTOR3( 1.0f, 0.0f, 0.0f );
-		vAxisY = D3DXVECTOR3( 0.0f, 1.0f, 0.0f );
-		vAxisZ = D3DXVECTOR3( 0.0f, 0.0f, 1.0f ); 
+		ZeroMemory(this, sizeof(BBOX));
+		vAxisX = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+		vAxisY = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+		vAxisZ = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 	}
 };
-
-
-
-
-
-
 
 //ﾒｯｼｭﾃﾞｰﾀをﾌｧｲﾙから取り出すためだけにDirectX9を使用する.
 //※ﾚﾝﾀﾞﾘﾝｸﾞ(表示)はDirectX11で行う.
@@ -174,19 +153,18 @@ public:
 	ID3D11PixelShader*		m_pPixelShader;		//ﾋﾟｸｾﾙｼｪｰﾀﾞ.
 	ID3D11Buffer*			m_pConstantBuffer0;	//ｺﾝｽﾀﾝﾄﾊﾞｯﾌｧ0.
 	ID3D11Buffer*			m_pConstantBuffer1;	//ｺﾝｽﾀﾝﾄﾊﾞｯﾌｧ1.
-//
-//
+	//
+	//
 	ID3D11Buffer*	m_pVertexBuffer;//頂点(ﾊﾞｰﾃｯｸｽ)ﾊﾞｯﾌｧ.
 	ID3D11Buffer**	m_ppIndexBuffer;	//ｲﾝﾃﾞｯｸｽﾊﾞｯﾌｧ.
 	ID3D11SamplerState*			m_pSampleLinear;//ﾃｸｽﾁｬのｻﾝﾌﾟﾗｰ.//ﾃｸｽﾁｬに各種ﾌｨﾙﾀをかける.
-//
-//
+	//
+	//
 	MY_MATERIAL*	m_pMaterials;	//ﾏﾃﾘｱﾙ構造体.
 	DWORD			m_NumAttr;		//属性数.
 	DWORD			m_AttrID[300];	//属性ID ※300属性まで.
 
 	bool			m_bTexture;		//ﾃｸｽﾁｬの有無.
-
 
 	float			m_fScale;	//拡縮.
 	float			m_fYaw;		//回転(Y軸).
@@ -195,14 +173,7 @@ public:
 	D3DXVECTOR3		m_vPos;		//位置(X,Y,Z).
 	float			m_fYawTarget;//目標角度.
 
-
-
-float			m_fSpd;
-
-
-
-
-
+	float			m_fSpd;
 
 	SPHERE		m_Sphere;	//ｽﾌｨｱ構造体.
 	BBOX		m_BBox;		//BBox構造体.
@@ -211,44 +182,35 @@ float			m_fSpd;
 	D3DXVECTOR3	m_vAxis;		//回転軸.
 	LPD3DXMESH	m_pMeshForRay;	//ﾚｲとﾒｯｼｭ用.
 
-
-
-
-
 	ID3D11BlendState*	m_pBlendState;	//ﾌﾞﾚﾝﾄﾞｽﾃｰﾄ.
-
 
 	clsDX9Mesh();	//ｺﾝｽﾄﾗｸﾀ.
 	~clsDX9Mesh();	//ﾃﾞｽﾄﾗｸﾀ.
 
 	//初期化.
-	HRESULT Init( HWND hWnd, ID3D11Device* pDevice11,
-		ID3D11DeviceContext* pContext11, LPSTR fileName );
+	HRESULT Init(HWND hWnd, ID3D11Device* pDevice11,
+		ID3D11DeviceContext* pContext11, LPSTR fileName);
 
 	//Dx9初期化用.
-	HRESULT InitDx9( HWND hWnd );
+	HRESULT InitDx9(HWND hWnd);
 
 	//ﾒｯｼｭ読込.
-	HRESULT LoadXMesh( LPSTR fileName );
+	HRESULT LoadXMesh(LPSTR fileName);
 
 	//ｼｪｰﾀﾞ作成.
 	HRESULT InitShader();
 
 	//ﾚﾝﾀﾞﾘﾝｸﾞ用(※DX9MESH内とMain内で2つ存在するので注意).
-	void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-				D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye,
-				D3DXVECTOR4 vColor = D3DXVECTOR4( 1.0f,1.0f,1.0f,1.0f ),
-				bool alphaFlg = false );
+	void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye,
+		D3DXVECTOR4 vColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f),
+		bool alphaFlg = false);
 
 	//透過(ｱﾙﾌｧﾌﾞﾚﾝﾄﾞ)設定の切り替え.
-	void SetBlend( bool flg );
-
-
+	void SetBlend(bool flg);
 
 	//解放.
 	HRESULT Release();
-
-
 };
 
 #endif//#ifndef _DX9MESH_H_

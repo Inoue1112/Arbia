@@ -6,11 +6,7 @@
 
 #include "Sound.h"
 
-
-const char cCOVER_MAX = 2; 
-
-
-
+const char cCOVER_MAX = 2;
 
 class clsCoverMgr
 	: public clsGameObject
@@ -28,28 +24,20 @@ public:
 		enCM_CLOSE,	//閉じる（動作）.
 	};
 
-
-	void CreateCover( HWND hWnd, int iNo );
+	void CreateCover(HWND hWnd, int iNo);
 	void Init();
 	void Release();
 	void UpDateModel(){};
 
-
-
-	virtual void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
-		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye );
-
-
+	virtual void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye);
 
 	//動き.
-	void Move( float fEarZ );
+	void Move(float fEarZ);
 	//踏む.
-	void StmpCovor( float fEarZ );
+	void StmpCovor(float fEarZ);
 	//強く踏む.
-	void StmpCovorStrong( float fEarZ );
-
-
-
+	void StmpCovorStrong(float fEarZ);
 
 	//Mainであたり判定の判断で使う.
 	enCoverMove GetCoverMove(){
@@ -58,14 +46,14 @@ public:
 	char GetCoverMax(){
 		return cCOVER_MAX;
 	}
-	clsCharaStatic* GetCoverPointer( char j ){
+	clsCharaStatic* GetCoverPointer(char j){
 		return m_ppCover[j];
 	}
 
 	//乗れる?.
 	bool isCanStmp(){
-		if( m_enMove == enCM_FLOOR ||
-			m_enMove == enCM_VIB )
+		if (m_enMove == enCM_FLOOR ||
+			m_enMove == enCM_VIB)
 		{
 			return true;
 		}
@@ -79,18 +67,17 @@ private:
 	{
 		enSOUND_VIB = 0,
 		enSOUND_OPEN,
-		  
+
 		enSOUND_MAX,	//最大数.
 	};
 
 	//効果音.
-	void PlaySe( enSound enSe, float fEarZ );
+	void PlaySe(enSound enSe, float fEarZ);
 	clsSound***	m_pppSe;
 
 	clsCharaStatic** m_ppCover;//ppだけど左右の二つだけ.
 	enCoverMove m_enMove;
 	int			m_iTimer;
-
 };
 
 #endif//#ifndef _COVOR_MANAGER_H_

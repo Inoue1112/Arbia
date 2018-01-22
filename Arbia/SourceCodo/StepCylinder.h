@@ -3,7 +3,6 @@
 
 #include "CharaStatic.h"
 
-
 class clsStepCyl
 	: public clsCharaStatic
 {
@@ -12,7 +11,7 @@ public:
 	~clsStepCyl();
 
 	//“®‚«‚ÌŠm’è.
-	void CreateMove( bool bNorth = true );
+	void CreateMove(bool bNorth = true);
 
 	virtual void Init();
 
@@ -21,7 +20,7 @@ public:
 
 	//ƒLƒƒƒ‰‚ªæ‚Á‚Ä‚¢‚é‚É“®‚©‚·—Ê‚ğ•Ô‚·.
 	D3DXVECTOR3 GetCarryRange(){
-		return D3DXVECTOR3( 0.0f, 0.0f, m_fMovePower );
+		return D3DXVECTOR3(0.0f, 0.0f, m_fMovePower);
 	}
 	float GetCarryRangeZ(){
 		return m_fMovePower;
@@ -35,8 +34,6 @@ private:
 
 	D3DXVECTOR3 m_vStartPos;
 	float		m_fGoalPosZ;
-
 };
-
 
 #endif//#ifndef _STEP_CYLINDER_H_

@@ -2,14 +2,12 @@
 #include <stdio.h>
 
 //====やることリスト==========================================
-	//PendulumのInit()作る.
-	//兵士のやられ(アルビアの攻撃).
+//PendulumのInit()作る.
+//兵士のやられ(アルビアの攻撃).
 //============================================================
-
 
 //ｸﾞﾛｰﾊﾞﾙ変数.
 clsMain* g_pClsMain = NULL;
-
 
 //-----振動-----//.
 //アルビアの蹴りヒット.
@@ -22,8 +20,6 @@ const int iVIB_DOOR_TIME = 30;
 const unsigned short usVIB_COVER_POWER = INPUT_VIBRATION_MAX / 10;
 const int iVIB_COVER_TIME = 82;
 const int iVIB_COVER_DEC = 128;
-
-
 
 //BGM.
 //起動.
@@ -56,7 +52,6 @@ const int	  iVOL_BGM_CLEAR = 200;
 #define  FILE_PATH_BGM_OVER "BGM\\500Over\\100Bye.mp3"
 const int	  iVOL_BGM_OVER = 300;
 
-
 //SE.
 //明るいやつ.
 #define ALIAS_NAME_SE_ENTER "Enter"
@@ -68,30 +63,23 @@ const int	  iVOL_SE_ENTER = 300;
 #define  FILE_PATH_SE_EXIT "SE\\700Button\\200Exit.wav"
 const int	  iVOL_SE_EXIT = 300;
 
-
 //ライト方向.
 const D3DXVECTOR3 vLIGHT_DIR = { 0.0f, 0.01f, 0.02f };
 
 //カメラのより具合.
-const float g_Zoom= 4.0f;
+const float g_Zoom = 4.0f;
 
 //描画限界距離.
 const float fRENDER_LIMIT = 150.0f;
 
-
 //死亡シーン時間.
 const int iDEAD_TIME = 90;
-
 
 //暗転速度.
 const float fBLACK_SPD_SLOW = 0.0125f;
 const float fBLACK_SPD_FAST = 0.05f;
 
-
-
-
 const int PAT_SMOK_MAX = 500;
-
 
 //----- 配置用 -----//
 const float STAGE_WIDHT = 10.0f;
@@ -117,26 +105,21 @@ const float fLOOK_OFFSET_Y = 3.0625f;//.
 const float fONE_BROCK_HIT_AREA = 1.0f;//槍や床、壁.3.0f.
 const float fGOAL_TREASURE_HIT_AREA = 32.0f;//ゴールの箱の奥距離.
 
-
 //ステージ作成用定数.
 
-const float WALL_SPACE			= 0.8f;	//壁との限界距離.
+const float WALL_SPACE = 0.8f;	//壁との限界距離.
 
-const int	STAGEPATARUNSETMAX	= 12;
+const int	STAGEPATARUNSETMAX = 12;
 
-const float PENDPOSY			= 12.0f;//Pendulum基点の高さ.
+const float PENDPOSY = 12.0f;//Pendulum基点の高さ.
 
-const int	COVEREREA			= 12;	//落とし穴の蓋.
-const int	ENEMYEREA			= 13;	//敵の行動範囲.
-const int	ENEMYEREACENTER		= 6;	//敵のCsvの設置場所.
-const int	CILMOVEEREA			= 15;	//丸床の移動範囲.
-const int	CILMOVEEREACENTER	= 4;	//丸床のCsvの設置場所.
+const int	COVEREREA = 12;	//落とし穴の蓋.
+const int	ENEMYEREA = 13;	//敵の行動範囲.
+const int	ENEMYEREACENTER = 6;	//敵のCsvの設置場所.
+const int	CILMOVEEREA = 15;	//丸床の移動範囲.
+const int	CILMOVEEREACENTER = 4;	//丸床のCsvの設置場所.
 
 //ステージ作成用定数終了.
-
-
-
-
 
 #ifdef Inoue
 int		g_iPngNum;
@@ -150,15 +133,7 @@ int		g_ControlNum = 0;
 #endif//Inoue.
 //============================================================
 
-
-
-
-
-
 //============================================================
-
-
-
 
 //============================================================
 //	ﾒｲﾝ関数.
@@ -167,22 +142,22 @@ INT WINAPI WinMain(
 	HINSTANCE hInstance,		//ｲﾝｽﾀﾝ番号(ｳｨﾝﾄﾞｳの番号).
 	HINSTANCE hPrevInstance,
 	PSTR lpCmdLine,
-	INT nCmdShow )
+	INT nCmdShow)
 {
 	g_pClsMain = new clsMain;	//初期化&ｸﾗｽの宣言.
 
 	//ｸﾗｽが存在しているかﾁｪｯｸ.
-	if( g_pClsMain != NULL ){
+	if (g_pClsMain != NULL){
 		//ｳｨﾝﾄﾞｳ作成成功.
-		if( SUCCEEDED(
+		if (SUCCEEDED(
 			g_pClsMain->InitWindow(
-				hInstance,
-				0, 0,
-				WND_W, WND_H,
-				WND_TITLE ) ) )
+			hInstance,
+			0, 0,
+			WND_W, WND_H,
+			WND_TITLE)))
 		{
 			//Dx11用の初期化
-			if( SUCCEEDED( g_pClsMain->InitD3D() ) ){
+			if (SUCCEEDED(g_pClsMain->InitD3D())){
 				//ﾒｯｾｰｼﾞﾙｰﾌﾟ.
 				g_pClsMain->Loop();
 			}
@@ -196,18 +171,16 @@ INT WINAPI WinMain(
 	return 0;
 }
 
-
 //============================================================
 //	ｳｨﾝﾄﾞｳﾌﾟﾛｼｰｼﾞｬ.
 //============================================================
 LRESULT CALLBACK WndProc(
 	HWND hWnd, UINT uMsg,
-	WPARAM wParam, LPARAM lParam )
+	WPARAM wParam, LPARAM lParam)
 {
 	//ﾌﾟﾛｼｰｼﾞｬ.
-	return g_pClsMain->MsgProc( hWnd, uMsg, wParam, lParam );
+	return g_pClsMain->MsgProc(hWnd, uMsg, wParam, lParam);
 }
-
 
 //============================================================
 //	ﾒｲﾝｸﾗｽ.
@@ -218,22 +191,22 @@ LRESULT CALLBACK WndProc(
 //============================================================
 clsMain::clsMain()
 {
-	ZeroMemory( this, sizeof( clsMain ) );
+	ZeroMemory(this, sizeof(clsMain));
 
 	m_hWnd = NULL;
 
-	m_pDevice		= NULL;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
-	m_pDeviceContext= NULL;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
-	m_pSwapChain	= NULL;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
+	m_pDevice = NULL;	//ﾃﾞﾊﾞｲｽｵﾌﾞｼﾞｪｸﾄ.
+	m_pDeviceContext = NULL;	//ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
+	m_pSwapChain = NULL;	//ｽﾜｯﾌﾟﾁｪｰﾝ.
 
-	m_pBackBuffer_TexRTV	= NULL;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
-	m_pBackBuffer_DSTex		= NULL;//ﾊﾞｯｸﾊﾞｯﾌｧ.
-	m_pBackBuffer_DSTexDSV	= NULL;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
+	m_pBackBuffer_TexRTV = NULL;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
+	m_pBackBuffer_DSTex = NULL;//ﾊﾞｯｸﾊﾞｯﾌｧ.
+	m_pBackBuffer_DSTexDSV = NULL;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
 
-//	//ｶﾒﾗ(視点)位置.
-//	m_Camera.vEye	= D3DXVECTOR3( 0.0f, 2.0f, -10.0f );
-//	//注視位置.
-//	m_Camera.vLook	= D3DXVECTOR3( 0.0f, 2.0f, 10.0f );
+	//	//ｶﾒﾗ(視点)位置.
+	//	m_Camera.vEye	= D3DXVECTOR3( 0.0f, 2.0f, -10.0f );
+	//	//注視位置.
+	//	m_Camera.vLook	= D3DXVECTOR3( 0.0f, 2.0f, 10.0f );
 
 	//ﾗｲﾄ方向.
 	m_vLight = vLIGHT_DIR;
@@ -249,7 +222,6 @@ clsMain::clsMain()
 //============================================================
 clsMain::~clsMain()
 {
-
 }
 
 //============================================================
@@ -259,26 +231,26 @@ HRESULT clsMain::InitWindow(
 	HINSTANCE hInstance,	//ｲﾝｽﾀﾝｽ.
 	INT x, INT y,			//ｳｨﾝﾄﾞｳのx,y座標.
 	INT width, INT height,	//ｳｨﾝﾄﾞｳの幅,高さ.
-	LPSTR WindowName )		//ｳｨﾝﾄﾞｳ名.
+	LPSTR WindowName)		//ｳｨﾝﾄﾞｳ名.
 {
 	//ｳｨﾝﾄﾞｳの定義.
 	WNDCLASSEX wc;
-	ZeroMemory( &wc, sizeof( wc ) );//初期化.
+	ZeroMemory(&wc, sizeof(wc));//初期化.
 
-	wc.cbSize			= sizeof( wc );
-	wc.style			= CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc		= WndProc;
-	wc.hInstance		= hInstance;
-	wc.hIcon			= LoadIcon( NULL, IDI_APPLICATION );
-	wc.hCursor			= LoadCursor( NULL, IDC_ARROW );
-	wc.hbrBackground	= ( HBRUSH )GetStockObject( LTGRAY_BRUSH );
-	wc.lpszClassName	= APR_NAME;
-	wc.hIconSm			= LoadIcon( NULL, IDI_APPLICATION );
+	wc.cbSize = sizeof(wc);
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = WndProc;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(LTGRAY_BRUSH);
+	wc.lpszClassName = APR_NAME;
+	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
 	//ｳｨﾝﾄﾞｳｸﾗｽをWindowsに登録.
-	if( !RegisterClassEx( &wc ) ){
-		MessageBox( NULL,
-			"ｳｨﾝﾄﾞｳｸﾗｽの登録に失敗", "clsMain::InitWindow", MB_OK );
+	if (!RegisterClassEx(&wc)){
+		MessageBox(NULL,
+			"ｳｨﾝﾄﾞｳｸﾗｽの登録に失敗", "clsMain::InitWindow", MB_OK);
 		return E_FAIL;
 	}
 
@@ -292,11 +264,11 @@ HRESULT clsMain::InitWindow(
 		NULL,				//親ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙ.
 		NULL,				//ﾒﾆｭｰ設定.
 		hInstance,			//ｲﾝｽﾀﾝｽ番号.
-		NULL );				//ｳｨﾝﾄﾞｳ作成時に発生するｲﾍﾞﾝﾄに渡すﾃﾞｰﾀ.
+		NULL);				//ｳｨﾝﾄﾞｳ作成時に発生するｲﾍﾞﾝﾄに渡すﾃﾞｰﾀ.
 
-	if( !m_hWnd ){
-		MessageBox( NULL,
-			"ｳｨﾝﾄﾞｳ作成に失敗", "clsMain::InitWindow", MB_OK );
+	if (!m_hWnd){
+		MessageBox(NULL,
+			"ｳｨﾝﾄﾞｳ作成に失敗", "clsMain::InitWindow", MB_OK);
 		return E_FAIL;
 	}
 #ifdef Inoue
@@ -304,14 +276,14 @@ HRESULT clsMain::InitWindow(
 	DragAcceptFiles(
 		m_hWnd,    // 登録するウィンドウ
 		true // アクセプトオプション
-	   );
+		);
 #endif	//#ifdef _DEBUG
 
 #endif//#ifdef Inoue
 
 	//ｳｨﾝﾄﾞｳの表示.
-	ShowWindow( m_hWnd, SW_SHOW );
-	UpdateWindow( m_hWnd );
+	ShowWindow(m_hWnd, SW_SHOW);
+	UpdateWindow(m_hWnd);
 
 	//マウスカーソルの非表示.
 #ifdef _DEBUG
@@ -327,48 +299,47 @@ HRESULT clsMain::InitWindow(
 //============================================================
 LRESULT clsMain::MsgProc(
 	HWND hWnd, UINT uMsg,
-	WPARAM wParam, LPARAM lParam )
+	WPARAM wParam, LPARAM lParam)
 {
-    HDROP hDrop;
-    UINT uFileNo;
-	switch( uMsg )
+	HDROP hDrop;
+	UINT uFileNo;
+	switch (uMsg)
 	{
-	case WM_DESTROY:	//ｳｨﾝﾄﾞｳ破棄時.
-		//ｱﾌﾟﾘｹｰｼｮﾝの終了をWindowsに通知する.
-		PostQuitMessage( 0 );
-		break;
-	case WM_DROPFILES:
-		g_bFileActive = true;
-		hDrop = (HDROP)wParam;
-		uFileNo = DragQueryFile( (HDROP)wParam, 0xFFFFFFFF, NULL, 0 );
-		char Path[MAX_PATH];
-		for (int i = 0; i < (int)uFileNo; i++){
-			DragQueryFile(hDrop, i, Path, sizeof(Path));
-			g_vsFilePath.push_back(Path);
-		}
-		DragFinish( hDrop );
-		break;
-	case WM_KEYDOWN:	//ｷｰﾎﾞｰﾄﾞが押されたとき.
-		//ｷｰ別の処理.
-		switch( (char)wParam )
-		{
-		case VK_ESCAPE:	//ESCｷｰ.
-			if( MessageBox( NULL,
-				"ｹﾞｰﾑを終了しますか?", "Message",
-				MB_YESNO ) == IDYES )
+		case WM_DESTROY:	//ｳｨﾝﾄﾞｳ破棄時.
+			//ｱﾌﾟﾘｹｰｼｮﾝの終了をWindowsに通知する.
+			PostQuitMessage(0);
+			break;
+		case WM_DROPFILES:
+			g_bFileActive = true;
+			hDrop = (HDROP)wParam;
+			uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, NULL, 0);
+			char Path[MAX_PATH];
+			for (int i = 0; i < (int)uFileNo; i++){
+				DragQueryFile(hDrop, i, Path, sizeof(Path));
+				g_vsFilePath.push_back(Path);
+			}
+			DragFinish(hDrop);
+			break;
+		case WM_KEYDOWN:	//ｷｰﾎﾞｰﾄﾞが押されたとき.
+			//ｷｰ別の処理.
+			switch ((char)wParam)
 			{
-				//ｳｨﾝﾄﾞｳを破棄する.
-				DestroyWindow( hWnd );
+				case VK_ESCAPE:	//ESCｷｰ.
+					if (MessageBox(NULL,
+						"ｹﾞｰﾑを終了しますか?", "Message",
+						MB_YESNO) == IDYES)
+					{
+						//ｳｨﾝﾄﾞｳを破棄する.
+						DestroyWindow(hWnd);
+					}
+					break;
 			}
 			break;
-		}
-		break;
 	}
 
 	//ﾒｲﾝに返す情報.
-	return DefWindowProc( hWnd, uMsg, wParam, lParam );
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
-
 
 //============================================================
 //	ﾒｯｾｰｼﾞﾙｰﾌﾟとｱﾌﾟﾘｹｰｼｮﾝ処理の入り口.
@@ -380,20 +351,16 @@ void clsMain::Loop()
 	//起動音再生.
 	m_pBgm[enBGM_START_UP]->Play();
 
-
 #ifdef START_LOADING_DISPLAY
 	//メッシュやスプライトなどの読込.
 	NowLoading();
 #endif//#ifdef START_LOADING_DISPLAY.
 
-
 	m_pXInput = new clsXInput;
-
-
 
 	//あたり判定.
 	m_pCollision = new clsCollision;
-	m_pCollision->CreateSe( m_hWnd );
+	m_pCollision->CreateSe(m_hWnd);
 
 #ifndef START_LOADING_DISPLAY
 	//ﾒｯｼｭ読み込み関数をまとめたもの.
@@ -404,43 +371,42 @@ void clsMain::Loop()
 
 	//ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄの初期化.
 	m_pText = new clsDebugText;
-	D3DXVECTOR4 vColor( 1.0f, 1.0f, 1.0f, 1.0f );
-	if( FAILED( m_pText->Init(
+	D3DXVECTOR4 vColor(1.0f, 1.0f, 1.0f, 1.0f);
+	if (FAILED(m_pText->Init(
 		m_pDeviceContext,
 		WND_W, WND_H, 50.0f,
-		vColor ) ) )
+		vColor)))
 	{
-		MessageBox( NULL, "ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄ作成失敗", "clsMain::Loop", MB_OK );
+		MessageBox(NULL, "ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄ作成失敗", "clsMain::Loop", MB_OK);
 	}
 
 	//----------------------------------------------------------
 	//	ﾌﾚｰﾑﾚｰﾄ.
 	//----------------------------------------------------------
-	float fRate		= 0.0f;	//ﾚｰﾄ.
-	float fFPS		= 60.0f;//FPS値.
-	DWORD sync_old	= timeGetTime();	//過去時間.
+	float fRate = 0.0f;	//ﾚｰﾄ.
+	float fFPS = 60.0f;//FPS値.
+	DWORD sync_old = timeGetTime();	//過去時間.
 	DWORD sync_now;
 	//時間処理の為、最小単位を1ﾐﾘ秒に変更.
-	timeBeginPeriod( 1 );
-
+	timeBeginPeriod(1);
 
 	//ﾒｯｾｰｼﾞﾙｰﾌﾟ.
 	MSG msg = { 0 };
-	ZeroMemory( &msg, sizeof( msg ) );
+	ZeroMemory(&msg, sizeof(msg));
 
-	while( msg.message != WM_QUIT )
+	while (msg.message != WM_QUIT)
 	{
-		Sleep( 1 );
+		Sleep(1);
 		sync_now = timeGetTime();	//現在時間を取得.
 
-		if( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) ){
-			TranslateMessage( &msg );
-			DispatchMessage( &msg );
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
 
 		fRate = 1000.0f / fFPS;	//理想時間を算出.
 
-		if( sync_now - sync_old >= fRate ){
+		if (sync_now - sync_old >= fRate){
 			sync_old = sync_now;	//現在時間に置きかえ.
 
 			//ｱﾌﾟﾘｹｰｼｮﾝ処理はここから飛ぶ.
@@ -448,7 +414,7 @@ void clsMain::Loop()
 		}
 	}
 	//ｱﾌﾟﾘｹｰｼｮﾝの終了.
-	timeEndPeriod( 1 );	//解除.
+	timeEndPeriod(1);	//解除.
 }
 
 //============================================================
@@ -484,51 +450,50 @@ void clsMain::AppMain()
 	}
 	g_bFileActive = false;
 
-
-	switch( m_enScene )
+	switch (m_enScene)
 	{
 		case enSCENE_TITLE:
 			SceneTitle();
 			m_smpUiManagar->SceneTitle();
-			GETKEY_DOWN( 'O' )
+			GETKEY_DOWN('O')
 			{
-				m_smpUiManagar->BlackStart( 0.01f );
-				InitMain( true );
+				m_smpUiManagar->BlackStart(0.01f);
+				InitMain(true);
 			}
 			break;
 		case enSCENE_MAIN:
 			SceneMain();
 			m_smpUiManagar->SceneMain();
-			GETKEY_DOWN( 'O' )
+			GETKEY_DOWN('O')
 			{
-				m_smpUiManagar->BlackStart( 0.01f );
+				m_smpUiManagar->BlackStart(0.01f);
 				m_enScene = enSCENE_OVER;
 			}
 			break;
 		case enSCENE_OVER:
 			SceneOver();
 			m_smpUiManagar->SceneOver();
-			GETKEY_DOWN( 'O' )
+			GETKEY_DOWN('O')
 			{
-				m_smpUiManagar->BlackStart( 0.01f );
+				m_smpUiManagar->BlackStart(0.01f);
 				m_enScene = enSCENE_RESULT;
 			}
 			break;
 		case enSCENE_RESULT:
 			SceneResult();
 			m_smpUiManagar->SceneResult();
-			GETKEY_DOWN( 'O' )
+			GETKEY_DOWN('O')
 			{
-				m_smpUiManagar->BlackStart( 0.01f );
+				m_smpUiManagar->BlackStart(0.01f);
 				m_enScene = enSCENE_ENDROLL;
 			}
 			break;
 		case enSCENE_ENDROLL:
 			SceneEnding();
 			m_smpUiManagar->SceneEnding();
-			GETKEY_DOWN( 'O' )
+			GETKEY_DOWN('O')
 			{
-				m_smpUiManagar->BlackStart( 0.01f );
+				m_smpUiManagar->BlackStart(0.01f);
 				m_enScene = enSCENE_TITLE;
 			}
 			break;
@@ -562,110 +527,108 @@ void clsMain::AppMain()
 	}
 
 	static char blkZYFlg = 0;
-	switch ( ControlMode )
+	switch (ControlMode)
 	{
-	case 0:
-		//定規位置の移動.
-		GETKEY_STAY( 'A' ) 	m_ppBlkAry[0]->AddPositionX( -0.1f );
-		GETKEY_STAY( 'D' )	m_ppBlkAry[0]->AddPositionX(  0.1f );
-		GETKEY_STAY( 'W' )	m_ppBlkAry[0]->AddPositionY(  0.1f );
-		GETKEY_STAY( 'S' )	m_ppBlkAry[0]->AddPositionY( -0.1f );
-		GETKEY_STAY( 'E' )	m_ppBlkAry[0]->AddPositionZ(  0.1f );
-		GETKEY_STAY( 'Q' )	m_ppBlkAry[0]->AddPositionZ( -0.1f );
+		case 0:
+			//定規位置の移動.
+			GETKEY_STAY('A') 	m_ppBlkAry[0]->AddPositionX(-0.1f);
+			GETKEY_STAY('D')	m_ppBlkAry[0]->AddPositionX(0.1f);
+			GETKEY_STAY('W')	m_ppBlkAry[0]->AddPositionY(0.1f);
+			GETKEY_STAY('S')	m_ppBlkAry[0]->AddPositionY(-0.1f);
+			GETKEY_STAY('E')	m_ppBlkAry[0]->AddPositionZ(0.1f);
+			GETKEY_STAY('Q')	m_ppBlkAry[0]->AddPositionZ(-0.1f);
 
-		GETKEY_DOWN( 'B' ){
-			blkZYFlg ++;
-			if( blkZYFlg >= 3 )	blkZYFlg = 0;
-		}
-		break;
-	case 1:
-		//スプライト移動、拡縮.
-		if (!m_vsmpSpriteTest.empty())
-		{
-			GETKEY_STAY('A'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
-			GETKEY_STAY('D'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
-			GETKEY_STAY('W'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
-			GETKEY_STAY('S'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
-			GETKEY_STAY('Q'){
-				m_fAlphaPoint-=0.01f;
-				m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
-				m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
-			}
-			GETKEY_STAY('E'){
-				m_fAlphaPoint+=0.01f;
-				m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
-				m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
-			}
-			GETKEY_DOWN('N'){
-				if (m_SpriteControlNum < m_vsmpSpriteTest.size() - 1){
-					m_SpriteControlNum++;
-				}
-				else{
-					m_SpriteControlNum = 0;
-				}
-			}
 			GETKEY_DOWN('B'){
-				if (m_SpriteControlNum > 0){
-					m_SpriteControlNum--;
+				blkZYFlg++;
+				if (blkZYFlg >= 3)	blkZYFlg = 0;
+			}
+			break;
+		case 1:
+			//スプライト移動、拡縮.
+			if (!m_vsmpSpriteTest.empty())
+			{
+				GETKEY_STAY('A'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+				GETKEY_STAY('D'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosX(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+				GETKEY_STAY('W'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(-5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+				GETKEY_STAY('S'){ m_vsmpSpriteTest[m_SpriteControlNum]->AddPosY(5.0f);	 m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs(); }
+				GETKEY_STAY('Q'){
+					m_fAlphaPoint -= 0.01f;
+					m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
+					m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
 				}
-				else{
-					m_SpriteControlNum = m_vsmpSpriteTest.size() - 1;
+				GETKEY_STAY('E'){
+					m_fAlphaPoint += 0.01f;
+					m_vsmpSpriteTest[m_SpriteControlNum]->MulDisp(m_fAlphaPoint);
+					m_vsmpSpriteTest[m_SpriteControlNum]->UpDateSpriteSs();
+				}
+				GETKEY_DOWN('N'){
+					if (m_SpriteControlNum < m_vsmpSpriteTest.size() - 1){
+						m_SpriteControlNum++;
+					}
+					else{
+						m_SpriteControlNum = 0;
+					}
+				}
+				GETKEY_DOWN('B'){
+					if (m_SpriteControlNum > 0){
+						m_SpriteControlNum--;
+					}
+					else{
+						m_SpriteControlNum = m_vsmpSpriteTest.size() - 1;
+					}
 				}
 			}
-		}
-		break;
-	case 2:
-		//ライトの方向の操作.
-		GETKEY_STAY( 'A' ) 	m_vLight.x += 0.01f;
-		GETKEY_STAY( 'D' )	m_vLight.x -= 0.01f;
-		GETKEY_STAY( 'W' )	m_vLight.y += 0.01f;
-		GETKEY_STAY( 'S' )	m_vLight.y -= 0.01f;
-		GETKEY_STAY( 'E' )	m_vLight.z += 0.01f;
-		GETKEY_STAY( 'Q' )	m_vLight.z -= 0.01f;
-		GETKEY_STAY( 'I' )	m_vLight = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+			break;
+		case 2:
+			//ライトの方向の操作.
+			GETKEY_STAY('A') 	m_vLight.x += 0.01f;
+			GETKEY_STAY('D')	m_vLight.x -= 0.01f;
+			GETKEY_STAY('W')	m_vLight.y += 0.01f;
+			GETKEY_STAY('S')	m_vLight.y -= 0.01f;
+			GETKEY_STAY('E')	m_vLight.z += 0.01f;
+			GETKEY_STAY('Q')	m_vLight.z -= 0.01f;
+			GETKEY_STAY('I')	m_vLight = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
-	break;
-	default:
-		break;
+			break;
+		default:
+			break;
 	}
-	for( char blk_no=0; blk_no<m_iBlkAryMax; blk_no++ ){
-		m_ppBlkAry[blk_no]->SetPosition( m_ppBlkAry[0]->GetPosition() );
-		if( blkZYFlg == 0 ){
-			m_ppBlkAry[blk_no]->AddPositionZ( (float)blk_no );
+	for (char blk_no = 0; blk_no < m_iBlkAryMax; blk_no++){
+		m_ppBlkAry[blk_no]->SetPosition(m_ppBlkAry[0]->GetPosition());
+		if (blkZYFlg == 0){
+			m_ppBlkAry[blk_no]->AddPositionZ((float)blk_no);
 		}
-		else if( blkZYFlg == 1 ){
-			m_ppBlkAry[blk_no]->AddPositionY( (float)blk_no );
+		else if (blkZYFlg == 1){
+			m_ppBlkAry[blk_no]->AddPositionY((float)blk_no);
 		}
 		else{
-			m_ppBlkAry[blk_no]->AddPositionX( (float)blk_no );
+			m_ppBlkAry[blk_no]->AddPositionX((float)blk_no);
 		}
 
 		//ギザギザ.
-		if( blkZYFlg <= 1 ){
-			if( blk_no % 2 != 0 ){
-				m_ppBlkAry[blk_no]->AddPositionX( 1.0f );
+		if (blkZYFlg <= 1){
+			if (blk_no % 2 != 0){
+				m_ppBlkAry[blk_no]->AddPositionX(1.0f);
 			}
 		}
-		else if( blkZYFlg == 2 ){
-			if( blk_no % 2 != 0 ){
-				m_ppBlkAry[blk_no]->AddPositionY( 1.0f );
+		else if (blkZYFlg == 2){
+			if (blk_no % 2 != 0){
+				m_ppBlkAry[blk_no]->AddPositionY(1.0f);
 			}
 		}
 	}
 
-	GETKEY_DOWN( VK_F1 ){
-		m_smpStageDataExcel->Open( m_hWnd );
+	GETKEY_DOWN(VK_F1){
+		m_smpStageDataExcel->Open(m_hWnd);
 	}
-	GETKEY_DOWN( VK_F2 ) {
-		m_smpStageDataReadMe->Open( m_hWnd );
+	GETKEY_DOWN(VK_F2) {
+		m_smpStageDataReadMe->Open(m_hWnd);
 	}
 
-
-	GETKEY_DOWN( 'P' ){
+	GETKEY_DOWN('P'){
 		StageModelSet();
-		InitMain( true );
+		InitMain(true);
 	}
-
 
 	//ﾚﾝﾀﾞﾘﾝｸﾞ.
 	Render();
@@ -682,53 +645,51 @@ void clsMain::Render()
 	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };//ｸﾘｱ色(RGBA順)(0.0f~1.0f).
 	//ｶﾗｰﾊﾞｯｸﾊﾞｯﾌｧ.
 	m_pDeviceContext->ClearRenderTargetView(
-		m_pBackBuffer_TexRTV, ClearColor );
+		m_pBackBuffer_TexRTV, ClearColor);
 	//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰﾊﾞｯｸﾊﾞｯﾌｧ.
 	m_pDeviceContext->ClearDepthStencilView(
 		m_pBackBuffer_DSTexDSV,
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
-		1.0f, 0 );
+		1.0f, 0);
 
 	//ｶﾒﾗ関数.
 	Camera();
 	//ﾌﾟﾛｼﾞｪｸｼｮﾝ関数.
 	Proj();
 
-
-	switch( m_enScene )
+	switch (m_enScene)
 	{
-	case enSCENE_TITLE:
-		RenderTitle();
-		SetDepth( false );	//Zﾃｽﾄ:OFF.
-		m_smpUiManagar->RenderTitle();
-		SetDepth( true );	//Zﾃｽﾄ:ON.
-		break;
-	case enSCENE_MAIN:
-		RenderMain();
-		SetDepth( false );	//Zﾃｽﾄ:OFF.
-		m_smpUiManagar->RenderMain();
-		SetDepth( true );	//Zﾃｽﾄ:ON.
-		break;
-	case enSCENE_OVER:
-		RenderOver();
-		SetDepth( false );	//Zﾃｽﾄ:OFF.
-		m_smpUiManagar->RenderOver();
-		SetDepth( true );	//Zﾃｽﾄ:ON.
-		break;
-	case enSCENE_RESULT:
-		RenderResult();
-		SetDepth( false );	//Zﾃｽﾄ:OFF.
-		m_smpUiManagar->RenderResult();
-		SetDepth( true );	//Zﾃｽﾄ:ON.
-		break;
-	case enSCENE_ENDROLL:
-		RenderEnding();
-		SetDepth( false );	//Zﾃｽﾄ:OFF.
-		m_smpUiManagar->RenderEnding();
-		SetDepth( true );	//Zﾃｽﾄ:ON.
-		break;
+		case enSCENE_TITLE:
+			RenderTitle();
+			SetDepth(false);	//Zﾃｽﾄ:OFF.
+			m_smpUiManagar->RenderTitle();
+			SetDepth(true);	//Zﾃｽﾄ:ON.
+			break;
+		case enSCENE_MAIN:
+			RenderMain();
+			SetDepth(false);	//Zﾃｽﾄ:OFF.
+			m_smpUiManagar->RenderMain();
+			SetDepth(true);	//Zﾃｽﾄ:ON.
+			break;
+		case enSCENE_OVER:
+			RenderOver();
+			SetDepth(false);	//Zﾃｽﾄ:OFF.
+			m_smpUiManagar->RenderOver();
+			SetDepth(true);	//Zﾃｽﾄ:ON.
+			break;
+		case enSCENE_RESULT:
+			RenderResult();
+			SetDepth(false);	//Zﾃｽﾄ:OFF.
+			m_smpUiManagar->RenderResult();
+			SetDepth(true);	//Zﾃｽﾄ:ON.
+			break;
+		case enSCENE_ENDROLL:
+			RenderEnding();
+			SetDepth(false);	//Zﾃｽﾄ:OFF.
+			m_smpUiManagar->RenderEnding();
+			SetDepth(true);	//Zﾃｽﾄ:ON.
+			break;
 	}
-
 
 #if _DEBUG
 	//ﾃﾞﾊﾞｯｸﾞﾃｷｽﾄ.
@@ -739,9 +700,8 @@ void clsMain::Render()
 		m_vsmpSpriteTest[i]->Render();
 	}
 	//ﾚﾝﾀﾞﾘﾝｸﾞされたｲﾒｰｼﾞを表示.
-	m_pSwapChain->Present( 0, 0 );
+	m_pSwapChain->Present(0, 0);
 }
-
 
 //============================================================
 //	DirectX初期化.
@@ -754,77 +714,74 @@ HRESULT clsMain::InitD3D()
 
 	//ｽﾜｯﾌﾟﾁｪｰﾝ構造体.
 	DXGI_SWAP_CHAIN_DESC sd;
-	ZeroMemory( &sd, sizeof( sd ) );
-	sd.BufferCount		= 1;		//ﾊﾞｯｸﾊﾞｯﾌｧの数.
-	sd.BufferDesc.Width	= WND_W;
-	sd.BufferDesc.Height= WND_H;
-	sd.BufferDesc.Format= DXGI_FORMAT_R8G8B8A8_UNORM;
-									//ﾌｫｰﾏｯﾄ(32ﾋﾞｯﾄｶﾗｰ).
+	ZeroMemory(&sd, sizeof(sd));
+	sd.BufferCount = 1;		//ﾊﾞｯｸﾊﾞｯﾌｧの数.
+	sd.BufferDesc.Width = WND_W;
+	sd.BufferDesc.Height = WND_H;
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//ﾌｫｰﾏｯﾄ(32ﾋﾞｯﾄｶﾗｰ).
 	sd.BufferDesc.RefreshRate.Numerator = 60;
-									//ﾘﾌﾚｯｼｭﾚｰﾄ(分母) ※FPS:60.
+	//ﾘﾌﾚｯｼｭﾚｰﾄ(分母) ※FPS:60.
 	sd.BufferDesc.RefreshRate.Denominator = 1;
-									//ﾘﾌﾚｯｼｭﾚｰﾄ(分子).
-	sd.BufferUsage		= DXGI_USAGE_RENDER_TARGET_OUTPUT;
-									//使い方(表示先).
-	sd.OutputWindow		= m_hWnd;	//ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙ.
-	sd.SampleDesc.Count	= 1;		//ﾏﾙﾁｻﾝﾌﾟﾙの数.
-	sd.SampleDesc.Quality=0;		//ﾏﾙﾁｻﾝﾌﾟﾙのｸｵﾘﾃｨ.
-	sd.Windowed			= TRUE;		//ｳｨﾝﾄﾞｳﾓｰﾄﾞ(ﾌﾙｽｸ時はFALSE).
-
+	//ﾘﾌﾚｯｼｭﾚｰﾄ(分子).
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	//使い方(表示先).
+	sd.OutputWindow = m_hWnd;	//ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙ.
+	sd.SampleDesc.Count = 1;		//ﾏﾙﾁｻﾝﾌﾟﾙの数.
+	sd.SampleDesc.Quality = 0;		//ﾏﾙﾁｻﾝﾌﾟﾙのｸｵﾘﾃｨ.
+	sd.Windowed = TRUE;		//ｳｨﾝﾄﾞｳﾓｰﾄﾞ(ﾌﾙｽｸ時はFALSE).
 
 	//作成を試みる機能ﾚﾍﾞﾙの優先を指定.
 	//	(GPUがｻﾎﾟｰﾄする機能ｾｯﾄの定義).
 	//	D3D_FEATURE_LEVEL列挙体の配列.
 	//	D3D_FEATURE_LEVEL_10_1:Direct3D 10.1のGPUﾚﾍﾞﾙ.
-	D3D_FEATURE_LEVEL	pFeatureLevels	= D3D_FEATURE_LEVEL_11_0;
-	D3D_FEATURE_LEVEL*	pFeatureLevel	= NULL;	//配列の要素数.
-
+	D3D_FEATURE_LEVEL	pFeatureLevels = D3D_FEATURE_LEVEL_11_0;
+	D3D_FEATURE_LEVEL*	pFeatureLevel = NULL;	//配列の要素数.
 
 	//ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成.
 	//	ﾊｰﾄﾞｳｪｱ(GPU)ﾃﾞﾊﾞｲｽで作成.
-	if( FAILED(
+	if (FAILED(
 		D3D11CreateDeviceAndSwapChain(
-			NULL,					//ﾋﾞﾃﾞｵｱﾀﾞﾌﾟﾀへのﾎﾟｲﾝﾀ.
-			D3D_DRIVER_TYPE_HARDWARE,//作成するﾃﾞﾊﾞｲｽの種類.
-			NULL,					//ｿﾌﾄｳｪｱﾗｽﾀﾗｲｻﾞｰを実装するDLLのﾊﾝﾄﾞﾙ.
-			0,						//有効にするﾗﾝﾀｲﾑﾚｲﾔｰ.
-			&pFeatureLevels,		//作成を試みる機能ﾚﾍﾞﾙの順序を指定する配列.
-			1,						//↑の要素数.
-			D3D11_SDK_VERSION,		//SDKのﾊﾞｰｼﾞｮﾝ.
-			&sd,					//ｽﾜｯﾌﾟﾁｪｰﾝの初期化ﾊﾟﾗﾒｰﾀのﾎﾟｲﾝﾀ.
-			&m_pSwapChain,			//(out)ﾚﾝﾀﾞﾘﾝｸﾞに使用されたｽﾜｯﾌﾟﾁｪｰﾝ.
-			&m_pDevice,				//(out)作成されたﾃﾞﾊﾞｲｽ.
-			pFeatureLevel,			//機能ﾚﾍﾞﾙの配列にある最初の要素を表すﾎﾟｲﾝﾀ.
-			&m_pDeviceContext ) ) )	//(out)ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
+		NULL,					//ﾋﾞﾃﾞｵｱﾀﾞﾌﾟﾀへのﾎﾟｲﾝﾀ.
+		D3D_DRIVER_TYPE_HARDWARE,//作成するﾃﾞﾊﾞｲｽの種類.
+		NULL,					//ｿﾌﾄｳｪｱﾗｽﾀﾗｲｻﾞｰを実装するDLLのﾊﾝﾄﾞﾙ.
+		0,						//有効にするﾗﾝﾀｲﾑﾚｲﾔｰ.
+		&pFeatureLevels,		//作成を試みる機能ﾚﾍﾞﾙの順序を指定する配列.
+		1,						//↑の要素数.
+		D3D11_SDK_VERSION,		//SDKのﾊﾞｰｼﾞｮﾝ.
+		&sd,					//ｽﾜｯﾌﾟﾁｪｰﾝの初期化ﾊﾟﾗﾒｰﾀのﾎﾟｲﾝﾀ.
+		&m_pSwapChain,			//(out)ﾚﾝﾀﾞﾘﾝｸﾞに使用されたｽﾜｯﾌﾟﾁｪｰﾝ.
+		&m_pDevice,				//(out)作成されたﾃﾞﾊﾞｲｽ.
+		pFeatureLevel,			//機能ﾚﾍﾞﾙの配列にある最初の要素を表すﾎﾟｲﾝﾀ.
+		&m_pDeviceContext)))	//(out)ﾃﾞﾊﾞｲｽｺﾝﾃｷｽﾄ.
 	{
 		//WARPﾃﾞﾊﾞｲｽの作成.
 		// D3D_FEATURE_LEVEL_9_1 ～ D3D_FEATURE_LEVEL_10_1.
-		if( FAILED(
+		if (FAILED(
 			D3D11CreateDeviceAndSwapChain(
-				NULL, D3D_DRIVER_TYPE_WARP,
-				NULL, 0, &pFeatureLevels, 1,
-				D3D11_SDK_VERSION, &sd,
-				&m_pSwapChain, &m_pDevice,
-				pFeatureLevel, &m_pDeviceContext ) ) )
+			NULL, D3D_DRIVER_TYPE_WARP,
+			NULL, 0, &pFeatureLevels, 1,
+			D3D11_SDK_VERSION, &sd,
+			&m_pSwapChain, &m_pDevice,
+			pFeatureLevel, &m_pDeviceContext)))
 		{
 			//ﾘﾌｧﾚﾝｽﾃﾞﾊﾞｲｽの作成.
 			//	DirectX SDKがｲﾝｽﾄｰﾙされていないと使えない.
-			if( FAILED(
+			if (FAILED(
 				D3D11CreateDeviceAndSwapChain(
-					NULL, D3D_DRIVER_TYPE_REFERENCE,
-					NULL, 0, &pFeatureLevels, 1,
-					D3D11_SDK_VERSION, &sd,
-					&m_pSwapChain, &m_pDevice,
-					pFeatureLevel, &m_pDeviceContext ) ) )
+				NULL, D3D_DRIVER_TYPE_REFERENCE,
+				NULL, 0, &pFeatureLevels, 1,
+				D3D11_SDK_VERSION, &sd,
+				&m_pSwapChain, &m_pDevice,
+				pFeatureLevel, &m_pDeviceContext)))
 			{
 				MessageBox(NULL,
 					"ﾃﾞﾊﾞｲｽとｽﾜｯﾌﾟﾁｪｰﾝの作成に失敗",
-					"error(main.cpp)", MB_OK );
+					"error(main.cpp)", MB_OK);
 				return E_FAIL;
 			}
 		}
 	}
-
 
 	//各種ﾃｸｽﾁｬｰと、それに付帯する各種ﾋﾞｭｰ(画面)を作成.
 
@@ -837,16 +794,16 @@ HRESULT clsMain::InitD3D()
 	m_pSwapChain->GetBuffer(
 		0,
 		__uuidof(ID3D11Texture2D),	//__uuidof:式に関連付けたGUIDを取得.
-									//		   Texture2Dの唯一の物として扱う.
-		(LPVOID*)&pBackBuffer_Tex );//(out)ﾊﾞｯｸﾊﾞｯﾌｧﾃｸｽﾁｬ.
+		//		   Texture2Dの唯一の物として扱う.
+		(LPVOID*)&pBackBuffer_Tex);//(out)ﾊﾞｯｸﾊﾞｯﾌｧﾃｸｽﾁｬ.
 
 	//そのﾃｸｽﾁｬｰに対しﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ(RTV)を作成.
 	m_pDevice->CreateRenderTargetView(
 		pBackBuffer_Tex,
 		NULL,
-		&m_pBackBuffer_TexRTV );//(out)RTV.
+		&m_pBackBuffer_TexRTV);//(out)RTV.
 	//ﾊﾞｯｸﾊﾞｯﾌｧﾃｸｽﾁｬｰを解放.
-	SAFE_RELEASE( pBackBuffer_Tex );//ﾏｸﾛ内にｾﾐｺﾛﾝがあるのでいらないが見た目の統一でつけている.
+	SAFE_RELEASE(pBackBuffer_Tex);//ﾏｸﾛ内にｾﾐｺﾛﾝがあるのでいらないが見た目の統一でつけている.
 
 	//---------------------------------------------------
 	//	ﾊﾞｯｸﾊﾞｯﾌｧ準備:ﾃﾞﾌﾟｽ(深度)ｽﾃﾝｼﾙ関係.
@@ -855,80 +812,79 @@ HRESULT clsMain::InitD3D()
 	//ﾃﾞﾌﾟｽ(深さor深度)ｽﾃﾝｼﾙﾋﾞｭｰ用のﾃｸｽﾁｬｰを作成.
 	D3D11_TEXTURE2D_DESC descDepth;
 
-	descDepth.Width				= WND_W;					//幅.
-	descDepth.Height			= WND_H;					//高さ.
-	descDepth.MipLevels			= 1;						//ﾐｯﾌﾟﾏｯﾌﾟﾚﾍﾞﾙ:1.
-	descDepth.ArraySize			= 1;						//配列数:1.
-	descDepth.Format			= DXGI_FORMAT_D32_FLOAT;	//32ﾋﾞｯﾄﾌｫｰﾏｯﾄ.
-	descDepth.SampleDesc.Count	= 1;						//ﾏﾙﾁｻﾝﾌﾟﾙの数.
-	descDepth.SampleDesc.Quality= 0;						//ﾏﾙﾁｻﾝﾌﾟﾙのｸｵﾘﾃｨ.
-	descDepth.Usage				= D3D11_USAGE_DEFAULT;		//使用方法:ﾃﾞﾌｫﾙﾄ.
-	descDepth.BindFlags			= D3D11_BIND_DEPTH_STENCIL;	//深度(ｽﾃﾝｼﾙとして使用).
-	descDepth.CPUAccessFlags	= 0;						//CPUからｱｸｾｽしない.
-	descDepth.MiscFlags			= 0;						//その他設定なし.
+	descDepth.Width = WND_W;					//幅.
+	descDepth.Height = WND_H;					//高さ.
+	descDepth.MipLevels = 1;						//ﾐｯﾌﾟﾏｯﾌﾟﾚﾍﾞﾙ:1.
+	descDepth.ArraySize = 1;						//配列数:1.
+	descDepth.Format = DXGI_FORMAT_D32_FLOAT;	//32ﾋﾞｯﾄﾌｫｰﾏｯﾄ.
+	descDepth.SampleDesc.Count = 1;						//ﾏﾙﾁｻﾝﾌﾟﾙの数.
+	descDepth.SampleDesc.Quality = 0;						//ﾏﾙﾁｻﾝﾌﾟﾙのｸｵﾘﾃｨ.
+	descDepth.Usage = D3D11_USAGE_DEFAULT;		//使用方法:ﾃﾞﾌｫﾙﾄ.
+	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;	//深度(ｽﾃﾝｼﾙとして使用).
+	descDepth.CPUAccessFlags = 0;						//CPUからｱｸｾｽしない.
+	descDepth.MiscFlags = 0;						//その他設定なし.
 
 	m_pDevice->CreateTexture2D(
 		&descDepth,
 		NULL,
-		&m_pBackBuffer_DSTex );//(out)ﾃﾞﾌﾟｽｽﾃﾝｼﾙ用ﾃｸｽﾁｬ.
+		&m_pBackBuffer_DSTex);//(out)ﾃﾞﾌﾟｽｽﾃﾝｼﾙ用ﾃｸｽﾁｬ.
 
 	//そのﾃｸｽﾁｬに対しﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ(DSV)を作成.
 	m_pDevice->CreateDepthStencilView(
 		m_pBackBuffer_DSTex,
 		NULL,
-		&m_pBackBuffer_DSTexDSV );//(out)DSV.
+		&m_pBackBuffer_DSTexDSV);//(out)DSV.
 
 	//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰとﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰをﾊﾟｲﾌﾟﾗｲﾝにｾｯﾄ.
 	m_pDeviceContext->OMSetRenderTargets(
 		1,
 		&m_pBackBuffer_TexRTV,
-		m_pBackBuffer_DSTexDSV );
-
+		m_pBackBuffer_DSTexDSV);
 
 	//深度ﾃｽﾄ(Zﾃｽﾄ)を有効にする.
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
-	ZeroMemory( &depthStencilDesc,
-		sizeof( D3D11_DEPTH_STENCIL_DESC ) );
+	ZeroMemory(&depthStencilDesc,
+		sizeof(D3D11_DEPTH_STENCIL_DESC));
 	depthStencilDesc.DepthEnable = true;
 
-	if( SUCCEEDED( m_pDevice->CreateDepthStencilState(
-		&depthStencilDesc, &m_pDepthStencilState ) ) )
+	if (SUCCEEDED(m_pDevice->CreateDepthStencilState(
+		&depthStencilDesc, &m_pDepthStencilState)))
 	{
 		m_pDeviceContext->OMSetDepthStencilState(
-			m_pDepthStencilState, 1 );
+			m_pDepthStencilState, 1);
 	}
 
 	//ﾋﾞｭｰﾎﾟｰﾄの設定.
 	D3D11_VIEWPORT vp;
-	vp.Width	= WND_W;//幅.
-	vp.Height	= WND_H;//高さ.
-	vp.MinDepth	= 0.0f;	//最小深度(手前).
-	vp.MaxDepth	= 1.0f;	//最大深度(奥).
-	vp.TopLeftX	= 0.0f;	//左上位置x.
-	vp.TopLeftY	= 0.0f;	//左上位置y.
-	m_pDeviceContext->RSSetViewports( 1, &vp );
+	vp.Width = WND_W;//幅.
+	vp.Height = WND_H;//高さ.
+	vp.MinDepth = 0.0f;	//最小深度(手前).
+	vp.MaxDepth = 1.0f;	//最大深度(奥).
+	vp.TopLeftX = 0.0f;	//左上位置x.
+	vp.TopLeftY = 0.0f;	//左上位置y.
+	m_pDeviceContext->RSSetViewports(1, &vp);
 
 	//Sp2D用.
-	SetViewPort10( &vp );
+	SetViewPort10(&vp);
 
 	//ﾗｽﾀﾗｲｽﾞ(面の塗りつぶし方)設定.
 	D3D11_RASTERIZER_DESC rdc;
-	ZeroMemory(&rdc, sizeof( rdc ) );
+	ZeroMemory(&rdc, sizeof(rdc));
 	rdc.FillMode = D3D11_FILL_SOLID;	//塗りつぶし(ｿﾘｯﾄﾞ).
 	rdc.CullMode = D3D11_CULL_NONE;
-					//D3D11_CULL_NONE :ｶﾘﾝｸﾞを切る(正背面を描画する).
-					//D3D11_CULL_BACK :背面を描画しない.
-					//D3D11_CULL_FRONT:正面を描画しない.
-	rdc.FrontCounterClockwise	= FALSE;
-								//ポリゴンの表裏を決定するﾌﾗｸﾞ.
-								//TRUE :左回りなら前向き,右回りなら後ろ向き.
-								//FALSE:↑の逆になる.
-	rdc.DepthClipEnable	= FALSE;	//距離についてのｸﾘｯﾋﾟﾝｸﾞ有効.
+	//D3D11_CULL_NONE :ｶﾘﾝｸﾞを切る(正背面を描画する).
+	//D3D11_CULL_BACK :背面を描画しない.
+	//D3D11_CULL_FRONT:正面を描画しない.
+	rdc.FrontCounterClockwise = FALSE;
+	//ポリゴンの表裏を決定するﾌﾗｸﾞ.
+	//TRUE :左回りなら前向き,右回りなら後ろ向き.
+	//FALSE:↑の逆になる.
+	rdc.DepthClipEnable = FALSE;	//距離についてのｸﾘｯﾋﾟﾝｸﾞ有効.
 
-	ID3D11RasterizerState* pIr	= NULL;
-	m_pDevice->CreateRasterizerState( &rdc, &pIr );
-	m_pDeviceContext->RSSetState( pIr );
-	SAFE_RELEASE( pIr );
+	ID3D11RasterizerState* pIr = NULL;
+	m_pDevice->CreateRasterizerState(&rdc, &pIr);
+	m_pDeviceContext->RSSetState(pIr);
+	SAFE_RELEASE(pIr);
 
 	return S_OK;
 }
@@ -938,14 +894,14 @@ HRESULT clsMain::InitD3D()
 //============================================================
 void clsMain::DestroyD3D()
 {
-//作ったのとは逆順.
+	//作ったのとは逆順.
 
 	////Effekseerの破棄.
 	//clsEffects::GetInstance()->Destroy();
 
 	//音声ﾌｧｲﾙを閉じる.
-	if( m_pBgm != NULL ){
-		for( int i=0; i<enBGM_MAX; i++){
+	if (m_pBgm != NULL){
+		for (int i = 0; i < enBGM_MAX; i++){
 			m_pBgm[i]->Close();
 			delete m_pBgm[i];
 			m_pBgm[i] = NULL;
@@ -953,17 +909,16 @@ void clsMain::DestroyD3D()
 	}
 
 	//SEを閉じる.
-	if( m_pSe != NULL ){
-		for( int i=0; i<enSe_MAX; i++ ){
+	if (m_pSe != NULL){
+		for (int i = 0; i < enSe_MAX; i++){
 			m_pSe[i]->Close();
 			delete m_pSe[i];
 			m_pSe[i] = NULL;
 		}
 	}
 
-
 	//定規の削除.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
+	for (int i = 0; i < m_iBlkAryMax; i++){
 		//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 		m_ppBlkAry[i]->DetatchModel();
 		//破棄.
@@ -979,12 +934,9 @@ void clsMain::DestroyD3D()
 
 #ifdef Inoue
 
-
-
-
 	//ステージ(壁)の削除.
-	if(!m_vsmpWall.empty()){
-		for( int i=0; i<m_vsmpWall.size(); i++ ){
+	if (!m_vsmpWall.empty()){
+		for (int i = 0; i < m_vsmpWall.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpWall[i]->DetatchModel();
 			//破棄.
@@ -995,8 +947,8 @@ void clsMain::DestroyD3D()
 		m_vsmpWall.shrink_to_fit();
 	}
 	//ステージ(床)の削除.
-	if(!m_vsmpFloor.empty()){
-		for( int i=0; i<m_vsmpFloor.size(); i++ ){
+	if (!m_vsmpFloor.empty()){
+		for (int i = 0; i < m_vsmpFloor.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpFloor[i]->DetatchModel();
 			//破棄.
@@ -1008,8 +960,8 @@ void clsMain::DestroyD3D()
 	}
 
 	//ステージ(動く床○)の削除.
-	if(!m_vsmpStepCil.empty()){
-		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
+	if (!m_vsmpStepCil.empty()){
+		for (int i = 0; i < m_vsmpStepCil.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpStepCil[i]->DetatchModel();
 			//破棄.
@@ -1021,8 +973,8 @@ void clsMain::DestroyD3D()
 	}
 
 	//ステージ(動く床□)の削除.
-	if(!m_vsmpStepCil.empty()){
-		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
+	if (!m_vsmpStepCil.empty()){
+		for (int i = 0; i < m_vsmpStepCil.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpStepBox[i]->DetatchModel();
 			//破棄.
@@ -1034,8 +986,8 @@ void clsMain::DestroyD3D()
 	}
 
 	//ステージ(敵)の削除.
-	if(!m_vsmpEnemyMgr.empty()){
-		for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
+	if (!m_vsmpEnemyMgr.empty()){
+		for (int i = 0; i < m_vsmpEnemyMgr.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpEnemyMgr[i]->DetatchModel();
 			//破棄.
@@ -1047,8 +999,8 @@ void clsMain::DestroyD3D()
 	}
 
 	//ステージ(ペンデュラム)の削除.
-	if(!m_vsmpPend.empty()){
-		for( int i=0; i<m_vsmpPend.size(); i++ ){
+	if (!m_vsmpPend.empty()){
+		for (int i = 0; i < m_vsmpPend.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpPend[i]->DetatchModel();
 			//破棄.
@@ -1059,8 +1011,8 @@ void clsMain::DestroyD3D()
 		m_vsmpPend.shrink_to_fit();
 	}
 	//ステージ(槍床)の削除.
-	if(!m_vsmpSpiaFloorMgr.empty()){
-	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
+	if (!m_vsmpSpiaFloorMgr.empty()){
+		for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpSpiaFloorMgr[i]->DetatchModel();
 			//破棄.
@@ -1072,8 +1024,8 @@ void clsMain::DestroyD3D()
 	}
 
 	//ステージ(槍壁)の削除.
-	if(!m_vsmpSpiaWallMgr.empty()){
-		for( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
+	if (!m_vsmpSpiaWallMgr.empty()){
+		for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpSpiaWallMgr[i]->DetatchModel();
 			//破棄.
@@ -1084,8 +1036,8 @@ void clsMain::DestroyD3D()
 		m_vsmpSpiaWallMgr.shrink_to_fit();
 	}
 	//ステージ(落とし穴の蓋)の削除.
-	if(m_vsmpCoverMgr.empty()){
-		for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
+	if (m_vsmpCoverMgr.empty()){
+		for (int i = 0; i < m_vsmpCoverMgr.size(); i++){
 			//ﾓﾃﾞﾙﾃﾞｰﾀの関連付け.
 			m_vsmpCoverMgr[i]->DetatchModel();
 			//破棄.
@@ -1097,7 +1049,7 @@ void clsMain::DestroyD3D()
 	}
 
 	//スプライトクラス解放.
-	if(!m_vsmpSpriteTest.empty()){
+	if (!m_vsmpSpriteTest.empty()){
 		for (size_t i = 0; i < m_vsmpSpriteTest.size(); i++)
 		{
 			m_vsmpSpriteTest[i].reset();
@@ -1110,67 +1062,59 @@ void clsMain::DestroyD3D()
 	SAFE_DELETE(m_pFile);
 
 	//ﾌｧｲﾙ読込ｸﾗｽ解放.
-	if( m_smpStageData != NULL ){
+	if (m_smpStageData != NULL){
 		m_smpStageData.reset();
 		m_smpStageData = NULL;
 	}
 
-
 	//Excel.
-	if( m_smpStageDataExcel != NULL ){
+	if (m_smpStageDataExcel != NULL){
 		m_smpStageDataExcel.reset();
 		m_smpStageDataExcel = NULL;
 	}
 
-
 	//UiManager.
-	if( m_smpUiManagar != NULL ){
+	if (m_smpUiManagar != NULL){
 		m_smpUiManagar.reset();
 		m_smpUiManagar = NULL;
 	}
 
-
 #endif //ifdef Inoue.
 
-
 	//NEW_ARBIA.
-	if( m_pPlayer != NULL ){
+	if (m_pPlayer != NULL){
 		m_pPlayer->DetatchModel();
 		delete m_pPlayer;
 		m_pPlayer = NULL;
 	}
 
 	//あたり判定.
-	if( m_pCollision != NULL ){
+	if (m_pCollision != NULL){
 		delete m_pCollision;
 		m_pCollision = NULL;
 	}
 
 	//ｺﾝﾄﾛｰﾗ入力.
-	if( m_pXInput != NULL ){
+	if (m_pXInput != NULL){
 		m_pXInput->EndProc();
-		XInputEnable( false );
+		XInputEnable(false);
 		delete m_pXInput;
 		m_pXInput = NULL;
 	}
 
-
 	//Direct3Dｵﾌﾞｼﾞｪｸﾄを解放.
-	SAFE_RELEASE( m_pBackBuffer_DSTexDSV );
-	SAFE_RELEASE( m_pBackBuffer_DSTex );
-	SAFE_RELEASE( m_pBackBuffer_TexRTV );
-	SAFE_RELEASE( m_pSwapChain );
-	SAFE_RELEASE( m_pDeviceContext );
-	SAFE_RELEASE( m_pDevice );
+	SAFE_RELEASE(m_pBackBuffer_DSTexDSV);
+	SAFE_RELEASE(m_pBackBuffer_DSTex);
+	SAFE_RELEASE(m_pBackBuffer_TexRTV);
+	SAFE_RELEASE(m_pSwapChain);
+	SAFE_RELEASE(m_pDeviceContext);
+	SAFE_RELEASE(m_pDevice);
 }
-
-
-
 
 ////============================================================
 //	ｽﾌｨｱ作成.
 ////============================================================
-HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
+HRESULT clsMain::InitSphere(clsDX9Mesh* pMesh, float fScale)
 {
 	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;	//頂点ﾊﾞｯﾌｧ.
 	void*	pVertices = NULL;	//頂点.
@@ -1178,13 +1122,13 @@ HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 	float	fRadius;			//半径.
 
 	//頂点ﾊﾞｯﾌｧを取得.
-	if( FAILED( pMesh->m_pMesh->GetVertexBuffer( &pVB ) ) ){
+	if (FAILED(pMesh->m_pMesh->GetVertexBuffer(&pVB))){
 		return E_FAIL;
 	}
 
 	//ﾒｯｼｭの頂点ﾊﾞｯﾌｧをﾛｯｸする.
-	if( FAILED( pVB->Lock( 0, 0, &pVertices, 0 ) ) ){
-		SAFE_RELEASE( pVB );
+	if (FAILED(pVB->Lock(0, 0, &pVertices, 0))){
+		SAFE_RELEASE(pVB);
 		return E_FAIL;
 	}
 
@@ -1192,37 +1136,36 @@ HRESULT clsMain::InitSphere( clsDX9Mesh* pMesh, float fScale )
 	D3DXComputeBoundingSphere(
 		(D3DXVECTOR3*)pVertices,
 		pMesh->m_pMesh->GetNumVertices(),	//頂点の数.
-		D3DXGetFVFVertexSize( pMesh->m_pMesh->GetFVF()),	//頂点の情報.
+		D3DXGetFVFVertexSize(pMesh->m_pMesh->GetFVF()),	//頂点の情報.
 		&vCenter,	//(out)中心座標.
-		&fRadius );	//(out)半径.
+		&fRadius);	//(out)半径.
 
 	//ｱﾝﾛｯｸ.
 	pVB->Unlock();
-	SAFE_RELEASE( pVB );
+	SAFE_RELEASE(pVB);
 
 	//中心と半径を構造体に設定.
-	pMesh->m_Sphere.vCenter	= vCenter;
-	pMesh->m_Sphere.fRadius	= fRadius * fScale;
-
+	pMesh->m_Sphere.vCenter = vCenter;
+	pMesh->m_Sphere.fRadius = fRadius * fScale;
 
 	return S_OK;
 }
 ////============================================================
 //	ﾊﾞｳﾝﾃﾞｨﾝｸﾞﾎﾞｯｸｽ作成.
 ////============================================================
-HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
+HRESULT clsMain::InitBBox(clsDX9Mesh* pMesh)
 {
 	LPDIRECT3DVERTEXBUFFER9 pVB = NULL;
 	VOID* pVertices = NULL;
 	D3DXVECTOR3 Max, Min;
 
 	//ﾒｯｼｭの頂点ﾊﾞｯﾌｧをﾛｯｸする.
-	if( FAILED( pMesh->m_pMesh->GetVertexBuffer( &pVB ) ) ){
-		MessageBox( NULL, "頂点ﾊﾞｯﾌｧ取得失敗", "clsMain::InitBBox()", MB_OK );
+	if (FAILED(pMesh->m_pMesh->GetVertexBuffer(&pVB))){
+		MessageBox(NULL, "頂点ﾊﾞｯﾌｧ取得失敗", "clsMain::InitBBox()", MB_OK);
 		return E_FAIL;
 	}
-	if( FAILED( pVB->Lock( 0, 0, &pVertices, 0 ) ) ){
-		MessageBox( NULL, "頂点ﾊﾞｯﾌｧのﾛｯｸに失敗", "clsMain::InitBBox()", MB_OK );
+	if (FAILED(pVB->Lock(0, 0, &pVertices, 0))){
+		MessageBox(NULL, "頂点ﾊﾞｯﾌｧのﾛｯｸに失敗", "clsMain::InitBBox()", MB_OK);
 		return E_FAIL;
 	}
 	//ﾒｯｼｭ内の頂点位置の最大と最小を検索する.
@@ -1230,19 +1173,18 @@ HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 		(D3DXVECTOR3*)pVertices,
 		pMesh->m_pMesh->GetNumVertices(),
 		D3DXGetFVFVertexSize(
-			pMesh->m_pMesh->GetFVF() ),
-			&Min, &Max );	//(out)最小、最大頂点.
+		pMesh->m_pMesh->GetFVF()),
+		&Min, &Max);	//(out)最小、最大頂点.
 	pVB->Unlock();			//ｱﾝﾛｯｸ.
-	SAFE_RELEASE( pVB );	//使用済頂点ﾊﾞｯﾌｧの解放.
+	SAFE_RELEASE(pVB);	//使用済頂点ﾊﾞｯﾌｧの解放.
 
 	pMesh->m_BBox.vPosMax = Max;
 	pMesh->m_BBox.vPosMin = Min;
 
 	//軸ﾍﾞｸﾄﾙ,軸の長さ(この場合ﾎﾞｯｸｽの各半径)を初期化する.
-	pMesh->m_BBox.fLengthX = ( Max.x - Min.x ) / 2.0f;
-	pMesh->m_BBox.fLengthY = ( Max.y - Min.y ) / 2.0f;
-	pMesh->m_BBox.fLengthZ = ( Max.z - Min.z ) / 2.0f;
-
+	pMesh->m_BBox.fLengthX = (Max.x - Min.x) / 2.0f;
+	pMesh->m_BBox.fLengthY = (Max.y - Min.y) / 2.0f;
+	pMesh->m_BBox.fLengthZ = (Max.z - Min.z) / 2.0f;
 
 	return S_OK;
 }
@@ -1252,139 +1194,30 @@ HRESULT clsMain::InitBBox( clsDX9Mesh* pMesh )
 ////============================================================
 HRESULT clsMain::ReadMesh()
 {
-
 	m_pFile = new clsFile;
-	m_pFile->Init( "Data\\Text\\power.txt" );
+	m_pFile->Init("Data\\Text\\power.txt");
 
 	m_pTestData = make_unique<clsFile>();
 
 #ifdef Inoue
 
 	m_smpUiManagar = make_unique<clsUiManagar>();
-	m_smpUiManagar->Init( m_hWnd, m_pDevice, m_pDeviceContext );
+	m_smpUiManagar->Init(m_hWnd, m_pDevice, m_pDeviceContext);
 
 	m_smpStageDataExcel = make_unique<clsFile>();
-	m_smpStageDataExcel->Init( "Data\\Text\\StageData.xlsm" );
+	m_smpStageDataExcel->Init("Data\\Text\\StageData.xlsm");
 
 	m_smpStageData = make_unique<clsFile>();
-	m_smpStageData->Init( "Data\\Text\\StageData.csv" );
+	m_smpStageData->Init("Data\\Text\\StageData.csv");
 
 	m_smpStageDataReadMe = make_unique<clsFile>();
-	m_smpStageDataReadMe->Init( "Data\\Text\\ReadMe.txt" );
+	m_smpStageDataReadMe->Init("Data\\Text\\ReadMe.txt");
 #endif //#ifdef Inoue.
-
-
-
-
-
-//ロードに移行.
-/*
-
-	//ﾘｿｰｽｸﾗｽ.
-	m_pResource = clsResource::GetInstance();
-
-	m_pResource->InitStaticModel( m_hWnd, m_pDevice, m_pDeviceContext);
-	m_pResource->InitSkinModel( m_hWnd, m_pDevice, m_pDeviceContext);
-
-	//=====Static Model=====.
-	m_pResource->CreateStaticModel(
-		"Data\\Test\\Test.x",
-		clsResource::enST_MODEL_Plane );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\kabe.X",
-		clsResource::enST_MODEL_WALL );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\yuka.X",
-		clsResource::enST_MODEL_FLOOR_NORMAL );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\yuka_hanbun_L.X",
-		clsResource::enST_MODEL_FLOOR_HALF_L );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\yuka_hanbun_R.X",
-		clsResource::enST_MODEL_FLOOR_HALF_R );
-
-	//ペンデュラム床.
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\yuka_kizu.X",
-		clsResource::enST_MODEL_FLOOR_PEND );
-
-	//縦移動床.
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\StepCylinder.X",
-		clsResource::enST_MODEL_STEP_CIL );
-	//横移動床.
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\StepBox.X",
-		clsResource::enST_MODEL_STEP_BOX );
-
-	//ドアモデルを確認する.
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\mon.X",
-		clsResource::enST_MODEL_MON);
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\tobira.X",
-		clsResource::enST_MODEL_TOBIRA );
-
-	//ゴールモデルを確認する.
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\gool.X",
-		clsResource::enST_MODEL_GOOL );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Trap\\Spia.x",
-		clsResource::enST_MODEL_SPIA );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Trap\\SpiaWallHit.x",
-		clsResource::enST_MODEL_SPIA_WALL );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Trap\\hasira.x",
-		clsResource::enST_MODEL_SPIA_WALL_HASIRA );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Trap\\otosiana_L.x",
-		clsResource::enST_MODEL_COVER_L );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Trap\\otosiana_R.x",
-		clsResource::enST_MODEL_COVER_R );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Jikken\\1_1_1_kijyun.x",
-		clsResource::enST_MODEL_BLOCK );
-
-	m_pResource->CreateStaticModel(
-		"Data\\Stage\\tobira.X",
-		clsResource::enST_MODEL_TEST );
-
-	//=====Skin Model=====.
-	m_pResource->CreateSkinModel(
-		"Data\\Player\\Arbia.X",
-		clsResource::enSK_MODEL_PLAYER );
-
-	m_pResource->CreateSkinModel(
-		"Data\\Stage\\tobira.X",
-		clsResource::enSK_MODEL_DOOR );
-
-	m_pResource->CreateSkinModel(
-		"Data\\Enemy\\Enemy.X",
-		clsResource::enSK_MODEL_ENEMY );
-
-	m_pResource->CreateSkinModel(
-		"Data\\Trap\\Pendulum.X",
-		clsResource::enSK_MODEL_PENDULUM );
-*/
-
 
 	//プレイヤー.
 	{
 		m_pPlayer = new clsPlayer;
-		m_pPlayer->Create( m_hWnd, m_pDevice, m_pDeviceContext );
+		m_pPlayer->Create(m_hWnd, m_pDevice, m_pDeviceContext);
 		m_pPlayer->Init();
 
 		CD3DXSKINMESH_INIT si;//skin_Init.
@@ -1393,53 +1226,40 @@ HRESULT clsMain::ReadMesh()
 		si.pDeviceContext = m_pDeviceContext;
 
 		m_pPlayer->m_pModel = new clsD3DXSKINMESH;
-		m_pPlayer->m_pModel->Init( &si );
+		m_pPlayer->m_pModel->Init(&si);
 
 		//ﾓﾃﾞﾙ関連付け.
 		m_pPlayer->
-			AttachModel( m_pResource->GetSkinModels( clsResource::enSK_MODEL_PLAYER ) );
+			AttachModel(m_pResource->GetSkinModels(clsResource::enSK_MODEL_PLAYER));
 
 		m_pPlayer->SetPosition(
-			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
+			D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 
 		float LocalScale = 0.1f;
-		m_pPlayer->SetScale( LocalScale );
+		m_pPlayer->SetScale(LocalScale);
 
-//		m_pPlayer->SetAnimSpeed( 0.01 );
+		//		m_pPlayer->SetAnimSpeed( 0.01 );
 	}
-
-
-
-
 
 	//ﾘｿｰｽ定規.
 	//ｷｬﾗｸﾀｰｸﾗｽ.
 	m_iBlkAryMax = 100;
 	m_ppBlkAry = new clsCharaStatic*[m_iBlkAryMax];
 	//ｷｬﾗｸﾗｽのﾎﾟｲﾝﾀの配列を作る.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
+	for (int i = 0; i < m_iBlkAryMax; i++){
 		m_ppBlkAry[i] = new clsCharaStatic;
 
 		//ﾓﾃﾞﾙﾃﾞｰﾀ関連付け.
 		m_ppBlkAry[i]->AttachModel(
-			m_pResource->GetStaticModels( clsResource::enST_MODEL_BLOCK ) );
+			m_pResource->GetStaticModels(clsResource::enST_MODEL_BLOCK));
 
 		m_ppBlkAry[i]->SetPosition(
-			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
+			D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	}
 
-
-
-
-
 	//列挙体のステージの一番最初.
-	iWallModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_WALL_MIN );
-	iFloorModelNumZero = m_pResource->EtoI( clsResource::enST_MODEL_FLOOR_MIN );
-
-
-
-
-
+	iWallModelNumZero = m_pResource->EtoI(clsResource::enST_MODEL_WALL_MIN);
+	iFloorModelNumZero = m_pResource->EtoI(clsResource::enST_MODEL_FLOOR_MIN);
 
 	////板ﾎﾟﾘｺﾞﾝの初期化.
 	//m_pExplosion = new clsSprite;
@@ -1447,105 +1267,27 @@ HRESULT clsMain::ReadMesh()
 	//m_pExplosion->m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
 	//m_pExplosion->m_bDispFlg = false;
 
-
 	//ﾊﾟｰﾃｨｸﾙの初期化500個.
-//	m_pParticle = new clsParticle;	//元はこうして使っていたよ.
-	m_pParticle = new clsParticle( PAT_SMOK_MAX, D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) );
-	m_pParticle->Init( m_pDevice, m_pDeviceContext );
+	//	m_pParticle = new clsParticle;	//元はこうして使っていたよ.
+	m_pParticle = new clsParticle(PAT_SMOK_MAX, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_pParticle->Init(m_pDevice, m_pDeviceContext);
 	m_pParticle->m_bDispFlg = false;
-
-
-
-
-
-//	//ｽｷﾝﾒｯｼｭｸﾗｽに必要な情報を渡して初期化.
-//	{
-//		CD3DXSKINMESH_INIT si;
-//		si.hWnd = m_hWnd;
-//		si.pDevice = m_pDevice;
-//		si.pDeviceContext = m_pDeviceContext;
-//
-//		m_pSkinMesh = new clsD3DXSKINMESH;
-//		m_pSkinMesh->Init( &si );
-//		m_pSkinMesh->CreateFromX( "Data\\Enemy_atack\\enemy_atack.X" );
-//		float LocalScale = 0.1f;
-//		m_pSkinMesh->m_vScale =
-//			D3DXVECTOR3( LocalScale, LocalScale, LocalScale );
-//		m_pSkinMesh->SetAnimSpeed( 0.01 );
-//		m_pSkinMesh->m_vPos = m_pOldPlayer->m_vPos;
-//	}
-
-//	//ｽｷﾝﾘｿｰｽ.
-//	{
-//		CD3DXSKINMESH_INIT si;//skin_Init.
-//		si.hWnd = m_hWnd;
-//		si.pDevice = m_pDevice;
-//		si.pDeviceContext = m_pDeviceContext;
-//
-//
-//		m_iPrincessArrayMax = 100;
-//
-//		m_ppPrincessArray = new clsCharaSkin*[m_iPrincessArrayMax];
-//
-//
-//		for( int i=0; i<m_iPrincessArrayMax; i++ ){
-//			m_ppPrincessArray[i] = new clsCharaSkin;
-//
-//			//ﾓﾃﾞﾙ関連付け.
-//			m_ppPrincessArray[i]->
-//				AttachModel( m_pResource->GetSkinModels( clsResource::enSK_MODEL_ENEMY ) );
-//
-//			m_ppPrincessArray[i]->SetPosition(
-//				D3DXVECTOR3(
-//				-5.0f + (i%10)*1.0f,
-//				1.0f /*+ i*0.05f*/,
-//				-5.0f + (i/10)*1.0f ) );
-//
-//		float LocalScale = 0.02f;
-//			m_ppPrincessArray[i]->SetScale( LocalScale );
-//			m_ppPrincessArray[i]->SetAnimSpeed( 0.01 );
-//		}
-//	}
-
-
-
-
-//	//ｽﾌﾟﾗｲﾄ情報を設定.
-//	{
-//		SPRITE_STATE ss;
-//		//元画像幅高さ.
-//		ss.Base.w	= 896.0f;
-//		ss.Base.h	= 560.0f;
-//		//1ｺﾏ当たりの幅高さ.
-//		ss.Stride.w	= 56.0f;
-//		ss.Stride.h	= 56.0f;
-//		//表示幅高さ.
-//		ss.Disp.w	= 128.0f;
-//		ss.Disp.h	= 128.0f;
-//
-//		//ｽﾌﾟﾗｲﾄ2Dの初期化.
-//		m_pSprite2D = new clsSprite2D;
-//		m_pSprite2D->Init( m_pDevice, m_pDeviceContext,
-//			"Data\\Image\\pokemon.png", ss );
-//		m_pSprite2D->m_vPos = D3DXVECTOR3( 1000.0f, 0.0f, 0.0f );
-//		m_pSprite2D->m_fAlpha = 0.5f;
-//	}
 
 	//ﾚｲ表示の初期化(垂直).
 	m_pRayV = new clsRay;
-	m_pRayV->m_Ray.vPoint[0] = D3DXVECTOR3( 0.0f,-5.0f, 0.0f);
-	m_pRayV->m_Ray.vPoint[1] = D3DXVECTOR3( 0.0f, 5.0f, 0.0f);
-	m_pRayV->Init( m_pDevice, m_pDeviceContext );
+	m_pRayV->m_Ray.vPoint[0] = D3DXVECTOR3(0.0f, -5.0f, 0.0f);
+	m_pRayV->m_Ray.vPoint[1] = D3DXVECTOR3(0.0f, 5.0f, 0.0f);
+	m_pRayV->Init(m_pDevice, m_pDeviceContext);
 	//ﾚｲ表示の初期化(前後).
 	m_pRayFB = new clsRay;
-	m_pRayFB->m_Ray.vPoint[0] = D3DXVECTOR3( 0.0f, 0.0f,-5.0f);
-	m_pRayFB->m_Ray.vPoint[1] = D3DXVECTOR3( 0.0f, 0.0f, 5.0f);
-	m_pRayFB->Init( m_pDevice, m_pDeviceContext );
+	m_pRayFB->m_Ray.vPoint[0] = D3DXVECTOR3(0.0f, 0.0f, -5.0f);
+	m_pRayFB->m_Ray.vPoint[1] = D3DXVECTOR3(0.0f, 0.0f, 5.0f);
+	m_pRayFB->Init(m_pDevice, m_pDeviceContext);
 	//ﾚｲ表示の初期化(左右).
 	m_pRayH = new clsRay;
 	m_pRayH->m_Ray.vPoint[0] = D3DXVECTOR3(-5.0f, 0.0f, 0.0f);
-	m_pRayH->m_Ray.vPoint[1] = D3DXVECTOR3( 5.0f, 0.0f, 0.0f);
-	m_pRayH->Init( m_pDevice, m_pDeviceContext );
+	m_pRayH->m_Ray.vPoint[1] = D3DXVECTOR3(5.0f, 0.0f, 0.0f);
+	m_pRayH->Init(m_pDevice, m_pDeviceContext);
 
 	//モデルの紐づけ.
 	StageModelSet();
@@ -1553,47 +1295,44 @@ HRESULT clsMain::ReadMesh()
 	//------------------------------
 	//	Effekseerｸﾗｽ.
 	//------------------------------
-	clsEffects::GetInstance()->Create( m_pDevice, m_pDeviceContext );
+	clsEffects::GetInstance()->Create(m_pDevice, m_pDeviceContext);
 	clsEffects::GetInstance()->LoadData();
-
 
 	return S_OK;
 }
 
-
-
 //============================================================
 //	深度ﾃｽﾄ(Zﾃｽﾄ)　ON/OFF切替.
 //============================================================
-void clsMain::SetDepth( bool bFlg )
+void clsMain::SetDepth(bool bFlg)
 {
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
-	ZeroMemory( &depthStencilDesc,
-		sizeof( D3D11_DEPTH_STENCIL_DESC ) );
+	ZeroMemory(&depthStencilDesc,
+		sizeof(D3D11_DEPTH_STENCIL_DESC));
 	depthStencilDesc.DepthEnable = bFlg;
 
 	m_pDevice->CreateDepthStencilState(
-		&depthStencilDesc, &m_pDepthStencilState );
+		&depthStencilDesc, &m_pDepthStencilState);
 	m_pDeviceContext->OMSetDepthStencilState(
-		m_pDepthStencilState, 1 );
+		m_pDepthStencilState, 1);
 }
 
 ////============================================================
 //	衝突判定関数.
 ////============================================================
-bool clsMain::Collision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget)
+bool clsMain::Collision(clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget)
 {
 	//2つの物体の中心間の距離を求める.
 	D3DXVECTOR3 vLength
 		= pTarget->m_vPos - pAttacker->m_vPos;
 	//長さに変換する.
-	float Length = D3DXVec3Length( &vLength );
+	float Length = D3DXVec3Length(&vLength);
 
 	//2物体間の距離が、2物体の半径を足したものより.
 	//小さいということは、ｽﾌｨｱ同士が重なっている.
 	//(衝突している)ということ.
-	if( Length <=
-		pAttacker->m_Sphere.fRadius + pTarget->m_Sphere.fRadius )
+	if (Length <=
+		pAttacker->m_Sphere.fRadius + pTarget->m_Sphere.fRadius)
 	{
 		return true;//衝突した.
 	}
@@ -1602,27 +1341,27 @@ bool clsMain::Collision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget)
 //============================================================
 //	ﾎﾞｯｸｽ衝突判定関数.
 //============================================================
-bool clsMain::BBoxCollision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget )
+bool clsMain::BBoxCollision(clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget)
 {
 	//攻撃側用に2つの頂点を用意し初期化する.
 	D3DXVECTOR3 vecMaxAtk, vecMinAtk;	//最大、最小頂点.
 	vecMaxAtk = pAttacker->m_BBox.vPosMax
-				+ pAttacker->m_vPos;
+		+ pAttacker->m_vPos;
 	vecMinAtk = pAttacker->m_BBox.vPosMin
-				+ pAttacker->m_vPos;
+		+ pAttacker->m_vPos;
 
 	//目標側用に2つの頂点を用意し初期化する.
 	D3DXVECTOR3 vecMaxTrg, vecMinTrg;	//最大、最小頂点.
 	vecMaxTrg = pTarget->m_BBox.vPosMax
-				+ pTarget->m_vPos;
+		+ pTarget->m_vPos;
 	vecMinTrg = pTarget->m_BBox.vPosMin
-				+ pTarget->m_vPos;
+		+ pTarget->m_vPos;
 
 	//2つの物体それぞれの最大、最小位置という,.
 	//4つの情報があれば、衝突を検出できる.
-	if( vecMinAtk.x < vecMaxTrg.x  &&  vecMaxAtk.x > vecMinTrg.x &&
+	if (vecMinAtk.x < vecMaxTrg.x  &&  vecMaxAtk.x > vecMinTrg.x &&
 		vecMinAtk.y < vecMaxTrg.y  &&  vecMaxAtk.y > vecMinTrg.y &&
-		vecMinAtk.z < vecMaxTrg.z  &&  vecMaxAtk.z > vecMinTrg.z )
+		vecMinAtk.z < vecMaxTrg.z  &&  vecMaxAtk.z > vecMinTrg.z)
 	{
 		return true;//衝突している.
 	}
@@ -1633,14 +1372,13 @@ bool clsMain::BBoxCollision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget )
 //============================================================
 //	ﾎﾞｰﾝの座標をとる.
 //============================================================
-void clsMain::GetPosFromBone( clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVECTOR3& Pos )
+void clsMain::GetPosFromBone(clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVECTOR3& Pos)
 {
 	D3DXVECTOR3 vBonePos;
-	if( skinMesh->GetPosFromBone( BoneName, &vBonePos ) ){
+	if (skinMesh->GetPosFromBone(BoneName, &vBonePos)){
 		Pos = vBonePos;
 	}
 }
-
 
 //============================================================
 //	ﾚｲとﾒｯｼｭのあたり判定.
@@ -1649,18 +1387,18 @@ bool clsMain::Intersect(
 	clsDX9Mesh* pAttacker,		//基準のの物体.
 	clsDX9Mesh* pTarget,		//対象のの物体.
 	float* pfDistance,			//(out)距離.
-	D3DXVECTOR3* pvIntersect )	//(out)交差座標.
+	D3DXVECTOR3* pvIntersect)	//(out)交差座標.
 {
 	D3DXMATRIXA16	matRot;	//回転行列.
 
 	//回転行列を計算.
-	D3DXMatrixRotationY( &matRot, pAttacker->m_fYaw );
+	D3DXMatrixRotationY(&matRot, pAttacker->m_fYaw);
 
 	//軸ﾍﾞｸﾄﾙを用意.
 	D3DXVECTOR3 vecAxisZ;
 	//Z軸ﾍﾞｸﾄﾙそのものを現在の回転状態により変換する.
 	D3DXVec3TransformCoord(
-		&vecAxisZ, &pAttacker->m_vAxis, &matRot );
+		&vecAxisZ, &pAttacker->m_vAxis, &matRot);
 
 	D3DXVECTOR3 vecStart, vecEnd, vecDistance;
 	//ﾚｲの開始終了位置をAttackerと合わせる.
@@ -1675,14 +1413,14 @@ bool clsMain::Intersect(
 		&matWorld,
 		pTarget->m_vPos.x,
 		pTarget->m_vPos.y,
-		pTarget->m_vPos.z );
+		pTarget->m_vPos.z);
 
 	//逆行列を求める.
-	D3DXMatrixInverse( &matWorld, NULL, &matWorld );
+	D3DXMatrixInverse(&matWorld, NULL, &matWorld);
 	D3DXVec3TransformCoord(
-		&vecStart, &vecStart, &matWorld );
+		&vecStart, &vecStart, &matWorld);
 	D3DXVec3TransformCoord(
-		&vecEnd, &vecEnd, &matWorld );
+		&vecEnd, &vecEnd, &matWorld);
 
 	//距離を求める.
 	vecDistance = vecEnd - vecStart;
@@ -1700,21 +1438,21 @@ bool clsMain::Intersect(
 		&vecDistance,	//ﾚｲの距離.
 		&bHit,			//(out)判定結果.
 		&dwIndex,		//(out)bHitがTrue時、ﾚｲの視点に。.
-						//最も近くの面のｲﾝﾃﾞｯｸｽ値へのﾎﾟｲﾝﾀ.
+		//最も近くの面のｲﾝﾃﾞｯｸｽ値へのﾎﾟｲﾝﾀ.
 		&U, &V,			//(out)重心ﾋｯﾄ座標.
 		pfDistance,		//ﾀｰｹﾞｯﾄとの距離.
-		NULL, NULL );
+		NULL, NULL);
 
-	if( bHit ){
+	if (bHit){
 		//命中したとき.
 		FindVerticesOnPoly(
-			pTarget->m_pMeshForRay, dwIndex, vVertex );
+			pTarget->m_pMeshForRay, dwIndex, vVertex);
 		//重心座標から交差点を算出.
 		//ﾛｰｶﾙ交点pは、 v0 + U*(v1-v0) + V*(v2-v0)で求まる.
 		*pvIntersect =
 			vVertex[0]
-			+ U * ( vVertex[1] - vVertex[0] )
-			+ V * ( vVertex[2] - vVertex[0] );
+			+ U * (vVertex[1] - vVertex[0])
+			+ V * (vVertex[2] - vVertex[0]);
 
 		return true;
 	}
@@ -1726,7 +1464,7 @@ bool clsMain::Intersect(
 //============================================================
 HRESULT clsMain::FindVerticesOnPoly(
 	LPD3DXMESH pTarget, DWORD dwPolyIndex,
-	D3DXVECTOR3* pVecVertices )
+	D3DXVECTOR3* pVecVertices)
 {
 	//頂点毎のバﾊﾞｲﾄ数を取得.
 	DWORD dwStride = pTarget->GetNumBytesPerVertex();
@@ -1739,15 +1477,15 @@ HRESULT clsMain::FindVerticesOnPoly(
 
 	//ｲﾝﾃﾞｯｸｽﾊﾞｯﾌｧをﾛｯｸ(読込ﾓｰﾄﾞ).
 	pTarget->LockIndexBuffer(
-		D3DLOCK_READONLY, (VOID**)&pwPoly );
+		D3DLOCK_READONLY, (VOID**)&pwPoly);
 	BYTE*	pbVertices = NULL;	//頂点(ﾊﾞｲﾄ型)
 	FLOAT*	pfVertices = NULL;	//頂点(float型)
 	LPDIRECT3DVERTEXBUFFER9 VB = NULL;	//頂点ﾊﾞｯﾌｧ.
-	pTarget->GetVertexBuffer( &VB );	//頂点情報の取得.
+	pTarget->GetVertexBuffer(&VB);	//頂点情報の取得.
 
 	//頂点ﾊﾞｯﾌｧのﾛｯｸ.
-	if( SUCCEEDED(
-		VB->Lock( 0, 0, (VOID**)&pbVertices, 0 ) ) )
+	if (SUCCEEDED(
+		VB->Lock(0, 0, (VOID**)&pbVertices, 0)))
 	{
 		////ﾎﾟﾘｺﾞﾝの頂点の1つ目を取得.
 		//pfVertices
@@ -1769,9 +1507,9 @@ HRESULT clsMain::FindVerticesOnPoly(
 		//pVecVertices[2].z = pfVertices[2];
 
 		////ﾎﾟﾘｺﾞﾝの頂点の1～3つ目を取得.
-		for( int i=0; i<3; i++ ){
+		for (int i = 0; i < 3; i++){
 			pfVertices
-				= (FLOAT*)&pbVertices[ dwStride * pwPoly[ dwPolyIndex * 3 + i ] ];
+				= (FLOAT*)&pbVertices[dwStride * pwPoly[dwPolyIndex * 3 + i]];
 			pVecVertices[i].y = pfVertices[1];
 			pVecVertices[i].z = pfVertices[2];
 			pVecVertices[i].x = pfVertices[0];
@@ -1786,11 +1524,10 @@ HRESULT clsMain::FindVerticesOnPoly(
 	return S_OK;
 }
 
-
 //============================================================
 //	壁のあたり判定関連.
 //============================================================
-void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
+void clsMain::WallJudge(clsDX9Mesh* pAttacker, clsDX9Mesh* pWall)
 {
 	const char MAX = 4;//.線の数
 	const float HitHeight = 0.375f;	//ｱﾙﾋﾞｱの足元からの高さ.
@@ -1799,54 +1536,52 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 	D3DXVECTOR3	vIntersect[MAX];//交点座標.
 	float		fDis, fYaw;		//距離と回転.
 
-
 	pAttacker->m_vRay = pAttacker->m_vPos;
 	pAttacker->m_vRay.y += HitHeight;
 
 #if 0
 	//軸ﾍﾞｸﾄﾙの方向前後右左.
-	D3DXVECTOR3 Axis[MAX] ={D3DXVECTOR3( 0.0f, 0.0f, 1.0f ),
-							D3DXVECTOR3( 0.0f, 0.0f,-1.0f ),
-							D3DXVECTOR3( 1.0f, 0.0f, 0.0f ),
-							D3DXVECTOR3(-1.0f, 0.0f, 0.0f ) };
+	D3DXVECTOR3 Axis[MAX] = { D3DXVECTOR3(0.0f, 0.0f, 1.0f),
+		D3DXVECTOR3(0.0f, 0.0f, -1.0f),
+		D3DXVECTOR3(1.0f, 0.0f, 0.0f),
+		D3DXVECTOR3(-1.0f, 0.0f, 0.0f) };
 	//ﾚｲの向きにより当たる壁までの距離を求める.
 	//軸ﾍﾞｸﾄﾙ　前後右左.
-	for( char i=0; i<MAX; i++ ){
+	for (char i = 0; i < MAX; i++){
 		pAttacker->m_vAxis = Axis[i];
-		Intersect( pAttacker, pWall, &fDistance[i], &vIntersect[i] );
+		Intersect(pAttacker, pWall, &fDistance[i], &vIntersect[i]);
 	}
 #else
 	//軸ﾍﾞｸﾄﾙ　前.
-	pAttacker->m_vAxis = D3DXVECTOR3( 0.0f, 0.0f, 1.0f );
-	Intersect( pAttacker, pWall, &fDistance[0], &vIntersect[0] );
+	pAttacker->m_vAxis = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	Intersect(pAttacker, pWall, &fDistance[0], &vIntersect[0]);
 	//軸ﾍﾞｸﾄﾙ　後.
-	pAttacker->m_vAxis = D3DXVECTOR3( 0.0f, 0.0f,-1.0f );
-	Intersect( pAttacker, pWall, &fDistance[1], &vIntersect[1] );
+	pAttacker->m_vAxis = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+	Intersect(pAttacker, pWall, &fDistance[1], &vIntersect[1]);
 	//軸ﾍﾞｸﾄﾙ　右.
-	pAttacker->m_vAxis = D3DXVECTOR3( 1.0f, 0.0f, 0.0f );
-	Intersect( pAttacker, pWall, &fDistance[2], &vIntersect[2] );
+	pAttacker->m_vAxis = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	Intersect(pAttacker, pWall, &fDistance[2], &vIntersect[2]);
 	//軸ﾍﾞｸﾄﾙ　左.
-	pAttacker->m_vAxis = D3DXVECTOR3(-1.0f, 0.0f, 0.0f );
-	Intersect( pAttacker, pWall, &fDistance[3], &vIntersect[3] );
+	pAttacker->m_vAxis = D3DXVECTOR3(-1.0f, 0.0f, 0.0f);
+	Intersect(pAttacker, pWall, &fDistance[3], &vIntersect[3]);
 #endif
 
 	//絶対値.
-	fYaw = fabs( pAttacker->m_fYaw );
-	DirOverGuard( &fYaw );
-
+	fYaw = fabs(pAttacker->m_fYaw);
+	DirOverGuard(&fYaw);
 
 	//前が壁に接近.
 	fDis = fDistance[0];
-	if( fDis < WALL_SPACE && fDis > 0.01f ){
-		if( pAttacker->m_fYaw < 0.0f ){
+	if (fDis < WALL_SPACE && fDis > 0.01f){
+		if (pAttacker->m_fYaw < 0.0f){
 			//時計回り.
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1855,13 +1590,13 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 		}
 		else{
 			//反時計回り.
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1872,13 +1607,13 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 
 	//後ろが壁に接近.
 	fDis = fDistance[1];
-	if( fDis < WALL_SPACE && fDis > 0.01f ){
+	if (fDis < WALL_SPACE && fDis > 0.01f){
 		//時計回り.
-		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+		if (pAttacker->m_fYaw < 0.0f){
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
 			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
@@ -1893,10 +1628,10 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1907,16 +1642,16 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 
 	//右が壁に接近.
 	fDis = fDistance[2];
-	if( fDis < WALL_SPACE && fDis > 0.01f ){
+	if (fDis < WALL_SPACE && fDis > 0.01f){
 		//時計回り.
-		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+		if (pAttacker->m_fYaw < 0.0f){
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1925,13 +1660,13 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 		}
 		//反時計回り.
 		else{
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.x += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1942,16 +1677,16 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 
 	//左が壁に接近.
 	fDis = fDistance[3];
-	if( fDis < WALL_SPACE && fDis > 0.01f ){
+	if (fDis < WALL_SPACE && fDis > 0.01f){
 		//時計回り.
-		if( pAttacker->m_fYaw < 0.0f ){
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+		if (pAttacker->m_fYaw < 0.0f){
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1960,13 +1695,13 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 		}
 		//反時計回り.
 		else{
-			if( fYaw >= 0.785f && fYaw < 2.355f ){		//右から.
+			if (fYaw >= 0.785f && fYaw < 2.355f){		//右から.
 				pAttacker->m_vPos.z -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 2.355f && fYaw < 3.925f ){	//前から.
+			else if (fYaw >= 2.355f && fYaw < 3.925f){	//前から.
 				pAttacker->m_vPos.x -= WALL_SPACE - fDis;
 			}
-			else if( fYaw >= 3.925f && fYaw < 5.495f ){	//左から.
+			else if (fYaw >= 3.925f && fYaw < 5.495f){	//左から.
 				pAttacker->m_vPos.z += WALL_SPACE - fDis;
 			}
 			else{										//奥から.
@@ -1979,55 +1714,51 @@ void clsMain::WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall )
 //============================================================
 //	回転値調整.
 //============================================================
-void clsMain::DirOverGuard( float* fYaw )
+void clsMain::DirOverGuard(float* fYaw)
 {
-	if( *fYaw > (float)( D3DX_PI * 2.0 ) ){
-		*fYaw -= (float)( D3DX_PI * 2.0 );
+	if (*fYaw > (float)(D3DX_PI * 2.0)){
+		*fYaw -= (float)(D3DX_PI * 2.0);
 	}
 	else{
 		return;
 	}
 
 	//再帰.
-	if( *fYaw > (float)( D3DX_PI * 2.0 ) ){
-		DirOverGuard( fYaw );
+	if (*fYaw > (float)(D3DX_PI * 2.0)){
+		DirOverGuard(fYaw);
 	}
 }
-
 
 //============================================================
 //	ｶﾒﾗ関数.
 //============================================================
 void clsMain::Camera()
 {
-
-////----------------------------.
-////	ｶﾒﾗ追従処理ここから.
-////----------------------------.
-////ｶﾒﾗ位置(自機の背中から)の位置.
-//m_Camera.vEye = m_Camera.vLook = m_pOldPlayer->m_vPos;
-//m_Camera.fYaw = m_pOldPlayer->m_fYaw;
-////Y軸回転行列の作成.
-//D3DXMatrixRotationY( &m_Camera.mRot, m_Camera.fYaw );
-////軸ﾍﾞｸﾄﾙ.
-//D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
-////Z軸ﾍﾞｸﾄﾙそのものを回転.
-//D3DXVec3TransformCoord( &vecAxisZ, &vecAxisZ, &m_Camera.mRot );
-//m_Camera.vEye	-= vecAxisZ * 4.0f;//自機の背中側.
-//m_Camera.vLook	+= vecAxisZ * 2.0f;//自機の前側.
-//m_Camera.vEye.y		+= 2.0f;
-//m_Camera.vLook.y	+= 0.2f;
-////----------------------------.
-////	ｶﾒﾗ追従処理ここまで.
-////----------------------------.
-
+	////----------------------------.
+	////	ｶﾒﾗ追従処理ここから.
+	////----------------------------.
+	////ｶﾒﾗ位置(自機の背中から)の位置.
+	//m_Camera.vEye = m_Camera.vLook = m_pOldPlayer->m_vPos;
+	//m_Camera.fYaw = m_pOldPlayer->m_fYaw;
+	////Y軸回転行列の作成.
+	//D3DXMatrixRotationY( &m_Camera.mRot, m_Camera.fYaw );
+	////軸ﾍﾞｸﾄﾙ.
+	//D3DXVECTOR3 vecAxisZ( 0.0f, 0.0f, 1.0f );
+	////Z軸ﾍﾞｸﾄﾙそのものを回転.
+	//D3DXVec3TransformCoord( &vecAxisZ, &vecAxisZ, &m_Camera.mRot );
+	//m_Camera.vEye	-= vecAxisZ * 4.0f;//自機の背中側.
+	//m_Camera.vLook	+= vecAxisZ * 2.0f;//自機の前側.
+	//m_Camera.vEye.y		+= 2.0f;
+	//m_Camera.vLook.y	+= 0.2f;
+	////----------------------------.
+	////	ｶﾒﾗ追従処理ここまで.
+	////----------------------------.
 
 	//ﾋﾞｭｰ(ｶﾒﾗ)変換.
-	D3DXVECTOR3 vUpVec	( 0.0f, 1.0f, 0.0f );	//上方位置.
+	D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);	//上方位置.
 	D3DXMatrixLookAtLH(
 		&m_mView,	//(out)ﾋﾞｭｰ計算結果.
-		&m_Camera.vEye, &m_Camera.vLook, &vUpVec );
-
+		&m_Camera.vEye, &m_Camera.vLook, &vUpVec);
 }
 //============================================================
 //	ﾌﾟﾛｼﾞｪｸｼｮﾝ関数.
@@ -2040,10 +1771,8 @@ void clsMain::Proj()
 		D3DX_PI / g_Zoom,	//y方向の視野(ﾗｼﾞｱﾝ指定)数字を大きくしたら視野が狭くなる.
 		(FLOAT)WND_W / (FLOAT)WND_H,//ｱｽﾍﾟｸﾄ比(幅/高さ).
 		0.1f,				//近いﾋﾞｭｰ平面のz値.
-		fRENDER_LIMIT );	//遠いﾋﾞｭｰ平面のz値.100.f
-
+		fRENDER_LIMIT);	//遠いﾋﾞｭｰ平面のz値.100.f
 }
-
 
 //============================================================
 //============================================================
@@ -2055,14 +1784,13 @@ void clsMain::Proj()
 //============================================================
 void clsMain::InitTitle()
 {
-	InitMain( true );
-
+	InitMain(true);
 
 	//初期化カメラ位置.
 	const D3DXVECTOR3 vCAM_INIT_TITLE_POS =
-		{ 0.7f, 2.4f, 6.7f };
+	{ 0.7f, 2.4f, 6.7f };
 	const D3DXVECTOR3 vLOOK_INIT_TITLE_POS =
-		{ -1.4f, 1.55f, 9.6f };
+	{ -1.4f, 1.55f, 9.6f };
 	m_Camera.vEye = vCAM_INIT_TITLE_POS;
 	m_Camera.vLook = vLOOK_INIT_TITLE_POS;
 
@@ -2075,8 +1803,8 @@ void clsMain::InitTitle()
 	m_ResUiState.Init();
 
 	//発見情報更新.
-	m_smpUiManagar->SetDisc( m_ResUiState.iDisc );
-	m_smpUiManagar->SetLives( m_ResUiState.iLives );
+	m_smpUiManagar->SetDisc(m_ResUiState.iDisc);
+	m_smpUiManagar->SetLives(m_ResUiState.iLives);
 
 	//BGM.
 	m_pBgm[enBGM_MAIN]->Stop();
@@ -2084,25 +1812,23 @@ void clsMain::InitTitle()
 	m_pBgm[enBGM_OVER]->Stop();
 
 	m_pBgm[enBGM_TITLE]->SeekToStart();
-	m_pBgm[enBGM_TITLE]->Play( true );
-
+	m_pBgm[enBGM_TITLE]->Play(true);
 
 	//プレイヤー.
 	m_pPlayer->InitTitleScene();
 
 	//ドア.
-	for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpDoorMgr.size(); i++){
 		m_vsmpDoorMgr[i]->Init();
 	}
-
 }
 //============================================================
 //	ステージ開始用初期化.
 //============================================================
-void clsMain::InitMain( bool bFirstFlg )
+void clsMain::InitMain(bool bFirstFlg)
 {
 	//初回の初期化.
-	if( bFirstFlg ){
+	if (bFirstFlg){
 		//シーン.
 		m_enScene = enSCENE_MAIN;
 		m_smpUiManagar->ChangeMainInit();
@@ -2110,17 +1836,17 @@ void clsMain::InitMain( bool bFirstFlg )
 		m_pBgm[enBGM_TITLE]->Stop();
 		m_pBgm[enBGM_MAIN]->Stop();
 		m_pBgm[enBGM_MAIN]->SeekToStart();
-		m_pBgm[enBGM_MAIN]->SetVolume( iVOL_BGM_MAIN );
-		m_pBgm[enBGM_MAIN]->Play( true );
+		m_pBgm[enBGM_MAIN]->SetVolume(iVOL_BGM_MAIN);
+		m_pBgm[enBGM_MAIN]->Play(true);
 		//プレイヤー.
 		m_pPlayer->Spawn();
 		//ドア(0はタイトル).
-		for( int i=1; i<m_vsmpDoorMgr.size(); i++ ){
+		for (int i = 1; i < m_vsmpDoorMgr.size(); i++){
 			m_vsmpDoorMgr[i]->Init();
 		}
 		//時間.
 		m_smpUiManagar->ReSetTimer();
-		m_smpUiManagar->SetTimerStop( true );
+		m_smpUiManagar->SetTimerStop(true);
 		//発見数.
 		m_smpUiManagar->ReSetDisc();
 		//残機.
@@ -2131,16 +1857,16 @@ void clsMain::InitMain( bool bFirstFlg )
 		//プレイヤー.
 		m_pPlayer->ReSpawn();
 		//ドア(0はタイトル).
-		for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
+		for (int i = 0; i < m_vsmpDoorMgr.size(); i++){
 			m_vsmpDoorMgr[i]->ReStart();
 		}
 		//タイマ動かす.
-		m_smpUiManagar->SetTimerStop( false );
+		m_smpUiManagar->SetTimerStop(false);
 	}
 	m_iRespawnTimer = 0;
 
 	//残機.
-	m_smpUiManagar->SetLives( m_pPlayer->GetHp() );
+	m_smpUiManagar->SetLives(m_pPlayer->GetHp());
 
 	//カメラ.
 	D3DXVECTOR3 vCamInitPos = m_pPlayer->GetPosition() + vCAMERA_INIT_OFFSET;
@@ -2148,44 +1874,40 @@ void clsMain::InitMain( bool bFirstFlg )
 	m_fLookOffset = 0.0f;
 
 	//丸床.
-	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
+	for (int i = 0; i < m_vsmpStepCil.size(); i++){
 		m_vsmpStepCil[i]->Init();
 	}
 	//四角床.
-	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
+	for (int i = 0; i < m_vsmpStepBox.size(); i++){
 		m_vsmpStepBox[i]->Init();
 	}
 
-
 	//敵.
-	for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
-		m_vsmpEnemyMgr[i]->Init( bFirstFlg );
+	for (int i = 0; i < m_vsmpEnemyMgr.size(); i++){
+		m_vsmpEnemyMgr[i]->Init(bFirstFlg);
 	}
 
-
 	//床槍.
-	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++){
 		m_vsmpSpiaFloorMgr[i]->Init();
 	}
 	//壁槍.
-	for( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++){
 		m_vsmpSpiaWallMgr[i]->Init();
 	}
 
-
-
 	//振り子.
-	for( int i=0; i<m_vsmpPend.size(); i++ ){
+	for (int i = 0; i < m_vsmpPend.size(); i++){
 		m_vsmpPend[i]->Init();
 	}
 
 	//落とし穴.
-	for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpCoverMgr.size(); i++){
 		m_vsmpCoverMgr[i]->Init();
 	}
 
 	//ゴール.
-	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
 		m_vsmpGoalMgr[i]->Init();
 	}
 }
@@ -2205,14 +1927,12 @@ void clsMain::InitOver()
 	//BGM.
 	m_pBgm[enBGM_MAIN]->Stop();
 	m_pBgm[enBGM_OVER]->SeekToStart();
-	m_pBgm[enBGM_OVER]->Play( true );
+	m_pBgm[enBGM_OVER]->Play(true);
 
 	m_pPlayer->InitOverScene();
 
-
 	m_Camera.vEye = vCAM_INIT_OVER_POS;
 	m_Camera.vLook = vLOOK_INIT_OVER_POS;
-
 }
 //============================================================
 //	結果用初期化.
@@ -2226,8 +1946,8 @@ void clsMain::InitResult()
 	//宝箱の画面上の座標を宝石の出現位置にする.
 	m_smpUiManagar->SetJewelAppPos(
 		ConvDimPos(
-			m_smpUiManagar->GetJewelAppPos(),
-			m_vsmpGoalMgr[0]->GetBoxPos() ) );
+		m_smpUiManagar->GetJewelAppPos(),
+		m_vsmpGoalMgr[0]->GetBoxPos()));
 
 	//リザルト情報セット.
 	UpDateJewelState();
@@ -2235,16 +1955,13 @@ void clsMain::InitResult()
 
 	m_smpUiManagar->ChangeResultInit();
 
-	m_smpUiManagar->SetTimerStop( true );
-
+	m_smpUiManagar->SetTimerStop(true);
 
 	//BGM.
 	m_iResultTimer = 0;
 	m_pBgm[enBGM_MAIN]->Stop();
-//	m_pBgm[enBGM_RESULT]->SeekToStart();
-//	m_pBgm[enBGM_RESULT]->Play( true );
-
-
+	//	m_pBgm[enBGM_RESULT]->SeekToStart();
+	//	m_pBgm[enBGM_RESULT]->Play( true );
 }
 //============================================================
 //	クリア用初期化.
@@ -2259,20 +1976,17 @@ void clsMain::InitEndroll()
 	m_pBgm[enBGM_RESULT]->Stop();
 	m_pBgm[enBGM_MAIN]->Stop();
 	m_pBgm[enBGM_ENDROLL]->SeekToStart();
-	m_pBgm[enBGM_ENDROLL]->Play( true );
-
+	m_pBgm[enBGM_ENDROLL]->Play(true);
 }
-
-
 
 //============================================================
 //	ｶﾒﾗ.
 //============================================================
 void clsMain::CameraMgr()
 {
-	if( m_pPlayer != NULL ){
+	if (m_pPlayer != NULL){
 		CameraTargetSet();
-		Stoker( m_Camera.vEye, m_vCameraTarget );
+		Stoker(m_Camera.vEye, m_vCameraTarget);
 		CameraLookSet();
 	}
 }
@@ -2286,45 +2000,44 @@ void clsMain::CameraTargetSet()
 
 	const float fCAMERA_OFFSET_MOVE_BACK_LIMIT = 0.125f; //一番手前時のカメラ移動量.
 
-
 	//基本位置.
 	m_vCameraTarget.z = m_pPlayer->GetPositionZ() - CamTarStopPointN;
 	//向きによるオフセット.
 	m_vCameraTarget.z += m_fLookOffset;
 
 	//一番手前.
-	if( m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK )
+	if (m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK)
 	{
 		m_fLookOffset += fCAMERA_OFFSET_MOVE_BACK_LIMIT;
-		if( m_fLookOffset > 0 ){
+		if (m_fLookOffset > 0){
 			m_fLookOffset = 0.0f;
 		}
 	}
 	//北向き.
-	else if( m_pPlayer->GetDirNorth() )
+	else if (m_pPlayer->GetDirNorth())
 	{
 		m_fLookOffset += fCAMERA_OFFSET_MOVE_Y;
-		if( m_fLookOffset > 0 ){
+		if (m_fLookOffset > 0){
 			m_fLookOffset = 0.0f;
 		}
 	}
 	//南向き.
 	else{
 		m_fLookOffset -= fCAMERA_OFFSET_MOVE_Y;
-		if( m_fLookOffset < -fCAM_SOUTH_OFFSET ){
+		if (m_fLookOffset < -fCAM_SOUTH_OFFSET){
 			m_fLookOffset = -fCAM_SOUTH_OFFSET;
 		}
 	}
 
-//	//ステージの一番手前では寄る.
-//	if( m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK ){
-//		m_vCameraTarget.z += CamTarMovSpdN;
-//		if( m_vCameraTarget.z > player_z - CamTarStopPointN ){
-//			m_vCameraTarget.z = player_z - CamTarStopPointN;
-//		}
-//	}
+	//	//ステージの一番手前では寄る.
+	//	if( m_pPlayer->GetPositionZ() <= CAMERA_NOT_BACK ){
+	//		m_vCameraTarget.z += CamTarMovSpdN;
+	//		if( m_vCameraTarget.z > player_z - CamTarStopPointN ){
+	//			m_vCameraTarget.z = player_z - CamTarStopPointN;
+	//		}
+	//	}
 }
-bool clsMain::Stoker( D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos )
+bool clsMain::Stoker(D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos)
 {
 	//ｶﾒﾗがﾀｰｹﾞｯﾄを追いかける.
 	const float CamMoveStop = 0.0078125f;	//停止距離.
@@ -2335,23 +2048,23 @@ bool clsMain::Stoker( D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos )
 	bX = bY = bZ = false;
 
 	//距離.
-	float lCamMove = CameraLengthComp( Pos.x, TargetPos.x );
+	float lCamMove = CameraLengthComp(Pos.x, TargetPos.x);
 	//距離を計算してｶﾒﾗ追従.
-	if( abs( lCamMove ) > CamMoveStop ){
+	if (abs(lCamMove) > CamMoveStop){
 		Pos.x += lCamMove * CamMoveStep;
 	}
 	else{
 		bX = true;
 	}
-	lCamMove = CameraLengthComp( Pos.z, TargetPos.z );
-	if( abs( lCamMove ) > CamMoveStop ){
+	lCamMove = CameraLengthComp(Pos.z, TargetPos.z);
+	if (abs(lCamMove) > CamMoveStop){
 		Pos.z += lCamMove * CamMoveStep;
 	}
 	else{
 		bY = true;
 	}
-	lCamMove = CameraLengthComp( Pos.y, TargetPos.y );
-	if( abs( lCamMove ) > CamMoveStop ){
+	lCamMove = CameraLengthComp(Pos.y, TargetPos.y);
+	if (abs(lCamMove) > CamMoveStop){
 		Pos.y += lCamMove * CamMoveStep;
 	}
 	else{
@@ -2366,14 +2079,13 @@ void clsMain::CameraLookSet()
 	const float LOOK_JUMP_OFFSET_Y_RATE = 4.0f;
 
 	//穴の上用処理.
-	if( m_pPlayer->m_fFloorY >= 0.0f ){
+	if (m_pPlayer->m_fFloorY >= 0.0f){
 		m_fCameraLookFloorOld = m_fCameraLookFloor;
-		if( m_fCameraLookFloorOld > 0.0f ) m_fCameraLookFloorOld = 0.0f;
+		if (m_fCameraLookFloorOld > 0.0f) m_fCameraLookFloorOld = 0.0f;
 	}
-	if( m_fCameraLookFloorOld < 0.0f ){
+	if (m_fCameraLookFloorOld < 0.0f){
 		m_fCameraLookFloorOld = m_pPlayer->m_fFloorY;
 	}
-
 
 	//視点奥行.
 	m_vLookTarget = m_Camera.vEye;
@@ -2386,10 +2098,9 @@ void clsMain::CameraLookSet()
 	//見る高さ　足元からの高さ.
 	m_vLookTarget.y += fLOOK_OFFSET_Y;
 
-
 	//ｼﾞｬﾝﾌﾟｱﾀｯｸで見上げる.
-	if( m_pPlayer->isCamLookUp() ){
-		if( m_pPlayer->GetPositionY() > m_vLookTarget.y ){
+	if (m_pPlayer->isCamLookUp()){
+		if (m_pPlayer->GetPositionY() > m_vLookTarget.y){
 			float look_offset_y = m_pPlayer->GetPositionY()
 				- m_vLookTarget.y;
 			look_offset_y /= LOOK_JUMP_OFFSET_Y_RATE;
@@ -2399,35 +2110,32 @@ void clsMain::CameraLookSet()
 
 	m_Camera.vLook = m_vLookTarget;
 }
- float clsMain::CameraLengthComp( float Attker, float Target )
- {
+float clsMain::CameraLengthComp(float Attker, float Target)
+{
 	float Langth = Target - Attker;
 
 	return Langth;
- }
-
-
-
+}
 
 //============================================================
 //	一瞬で振り向かない(徐々に振り向く).
 //============================================================
-void clsMain::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float TurnStop )
+void clsMain::YawSpnToTarg(float& NowYaw, float TarYaw, float TurnSpd, float TurnStop)
 {
 	//3600問題解決.
-	if( TarYaw - NowYaw > (float)M_PI ){
-		TarYaw -= (float)( M_PI * 2.0 );
+	if (TarYaw - NowYaw > (float)M_PI){
+		TarYaw -= (float)(M_PI * 2.0);
 	}
-	else if( TarYaw - NowYaw < (float)( -M_PI ) ){
-		TarYaw += (float)( M_PI * 2.0 );
+	else if (TarYaw - NowYaw < (float)(-M_PI)){
+		TarYaw += (float)(M_PI * 2.0);
 	}
 
 	//角度が近づく.
-	if( abs( TarYaw - NowYaw ) > TurnStop ){
-		if( NowYaw < TarYaw ){
+	if (abs(TarYaw - NowYaw) > TurnStop){
+		if (NowYaw < TarYaw){
 			NowYaw += TurnSpd;
 		}
-		else if( NowYaw > TarYaw ){
+		else if (NowYaw > TarYaw){
 			NowYaw -= TurnSpd;
 		}
 	}
@@ -2436,24 +2144,24 @@ void clsMain::YawSpnToTarg( float& NowYaw, float TarYaw, float TurnSpd, float Tu
 //============================================================
 //	360～0に納める.
 //============================================================
-void clsMain::ThetaOverGuard_M( float& theta )
+void clsMain::ThetaOverGuard_M(float& theta)
 {
-//		if( m_pOldPlayer->m_fYaw < 0.0f )m_pOldPlayer->m_fYaw += (float)( M_PI * 2.0 );
+	//		if( m_pOldPlayer->m_fYaw < 0.0f )m_pOldPlayer->m_fYaw += (float)( M_PI * 2.0 );
 #define THETA_MAX (float)( M_PI * 2.0 )
-	if( theta > THETA_MAX ){
+	if (theta > THETA_MAX){
 		theta -= THETA_MAX;
 	}
-	else if( theta < 0.0f ){
+	else if (theta < 0.0f){
 		theta += THETA_MAX;
 	}
 }
-void clsMain::ThetaOverGuard_M( double& theta )
+void clsMain::ThetaOverGuard_M(double& theta)
 {
 #define THETA_MAX ( M_PI * 2.0 )
-	if( theta > THETA_MAX ){
+	if (theta > THETA_MAX){
 		theta -= THETA_MAX;
 	}
-	else if( theta < 0.0 ){
+	else if (theta < 0.0){
 		theta += THETA_MAX;
 	}
 }
@@ -2465,76 +2173,72 @@ void clsMain::CreateSound()
 		//サウンド構造体.
 		clsSound::SOUND_DATA tmpSData[enBGM_MAX] =
 		{
-			{ ALIAS_NAME_BGM_START_UP,	FILE_PATH_BGM_START_UP, iVOL_BGM_START_UP	},
-			{ ALIAS_NAME_BGM_TITLE,		FILE_PATH_BGM_TITLE,	iVOL_BGM_TITLE		},
-			{ ALIAS_NAME_BGM_MAIN,		FILE_PATH_BGM_MAIN,		iVOL_BGM_MAIN		},
-			{ ALIAS_NAME_BGM_RESULT,	FILE_PATH_BGM_RESULT,	iVOL_BGM_RESULT		},
-			{ ALIAS_NAME_BGM_CLEAR,		FILE_PATH_BGM_CLEAR,	iVOL_BGM_CLEAR		},
-			{ ALIAS_NAME_BGM_OVER,		FILE_PATH_BGM_OVER,		iVOL_BGM_OVER		},
+			{ ALIAS_NAME_BGM_START_UP, FILE_PATH_BGM_START_UP, iVOL_BGM_START_UP },
+			{ ALIAS_NAME_BGM_TITLE, FILE_PATH_BGM_TITLE, iVOL_BGM_TITLE },
+			{ ALIAS_NAME_BGM_MAIN, FILE_PATH_BGM_MAIN, iVOL_BGM_MAIN },
+			{ ALIAS_NAME_BGM_RESULT, FILE_PATH_BGM_RESULT, iVOL_BGM_RESULT },
+			{ ALIAS_NAME_BGM_CLEAR, FILE_PATH_BGM_CLEAR, iVOL_BGM_CLEAR },
+			{ ALIAS_NAME_BGM_OVER, FILE_PATH_BGM_OVER, iVOL_BGM_OVER },
 		};
-		for( int i=0; i<enBGM_MAX; i++ ){
+		for (int i = 0; i < enBGM_MAX; i++){
 			m_pBgm[i] = new clsSound;
 			//名前.
 			char cAliasName[STR_BUFF_MAX] = "";
-			strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
+			strcat_s(cAliasName, sizeof(cAliasName), tmpSData[i].sAlias);
 			//作成.
-			m_pBgm[i]->Open( tmpSData[i].sPath, cAliasName, m_hWnd );
-	//		//最大音量設定.
-	//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
+			m_pBgm[i]->Open(tmpSData[i].sPath, cAliasName, m_hWnd);
+			//		//最大音量設定.
+			//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 			//現音量初期化.
-			m_pBgm[i]->SetVolume( tmpSData[i].iMaxVolume );
+			m_pBgm[i]->SetVolume(tmpSData[i].iMaxVolume);
 		}
 	}
-
 
 	//SE.
 	{
 		//サウンド構造体.
 		clsSound::SOUND_DATA tmpSData[enSe_MAX] =
 		{
-			{ ALIAS_NAME_SE_ENTER,	FILE_PATH_SE_ENTER, iVOL_SE_ENTER	},
-			{ ALIAS_NAME_SE_EXIT,	FILE_PATH_SE_EXIT,	iVOL_SE_EXIT	},
+			{ ALIAS_NAME_SE_ENTER, FILE_PATH_SE_ENTER, iVOL_SE_ENTER },
+			{ ALIAS_NAME_SE_EXIT, FILE_PATH_SE_EXIT, iVOL_SE_EXIT },
 		};
-		for( int i=0; i<enSe_MAX; i++ ){
+		for (int i = 0; i < enSe_MAX; i++){
 			m_pSe[i] = new clsSound;
 			//名前.
 			char cAliasName[STR_BUFF_MAX] = "";
-			strcat_s( cAliasName, sizeof( cAliasName ), tmpSData[i].sAlias );
+			strcat_s(cAliasName, sizeof(cAliasName), tmpSData[i].sAlias);
 			//作成.
-			m_pSe[i]->Open( tmpSData[i].sPath, cAliasName, m_hWnd );
-	//		//最大音量設定.
-	//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
+			m_pSe[i]->Open(tmpSData[i].sPath, cAliasName, m_hWnd);
+			//		//最大音量設定.
+			//		m_pBgm[i]->SetMaxVolume( tmpSData[i].iMaxVolume );
 			//現音量初期化.
-			m_pSe[i]->SetVolume( tmpSData[i].iMaxVolume );
+			m_pSe[i]->SetVolume(tmpSData[i].iMaxVolume);
 		}
 	}
 }
-
-
-
 
 //============================================================
 //	for文の処理の無駄を減らす.
 //============================================================
 //あたり判定.
-bool clsMain::isCutOutForHit( float fPlayerZ, float fObjZ, float fBack, float fOpposite ){
+bool clsMain::isCutOutForHit(float fPlayerZ, float fObjZ, float fBack, float fOpposite){
 	float fOffsetBack = 17.0f;	//後(手前)にどれだけ判定するか.
 	float fOffsetOpposite = fOffsetBack;	//前(奥)にどれだけ判定するか.
 #if 0
 	//指定距離以内なら.
-	if( abs( fPlayerZ - fObjZ ) <= fOffset ){
+	if (abs(fPlayerZ - fObjZ) <= fOffset){
 		return true;
 	}
 #else
-	if( fBack > 0.0f ){
+	if (fBack > 0.0f){
 		fOffsetBack = fBack;
 	}
-	if( fOpposite > 0.0f ){
+	if (fOpposite > 0.0f){
 		fOffsetOpposite = fOpposite;
 	}
 
-	if( -fOffsetBack < ( fObjZ - fPlayerZ ) ){
-		if( ( fPlayerZ - fObjZ ) < fOffsetOpposite ){
+	if (-fOffsetBack < (fObjZ - fPlayerZ)){
+		if ((fPlayerZ - fObjZ) < fOffsetOpposite){
 			return true;
 		}
 	}
@@ -2542,18 +2246,18 @@ bool clsMain::isCutOutForHit( float fPlayerZ, float fObjZ, float fBack, float fO
 	return false;
 }
 //動き.
-bool clsMain::isCutOutForMove( float fPlayerZ, float fObjZ, float fBack, float fOpposite ){
+bool clsMain::isCutOutForMove(float fPlayerZ, float fObjZ, float fBack, float fOpposite){
 	float fOffsetBack = 32.0f;	//後にどれだけ判定するか.
 	float fOffsetOpposite = fRENDER_LIMIT;	//前にどれだけ判定するか.
-	if( fBack ){
+	if (fBack){
 		fOffsetBack = fBack;
 	}
-	if( fOpposite ){
+	if (fOpposite){
 		fOffsetOpposite = fOpposite;
 	}
 
-	if( -fOffsetBack < ( fObjZ - fPlayerZ ) ){
-		if( ( fObjZ - fPlayerZ ) < fOffsetOpposite ){
+	if (-fOffsetBack < (fObjZ - fPlayerZ)){
+		if ((fObjZ - fPlayerZ) < fOffsetOpposite){
 			return true;
 		}
 	}
@@ -2561,57 +2265,30 @@ bool clsMain::isCutOutForMove( float fPlayerZ, float fObjZ, float fBack, float f
 	return false;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void clsMain::StageSet()
 {
 	StagePatarunSet tmp;
-	if ( !m_vStageDataPatarnSet.empty() )
+	if (!m_vStageDataPatarnSet.empty())
 	{
 		m_vStageDataPatarnSet.clear();
 	}
-	for( int i=0; i<m_smpStageData->GetDataArrayNumMax(); i += STAGEPATARUNSETMAX )
+	for (int i = 0; i < m_smpStageData->GetDataArrayNumMax(); i += STAGEPATARUNSETMAX)
 	{
 		m_smpStageData->GetDataArray( &tmp.iWall,		i );
 		m_smpStageData->GetDataArray( &tmp.iFloor,		i + 1 );
 		m_smpStageData->GetDataArray( &tmp.iEnemy,		i + 2 );
 		m_smpStageData->GetDataArray( &tmp.iStepCil,	i + 3 );
-		m_smpStageData->GetDataArray( &tmp.iStepBox,	i + 4 );
-		m_smpStageData->GetDataArray( &tmp.bDoor,		i + 5 );
-		m_smpStageData->GetDataArray( &tmp.iPend,		i + 6 );
-		m_smpStageData->GetDataArray( &tmp.bSpiaFloor,	i + 7 );
-		m_smpStageData->GetDataArray( &tmp.iSpiaWall,	i + 8 );
-		m_smpStageData->GetDataArray( &tmp.bCover,		i + 9 );
-		m_smpStageData->GetDataArray( &tmp.bGoal,		i + 10 );
-		m_smpStageData->GetDataArray( &tmp.bTest,		i + 11 );
+		m_smpStageData->GetDataArray(&tmp.iStepBox, i + 4);
+		m_smpStageData->GetDataArray(&tmp.bDoor, i + 5);
+		m_smpStageData->GetDataArray(&tmp.iPend, i + 6);
+		m_smpStageData->GetDataArray(&tmp.bSpiaFloor, i + 7);
+		m_smpStageData->GetDataArray(&tmp.iSpiaWall, i + 8);
+		m_smpStageData->GetDataArray(&tmp.bCover, i + 9);
+		m_smpStageData->GetDataArray(&tmp.bGoal, i + 10);
+		m_smpStageData->GetDataArray(&tmp.bTest, i + 11);
 
-		m_vStageDataPatarnSet.push_back( tmp );
-	}
+		m_vStageDataPatarnSet.push_back(tmp);
+}
 }
 
 void clsMain::StageModelSet()
@@ -2623,20 +2300,20 @@ void clsMain::StageModelSet()
 	StageSet();
 
 	//パーツの番号振り用.
-	int StageWallNum             = 0;
-	int StageFloorNum            = 0;
-	int StageEnemyNum            = 0;
+	int StageWallNum = 0;
+	int StageFloorNum = 0;
+	int StageEnemyNum = 0;
 	int StageMoveFloorViticulNum = 0;
-	int StageMoveFloorSideNum    = 0;
-	int StageDoarNum             = 0;
-	int StagePendNum             = 0;
-	int StageSpearFloorNum       = 0;
-	int StageSpearWallNum        = 0;
-	int StageCoverNum            = 0;
-	int StageGoalNum             = 0;
-	int	CeilingNum	             = 0;
-	int	StageTestStNum           = 0;
-	int	StageTestSkNum           = 0;
+	int StageMoveFloorSideNum = 0;
+	int StageDoarNum = 0;
+	int StagePendNum = 0;
+	int StageSpearFloorNum = 0;
+	int StageSpearWallNum = 0;
+	int StageCoverNum = 0;
+	int StageGoalNum = 0;
+	int	CeilingNum = 0;
+	int	StageTestStNum = 0;
+	int	StageTestSkNum = 0;
 
 #ifdef Tahara
 	bool bCilBig = true;
@@ -2645,21 +2322,21 @@ void clsMain::StageModelSet()
 	StageDetatchModelSet();
 
 	//リソースステージ.
-	m_iStageDataMax = m_smpStageData->GetDataArrayNumMax()/STAGEPATARUNSETMAX;
+	m_iStageDataMax = m_smpStageData->GetDataArrayNumMax() / STAGEPATARUNSETMAX;
 	m_iStageDataMaxMax = m_iStageDataMax;
 
 	//ステージのﾎﾟｲﾝﾀの配列を作る.
-	for( int StageNum = 0; StageNum < m_iStageDataMaxMax; StageNum++ )
+	for (int StageNum = 0; StageNum < m_iStageDataMaxMax; StageNum++)
 	{
 		//規定のステージでのポジと大きさ.
-		D3DXVECTOR3 SetPos( 0.0f, 0.0f, 1.0f+( StageNum * 1.0f ) );
+		D3DXVECTOR3 SetPos(0.0f, 0.0f, 1.0f + (StageNum * 1.0f));
 		float SetScale = 1.0f;
 
 		//落とし穴の蓋の作成.
-		if ( m_vStageDataPatarnSet[StageNum].bCover)
+		if (m_vStageDataPatarnSet[StageNum].bCover)
 		{
-			m_vsmpCoverMgr.push_back( make_unique<clsCoverMgr>() );
-			m_vsmpCoverMgr[StageCoverNum]->CreateCover( m_hWnd, StageCoverNum );
+			m_vsmpCoverMgr.push_back(make_unique<clsCoverMgr>());
+			m_vsmpCoverMgr[StageCoverNum]->CreateCover(m_hWnd, StageCoverNum);
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
 			m_vsmpCoverMgr[StageCoverNum]->SetPosition(SetPos);
 			m_vsmpCoverMgr[StageCoverNum]->SetScale(SetScale);
@@ -2668,51 +2345,51 @@ void clsMain::StageModelSet()
 		}
 
 		//敵作成.
-		if ( m_vStageDataPatarnSet[StageNum].iEnemy > 0)
+		if (m_vStageDataPatarnSet[StageNum].iEnemy > 0)
 		{
-			m_vsmpEnemyMgr.push_back( make_unique<clsEnemyMgr>() );
-			m_vsmpEnemyMgr[StageEnemyNum]->CreateEnemy( m_hWnd, m_pDevice, m_pDeviceContext,
-				m_vStageDataPatarnSet[StageNum].iEnemy, StageEnemyNum );
+			m_vsmpEnemyMgr.push_back(make_unique<clsEnemyMgr>());
+			m_vsmpEnemyMgr[StageEnemyNum]->CreateEnemy(m_hWnd, m_pDevice, m_pDeviceContext,
+				m_vStageDataPatarnSet[StageNum].iEnemy, StageEnemyNum);
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-			m_vsmpEnemyMgr[StageEnemyNum]->SetPosition( SetPos );
-			m_vsmpEnemyMgr[StageEnemyNum]->SetScale( SetScale );
+			m_vsmpEnemyMgr[StageEnemyNum]->SetPosition(SetPos);
+			m_vsmpEnemyMgr[StageEnemyNum]->SetScale(SetScale);
 			StageEnemyNum++;
 		}
 
 		//縦移動の丸床作成.
-		if ( m_vStageDataPatarnSet[StageNum].iStepCil != 0)
+		if (m_vStageDataPatarnSet[StageNum].iStepCil != 0)
 		{
 			{
 #ifdef Tahara
 				//動きの初期化用.
 				bool bInitCil = true;
-				if( m_vStageDataPatarnSet[StageNum].iStepCil < 0 ){
+				if (m_vStageDataPatarnSet[StageNum].iStepCil < 0){
 					bInitCil = false;
 					m_vStageDataPatarnSet[StageNum].iStepCil *= -1;//逆向きの証のマイナスはここで外す.
 				}
 #endif//#ifdef Tahara
-				m_vsmpStepCil.push_back( make_unique<clsStepCyl>() );
-				m_vsmpStepCil[StageMoveFloorViticulNum]->SetPosition( SetPos );
+				m_vsmpStepCil.push_back(make_unique<clsStepCyl>());
+				m_vsmpStepCil[StageMoveFloorViticulNum]->SetPosition(SetPos);
 #ifdef Tahara
-				if( bCilBig ){
-					m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_STEP_CIL_BIG ) );
+				if (bCilBig){
+					m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_STEP_CIL_BIG));
 					bCilBig = false;
 				}
 				else{
-					m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_STEP_CIL ) );
+					m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_STEP_CIL));
 				}
 #else
-				m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_STEP_CIL ) );
+				m_vsmpStepCil[StageMoveFloorViticulNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_STEP_CIL));
 #endif//#ifdef Tahara
-				m_vsmpStepCil[StageMoveFloorViticulNum]->SetPositionX( (float)m_vStageDataPatarnSet[StageNum].iStepCil - STAGE_WIDHT / 2.0f );
-				m_vsmpStepCil[StageMoveFloorViticulNum]->SetScale( SetScale );
-				m_vsmpStepCil[StageMoveFloorViticulNum]->CreateMove( bInitCil );
+				m_vsmpStepCil[StageMoveFloorViticulNum]->SetPositionX((float)m_vStageDataPatarnSet[StageNum].iStepCil - STAGE_WIDHT / 2.0f);
+				m_vsmpStepCil[StageMoveFloorViticulNum]->SetScale(SetScale);
+				m_vsmpStepCil[StageMoveFloorViticulNum]->CreateMove(bInitCil);
 				StageMoveFloorViticulNum++;
 			}
 		}
 		if (m_vStageDataPatarnSet[StageNum].iWall > 0)
 		{
-			m_vsmpWall.push_back( make_unique<clsWall>() );
+			m_vsmpWall.push_back(make_unique<clsWall>());
 			int ResauseModelNum;
 			ResauseModelNum = m_vStageDataPatarnSet[StageNum].iWall;
 			ResauseModelNum = ResauseModelNum + iWallModelNumZero;
@@ -2726,7 +2403,7 @@ void clsMain::StageModelSet()
 		//床作成.
 		if (m_vStageDataPatarnSet[StageNum].iFloor > 0)//csvから～.
 		{
-			m_vsmpFloor.push_back( make_unique<clsFloor>() );
+			m_vsmpFloor.push_back(make_unique<clsFloor>());
 			int ResauseModelNum;
 			ResauseModelNum = m_vStageDataPatarnSet[StageNum].iFloor;
 			ResauseModelNum = ResauseModelNum + iFloorModelNumZero;
@@ -2738,101 +2415,100 @@ void clsMain::StageModelSet()
 		}
 
 		//横移動の四角床作成.
-		if ( m_vStageDataPatarnSet[StageNum].iStepBox > 0 )
+		if (m_vStageDataPatarnSet[StageNum].iStepBox > 0)
 		{
 			//右か左か、西か東か.
 			bool bRight = false;
 			bool bEast = false;
 			//2より大きいならなら左.
-			if( m_vStageDataPatarnSet[StageNum].iStepBox > 2 ){
+			if (m_vStageDataPatarnSet[StageNum].iStepBox > 2){
 				bRight = true;
 			}
 			//奇数なら.//東へ.
-			if( m_vStageDataPatarnSet[StageNum].iStepBox % 2 ){
+			if (m_vStageDataPatarnSet[StageNum].iStepBox % 2){
 				bEast = true;
 			}
-			m_vsmpStepBox.push_back( make_unique<clsStepBox>() );
-			m_vsmpStepBox[StageMoveFloorSideNum]->SetPosition( SetPos );
-			m_vsmpStepBox[StageMoveFloorSideNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_STEP_BOX ) );
-			m_vsmpStepBox[StageMoveFloorSideNum]->CreateMove( bRight, bEast );
-			m_vsmpStepBox[StageMoveFloorSideNum]->SetScale( SetScale );
+			m_vsmpStepBox.push_back(make_unique<clsStepBox>());
+			m_vsmpStepBox[StageMoveFloorSideNum]->SetPosition(SetPos);
+			m_vsmpStepBox[StageMoveFloorSideNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_STEP_BOX));
+			m_vsmpStepBox[StageMoveFloorSideNum]->CreateMove(bRight, bEast);
+			m_vsmpStepBox[StageMoveFloorSideNum]->SetScale(SetScale);
 			StageMoveFloorSideNum++;
 		}
 
 		//ドアの作成.
-		if ( m_vStageDataPatarnSet[StageNum].bDoor )
+		if (m_vStageDataPatarnSet[StageNum].bDoor)
 		{
-			m_vsmpDoorMgr.push_back( make_unique<clsDoorMgr>() );
-			m_vsmpDoorMgr[StageDoarNum]->Create( m_hWnd, m_pDevice, m_pDeviceContext, StageDoarNum );
+			m_vsmpDoorMgr.push_back(make_unique<clsDoorMgr>());
+			m_vsmpDoorMgr[StageDoarNum]->Create(m_hWnd, m_pDevice, m_pDeviceContext, StageDoarNum);
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-			m_vsmpDoorMgr[StageDoarNum]->SetPosition( SetPos );
-			m_vsmpDoorMgr[StageDoarNum]->SetScale( SetScale );
+			m_vsmpDoorMgr[StageDoarNum]->SetPosition(SetPos);
+			m_vsmpDoorMgr[StageDoarNum]->SetScale(SetScale);
 			StageDoarNum++;
 		}
 
 		//ペンデュラムの作成.
-		if ( m_vStageDataPatarnSet[StageNum].iPend > 0 )
+		if (m_vStageDataPatarnSet[StageNum].iPend > 0)
 		{
-			m_vsmpPend.push_back( make_unique<clsPend>() );
-			m_vsmpPend[StagePendNum]->Create( m_hWnd, StagePendNum, m_vStageDataPatarnSet[StageNum].iPend );
-			m_vsmpPend[StagePendNum]->AttachModel( m_pResource->GetSkinModels( m_pResource->enSK_MODEL_PENDULUM ) );
+			m_vsmpPend.push_back(make_unique<clsPend>());
+			m_vsmpPend[StagePendNum]->Create(m_hWnd, StagePendNum, m_vStageDataPatarnSet[StageNum].iPend);
+			m_vsmpPend[StagePendNum]->AttachModel(m_pResource->GetSkinModels(m_pResource->enSK_MODEL_PENDULUM));
 			m_vsmpPend[StagePendNum]->Init();
 			m_vsmpPend[StagePendNum]->SetPosition( SetPos );
 			m_vsmpPend[StagePendNum]->SetPositionY( PENDPOSY );
-			m_vsmpPend[StagePendNum]->SetScale( SetScale );
+			m_vsmpPend[StagePendNum]->SetScale(SetScale);
 			StagePendNum++;
 		}
 
 		//槍床の作成.
-		if ( m_vStageDataPatarnSet[StageNum].bSpiaFloor )
+		if (m_vStageDataPatarnSet[StageNum].bSpiaFloor)
 		{
-			m_vsmpSpiaFloorMgr.push_back( make_unique<clsSpiaFlorMgr>() );
-			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->CreateSpia( m_hWnd, StageSpearFloorNum );
+			m_vsmpSpiaFloorMgr.push_back(make_unique<clsSpiaFlorMgr>());
+			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->CreateSpia(m_hWnd, StageSpearFloorNum);
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetPosition( SetPos );
-			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetScale( SetScale );
+			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetPosition(SetPos);
+			m_vsmpSpiaFloorMgr[StageSpearFloorNum]->SetScale(SetScale);
 			StageSpearFloorNum++;
 		}
 
 		//槍壁の作成.
-		if ( m_vStageDataPatarnSet[StageNum].iSpiaWall )
+		if (m_vStageDataPatarnSet[StageNum].iSpiaWall)
 		{
-			m_vsmpSpiaWallMgr.push_back( make_unique<clsSpiaWallMgr>() );
-			m_vsmpSpiaWallMgr[StageSpearWallNum]->CreateSpia( m_hWnd, StageSpearWallNum, m_vStageDataPatarnSet[StageNum].iSpiaWall );
+			m_vsmpSpiaWallMgr.push_back(make_unique<clsSpiaWallMgr>());
+			m_vsmpSpiaWallMgr[StageSpearWallNum]->CreateSpia(m_hWnd, StageSpearWallNum, m_vStageDataPatarnSet[StageNum].iSpiaWall);
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetPosition( SetPos );
-			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetScale( SetScale );
+			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetPosition(SetPos);
+			m_vsmpSpiaWallMgr[StageSpearWallNum]->SetScale(SetScale);
 			StageSpearWallNum++;
 		}
 
-
 		//ゴールの作成.
-		if ( m_vStageDataPatarnSet[StageNum].bGoal )
+		if (m_vStageDataPatarnSet[StageNum].bGoal)
 		{
-			m_vsmpGoalMgr.push_back( make_unique<clsGoalMgr>() );
+			m_vsmpGoalMgr.push_back(make_unique<clsGoalMgr>());
 			//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-			m_vsmpGoalMgr[StageGoalNum]->Create( m_hWnd, m_pDevice, m_pDeviceContext );
-			m_vsmpGoalMgr[StageGoalNum]->SetPosition( SetPos );
-			m_vsmpGoalMgr[StageGoalNum]->SetScale( SetScale );
+			m_vsmpGoalMgr[StageGoalNum]->Create(m_hWnd, m_pDevice, m_pDeviceContext);
+			m_vsmpGoalMgr[StageGoalNum]->SetPosition(SetPos);
+			m_vsmpGoalMgr[StageGoalNum]->SetScale(SetScale);
 			StageGoalNum++;
 		}
 
 		//屋根の作成.
-		m_vsmpCeiling.push_back( make_unique<clsCharaStatic>() );
+		m_vsmpCeiling.push_back(make_unique<clsCharaStatic>());
 		//ﾓﾃﾞﾙﾃﾞｰﾀ関連付けはマネージャー側でやるのでフヨウラ.
-		m_vsmpCeiling[CeilingNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_CEILING ) );
-		m_vsmpCeiling[CeilingNum]->SetPosition( SetPos );
-		m_vsmpCeiling[CeilingNum]->AddPositionY( 7.0f );	//壁と合わせるため.
-		m_vsmpCeiling[CeilingNum]->SetScale( SetScale );
+		m_vsmpCeiling[CeilingNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_CEILING));
+		m_vsmpCeiling[CeilingNum]->SetPosition(SetPos);
+		m_vsmpCeiling[CeilingNum]->AddPositionY(7.0f);	//壁と合わせるため.
+		m_vsmpCeiling[CeilingNum]->SetScale(SetScale);
 		CeilingNum++;
 
 		//テストモデル用.
-		if ( m_vStageDataPatarnSet[StageNum].bTest )
+		if (m_vStageDataPatarnSet[StageNum].bTest)
 		{
-			m_vsmpTest.push_back( make_unique<clsCharaStatic>() );
-			m_vsmpTest[StageTestStNum]->AttachModel( m_pResource->GetStaticModels( m_pResource->enST_MODEL_TEST ) );
-			m_vsmpTest[StageTestStNum]->SetPosition( SetPos );
-			m_vsmpTest[StageTestStNum]->SetScale( SetScale );
+			m_vsmpTest.push_back(make_unique<clsCharaStatic>());
+			m_vsmpTest[StageTestStNum]->AttachModel(m_pResource->GetStaticModels(m_pResource->enST_MODEL_TEST));
+			m_vsmpTest[StageTestStNum]->SetPosition(SetPos);
+			m_vsmpTest[StageTestStNum]->SetScale(SetScale);
 			StageTestStNum++;
 		}
 	}
@@ -2841,99 +2517,99 @@ void clsMain::StageModelSet()
 void clsMain::StageDetatchModelSet()
 {
 	//壁紐づけ解除.
-	if(!m_vsmpWall.empty())
+	if (!m_vsmpWall.empty())
 	{
-		for ( int i = 0; i < m_vsmpWall.size(); i++ )
+		for (int i = 0; i < m_vsmpWall.size(); i++)
 		{
 			m_vsmpWall[i]->DetatchModel();
 		}
 		m_vsmpWall.clear();
 	}
 	//床紐づけ解除.
-	if(!m_vsmpFloor.empty())
+	if (!m_vsmpFloor.empty())
 	{
-		for ( int i = 0; i<m_vsmpFloor.size(); i++ )
+		for (int i = 0; i < m_vsmpFloor.size(); i++)
 		{
 			m_vsmpFloor[i]->DetatchModel();
 		}
 		m_vsmpFloor.clear();
 	}
 	//敵紐づけ解除.
-	if(!m_vsmpEnemyMgr.empty())
+	if (!m_vsmpEnemyMgr.empty())
 	{
-		for ( int i = 0; i< m_vsmpEnemyMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpEnemyMgr.size(); i++)
 		{
 			m_vsmpEnemyMgr[i]->DetatchModel();
 		}
 		m_vsmpEnemyMgr.clear();
 	}
 	//移動床丸紐づけ解除.
-	if(!m_vsmpStepCil.empty())
+	if (!m_vsmpStepCil.empty())
 	{
-		for ( int i = 0; i<m_vsmpStepCil.size(); i++ )
+		for (int i = 0; i < m_vsmpStepCil.size(); i++)
 		{
 			m_vsmpStepCil[i]->DetatchModel();
 		}
 		m_vsmpStepCil.clear();
 	}
 	//移動床四角紐づけ解除.
-	if(!m_vsmpStepBox.empty())
+	if (!m_vsmpStepBox.empty())
 	{
-		for (int i = 0; i< m_vsmpStepBox.size(); i++)
+		for (int i = 0; i < m_vsmpStepBox.size(); i++)
 		{
 			m_vsmpStepBox[i]->DetatchModel();
 		}
 		m_vsmpStepBox.clear();
 	}
 	//ペンデュラム紐づけ解除.
-	if(!m_vsmpPend.empty())
+	if (!m_vsmpPend.empty())
 	{
-		for (int i = 0; i < m_vsmpPend.size(); i++ )
+		for (int i = 0; i < m_vsmpPend.size(); i++)
 		{
 			m_vsmpPend[i]->DetatchModel();
 		}
 		m_vsmpPend.clear();
 	}
 	//ドア紐づけ解除.
-	if(!m_vsmpDoorMgr.empty())
+	if (!m_vsmpDoorMgr.empty())
 	{
-		for (int i = 0; i < m_vsmpDoorMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpDoorMgr.size(); i++)
 		{
 			m_vsmpDoorMgr[i]->DetatchModel();
 		}
 		m_vsmpDoorMgr.clear();
 	}
 	//床槍紐づけ解除.
-	if(!m_vsmpSpiaFloorMgr.empty())
+	if (!m_vsmpSpiaFloorMgr.empty())
 	{
-		for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++)
 		{
 			m_vsmpSpiaFloorMgr[i]->DetatchModel();
 		}
 		m_vsmpSpiaFloorMgr.clear();
 	}
 	//壁槍紐づけ解除.
-	if(!m_vsmpSpiaWallMgr.empty())
+	if (!m_vsmpSpiaWallMgr.empty())
 	{
-		for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++)
 		{
 			m_vsmpSpiaWallMgr[i]->DetatchModel();
 		}
 		m_vsmpSpiaWallMgr.clear();
 	}
 	//落とし穴の蓋紐づけ解除.
-	if(!m_vsmpCoverMgr.empty())
+	if (!m_vsmpCoverMgr.empty())
 	{
-		for (int i = 0; i < m_vsmpCoverMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpCoverMgr.size(); i++)
 		{
 			m_vsmpCoverMgr[i]->DetatchModel();
 		}
 		m_vsmpCoverMgr.clear();
 	}
 	//ゴール紐づけ解除.
-	if(!m_vsmpGoalMgr.empty())
+	if (!m_vsmpGoalMgr.empty())
 	{
-		for (int i = 0; i < m_vsmpGoalMgr.size(); i++ )
+		for (int i = 0; i < m_vsmpGoalMgr.size(); i++)
 		{
 			m_vsmpGoalMgr[i]->DetatchModel();
 		}
@@ -2941,9 +2617,9 @@ void clsMain::StageDetatchModelSet()
 	}
 
 	//屋根紐づけ解除.
-	if(!m_vsmpCeiling.empty())
+	if (!m_vsmpCeiling.empty())
 	{
-		for (int i = 0; i < m_vsmpCeiling.size(); i++ )
+		for (int i = 0; i < m_vsmpCeiling.size(); i++)
 		{
 			m_vsmpCeiling[i]->DetatchModel();
 		}
@@ -2951,29 +2627,28 @@ void clsMain::StageDetatchModelSet()
 	}
 
 	//モデルテスト紐づけ解除.
-	if(!m_vsmpTest.empty())
+	if (!m_vsmpTest.empty())
 	{
-		for ( int i=0; i<m_vsmpTest.size(); i++ )
+		for (int i = 0; i < m_vsmpTest.size(); i++)
 		{
 			m_vsmpTest[i]->DetatchModel();
 		}
 		m_vsmpTest.clear();
 	}
-
 }
 
-void clsMain::StageModelSetErrMsg( int StageNum, const char* ERR_MSG )
+void clsMain::StageModelSetErrMsg(int StageNum, const char* ERR_MSG)
 {
 	string ErrMsg;
 	stringstream ss;	//変換用.
-	ErrMsg = ERR_MSG ;
+	ErrMsg = ERR_MSG;
 	ErrMsg += "\n";
-	ss << StageNum+1;
+	ss << StageNum + 1;
 	ErrMsg += ss.str();
 	ErrMsg += "行目";
-	ERR_MSG( ErrMsg.c_str(), "Csvの配置エラー" );
-	ss.str( "" ); // バッファをクリアする.
-	ss.clear( stringstream::goodbit );// ストリームの状態をクリアする。この行がないと意図通りに動作しない.
+	ERR_MSG(ErrMsg.c_str(), "Csvの配置エラー");
+	ss.str(""); // バッファをクリアする.
+	ss.clear(stringstream::goodbit);// ストリームの状態をクリアする。この行がないと意図通りに動作しない.
 }
 
 void clsMain::SceneTitle()
@@ -2981,60 +2656,60 @@ void clsMain::SceneTitle()
 	//カメラの最終地点.
 	const D3DXVECTOR3 vCAM_GO_MAIN_TARGET = m_pPlayer->GetPosition() + vCAMERA_INIT_OFFSET;
 	const float fLOOK_GO_MAIN_TARGET_Y = 3.0625f;
-	const D3DXVECTOR3 vLOOK_GO_MAIN_TARGET = {  vCAM_GO_MAIN_TARGET.x,
-												fLOOK_GO_MAIN_TARGET_Y,
-												vCAM_GO_MAIN_TARGET.z + fLOOK_OFFSET_Z };
+	const D3DXVECTOR3 vLOOK_GO_MAIN_TARGET = { vCAM_GO_MAIN_TARGET.x,
+		fLOOK_GO_MAIN_TARGET_Y,
+		vCAM_GO_MAIN_TARGET.z + fLOOK_OFFSET_Z };
 
 	//ループ.
-	if( m_pBgm[enBGM_TITLE]->IsStopped() ){
+	if (m_pBgm[enBGM_TITLE]->IsStopped()){
 		m_pBgm[enBGM_TITLE]->SeekToStart();
-		m_pBgm[enBGM_TITLE]->Play( true );
+		m_pBgm[enBGM_TITLE]->Play(true);
 	}
 
-//	//テスト.
-//		if( GetAsyncKeyState( 'Y' ) & 0x8000 ) m_Camera.vLook.y += 0.05f;
-//		if( GetAsyncKeyState( 'H' ) & 0x8000 ) m_Camera.vLook.y -= 0.05f;
-//		if( GetAsyncKeyState( 'J' ) & 0x8000 ) m_Camera.vLook.x += 0.05f;
-//		if( GetAsyncKeyState( 'G' ) & 0x8000 ) m_Camera.vLook.x -= 0.05f;
-//		if( GetAsyncKeyState( 'U' ) & 0x8000 ) m_Camera.vLook.z += 0.05f;
-//		if( GetAsyncKeyState( 'T' ) & 0x8000 ) m_Camera.vLook.z -= 0.05f;
-//
-//		if( GetAsyncKeyState( 'W' ) & 0x8000 ) m_Camera.vEye.y += 0.05f;
-//		if( GetAsyncKeyState( 'S' ) & 0x8000 ) m_Camera.vEye.y -= 0.05f;
-//		if( GetAsyncKeyState( 'D' ) & 0x8000 ) m_Camera.vEye.x += 0.05f;
-//		if( GetAsyncKeyState( 'A' ) & 0x8000 ) m_Camera.vEye.x -= 0.05f;
-//		if( GetAsyncKeyState( 'E' ) & 0x8000 ) m_Camera.vEye.z += 0.05f;
-//		if( GetAsyncKeyState( 'Q' ) & 0x8000 ) m_Camera.vEye.z -= 0.05f;
-//		if( GetAsyncKeyState( 'W' ) & 0x8000 ) m_Camera.vLook.y += 0.05f;
-//		if( GetAsyncKeyState( 'S' ) & 0x8000 ) m_Camera.vLook.y -= 0.05f;
-//		if( GetAsyncKeyState( 'D' ) & 0x8000 ) m_Camera.vLook.x += 0.05f;
-//		if( GetAsyncKeyState( 'A' ) & 0x8000 ) m_Camera.vLook.x -= 0.05f;
-//		if( GetAsyncKeyState( 'E' ) & 0x8000 ) m_Camera.vLook.z += 0.05f;
-//		if( GetAsyncKeyState( 'Q' ) & 0x8000 ) m_Camera.vLook.z -= 0.05f;
+	//	//テスト.
+	//		if( GetAsyncKeyState( 'Y' ) & 0x8000 ) m_Camera.vLook.y += 0.05f;
+	//		if( GetAsyncKeyState( 'H' ) & 0x8000 ) m_Camera.vLook.y -= 0.05f;
+	//		if( GetAsyncKeyState( 'J' ) & 0x8000 ) m_Camera.vLook.x += 0.05f;
+	//		if( GetAsyncKeyState( 'G' ) & 0x8000 ) m_Camera.vLook.x -= 0.05f;
+	//		if( GetAsyncKeyState( 'U' ) & 0x8000 ) m_Camera.vLook.z += 0.05f;
+	//		if( GetAsyncKeyState( 'T' ) & 0x8000 ) m_Camera.vLook.z -= 0.05f;
+	//
+	//		if( GetAsyncKeyState( 'W' ) & 0x8000 ) m_Camera.vEye.y += 0.05f;
+	//		if( GetAsyncKeyState( 'S' ) & 0x8000 ) m_Camera.vEye.y -= 0.05f;
+	//		if( GetAsyncKeyState( 'D' ) & 0x8000 ) m_Camera.vEye.x += 0.05f;
+	//		if( GetAsyncKeyState( 'A' ) & 0x8000 ) m_Camera.vEye.x -= 0.05f;
+	//		if( GetAsyncKeyState( 'E' ) & 0x8000 ) m_Camera.vEye.z += 0.05f;
+	//		if( GetAsyncKeyState( 'Q' ) & 0x8000 ) m_Camera.vEye.z -= 0.05f;
+	//		if( GetAsyncKeyState( 'W' ) & 0x8000 ) m_Camera.vLook.y += 0.05f;
+	//		if( GetAsyncKeyState( 'S' ) & 0x8000 ) m_Camera.vLook.y -= 0.05f;
+	//		if( GetAsyncKeyState( 'D' ) & 0x8000 ) m_Camera.vLook.x += 0.05f;
+	//		if( GetAsyncKeyState( 'A' ) & 0x8000 ) m_Camera.vLook.x -= 0.05f;
+	//		if( GetAsyncKeyState( 'E' ) & 0x8000 ) m_Camera.vLook.z += 0.05f;
+	//		if( GetAsyncKeyState( 'Q' ) & 0x8000 ) m_Camera.vLook.z -= 0.05f;
 
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
-	GETKEY_DOWN( 'Z' ) bPushEnter = true;
-	GETKEY_DOWN( 'A' ) bPushEnter = true;
+	if (m_pXInput->IsPressEnter(XINPUT_GAMEPAD_A))bPushEnter = true;
+	GETKEY_DOWN('Z') bPushEnter = true;
+	GETKEY_DOWN('A') bPushEnter = true;
 
 	//モード.
-	switch( m_enTitleSceneMode )
+	switch (m_enTitleSceneMode)
 	{
-	case en_TSM_IDLE:
-		//暗転中ではない.
-		if( m_smpUiManagar->GetBlackIdle() ){
-			//破壊開始.
-			if( bPushEnter ){
-				m_enTitleSceneMode = en_TSM_BREAK_DOOR;
-				m_pSe[enSe_EXIT]->SeekPlay();
+		case en_TSM_IDLE:
+			//暗転中ではない.
+			if (m_smpUiManagar->GetBlackIdle()){
+				//破壊開始.
+				if (bPushEnter){
+					m_enTitleSceneMode = en_TSM_BREAK_DOOR;
+					m_pSe[enSe_EXIT]->SeekPlay();
+				}
 			}
-		}
-		break;
-	case en_TSM_BREAK_DOOR:
+			break;
+		case en_TSM_BREAK_DOOR:
 		{
 			//カメラ追いかける.
-			if( Stoker( m_Camera.vEye, vCAM_GO_MAIN_TARGET ) &&
-				Stoker( m_Camera.vLook, vLOOK_GO_MAIN_TARGET ) )
+			if (Stoker(m_Camera.vEye, vCAM_GO_MAIN_TARGET) &&
+				Stoker(m_Camera.vLook, vLOOK_GO_MAIN_TARGET))
 			{
 				//追いかけ終わったら.
 				m_enTitleSceneMode = en_TSM_GO_MAIN;
@@ -3043,123 +2718,119 @@ void clsMain::SceneTitle()
 			m_pPlayer->MoveTitleScene();
 
 			//ドア蹴破り.
-			if( m_pPlayer->GetAttackImpact() ){
+			if (m_pPlayer->GetAttackImpact()){
 				//壊れてないとき.
-				if( !m_vsmpDoorMgr[0]->GetDoorBroken() ){
+				if (!m_vsmpDoorMgr[0]->GetDoorBroken()){
 					//タイトル透過.
-					m_smpUiManagar->SetTitleTransFlg( true );
+					m_smpUiManagar->SetTitleTransFlg(true);
 					//キックの範囲.
-					if( m_pCollision->HitSect(
+					if (m_pCollision->HitSect(
 						m_pPlayer->GetPointerSubCol(),
-						m_vsmpDoorMgr[0]->GetDoorHitColPointer() ) )
+						m_vsmpDoorMgr[0]->GetDoorHitColPointer()))
 					{
 						//メインの上のテキストを下に落とす.
 						m_smpUiManagar->TopMainTxtMoveStart();
 						//ドアの破壊と復活位置更新.
-						m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[0]->DoorBreak() );
+						m_pPlayer->UpdateReSpawnPos(m_vsmpDoorMgr[0]->DoorBreak());
 						//振動.
-						m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
-						m_pXInput->SetVibPowerR( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
+						m_pXInput->SetVibPowerL(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
+						m_pXInput->SetVibPowerR(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
 						break;
 					}
 				}
 			}
 			//床.
 			bool bGroundFlg = false;
-			m_vsmpDoorMgr[0]->Move( m_pPlayer->GetPositionZ() );
-			for( int i=0; i<m_vsmpFloor.size(); i++ ){
-				if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ() ) ){
-					if( m_pCollision->FloorJudge(
+			m_vsmpDoorMgr[0]->Move(m_pPlayer->GetPositionZ());
+			for (int i = 0; i < m_vsmpFloor.size(); i++){
+				if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ())){
+					if (m_pCollision->FloorJudge(
 						m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 						m_vsmpFloor[i].get(),
-						bGroundFlg ) )
+						bGroundFlg))
 					{
 						//breakしないと別の床の情報に上書きされる.
 						break;
 					}
 				}
 			}
-			m_pPlayer->SetGroundFlg( bGroundFlg );
+			m_pPlayer->SetGroundFlg(bGroundFlg);
 		}
 		break;
-	case en_TSM_GO_MAIN:
-		//メインへ.
-		InitMain( true );
-		m_enTitleSceneMode = en_TSM_IDLE;
-		break;
-	default:
-		m_enTitleSceneMode = en_TSM_GO_MAIN;
-		break;
+		case en_TSM_GO_MAIN:
+			//メインへ.
+			InitMain(true);
+			m_enTitleSceneMode = en_TSM_IDLE;
+			break;
+		default:
+			m_enTitleSceneMode = en_TSM_GO_MAIN;
+			break;
 	}
-
-
 }
 
 void clsMain::SceneMain()
 {
 	//ループ.
-	if( m_pBgm[enBGM_MAIN]->IsStopped() ){
+	if (m_pBgm[enBGM_MAIN]->IsStopped()){
 		m_pBgm[enBGM_MAIN]->SeekToStart();
-		m_pBgm[enBGM_MAIN]->Play( true );
+		m_pBgm[enBGM_MAIN]->Play(true);
 	}
 
 	//----- 自機 -----//.
-	m_pPlayer->Input( m_pXInput );
+	m_pPlayer->Input(m_pXInput);
 
-	m_pPlayer->Move( GetEar() );
+	m_pPlayer->Move(GetEar());
 
 	//手前ガード.
-	if( m_pPlayer->GetPositionZ() < fPLAYER_BACK_LIMIT ){
-		m_pPlayer->SetPositionZ( fPLAYER_BACK_LIMIT );
+	if (m_pPlayer->GetPositionZ() < fPLAYER_BACK_LIMIT){
+		m_pPlayer->SetPositionZ(fPLAYER_BACK_LIMIT);
 	}
 	//壁.
-	if( m_pPlayer->GetPositionX() > fWALL_HIT_RANGE ){
-		m_pPlayer->SetPositionX( fWALL_HIT_RANGE );
+	if (m_pPlayer->GetPositionX() > fWALL_HIT_RANGE){
+		m_pPlayer->SetPositionX(fWALL_HIT_RANGE);
 	}
-	else if( m_pPlayer->GetPositionX() < -fWALL_HIT_RANGE ){
-		m_pPlayer->SetPositionX( -fWALL_HIT_RANGE );
+	else if (m_pPlayer->GetPositionX() < -fWALL_HIT_RANGE){
+		m_pPlayer->SetPositionX(-fWALL_HIT_RANGE);
 	}
-
 
 	//----- ｶﾒﾗ -----//.
 	CameraMgr();
 
 	//----- 耳の位置 -----//.
-	SetEar( m_pPlayer->GetPositionZ(), m_Camera.vEye.z );
-
+	SetEar(m_pPlayer->GetPositionZ(), m_Camera.vEye.z);
 
 	//----- 敵 -----//.
-	for( int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpEnemyMgr.size(); i++){
 		//動く.
-		m_vsmpEnemyMgr[i]->Move( GetEar() );
+		m_vsmpEnemyMgr[i]->Move(GetEar());
 
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpEnemyMgr[i]->GetPositionZ() ) ){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpEnemyMgr[i]->GetPositionZ())){
 			//ﾌﾟﾚｲﾔｰのPosをﾀｰｹﾞｯﾄにｾｯﾄ.
-			m_vsmpEnemyMgr[i]->GetSarchTarget( m_pPlayer->GetPosition() );
+			m_vsmpEnemyMgr[i]->GetSarchTarget(m_pPlayer->GetPosition());
 
 			//敵のあたり判定.
-			for( int j=0; j<m_vsmpEnemyMgr[i]->GetEnemyMax(); j++ )
+			for (int j = 0; j < m_vsmpEnemyMgr[i]->GetEnemyMax(); j++)
 			{
 				//敵がやられていたら判定しない.
-				if( m_vsmpEnemyMgr[i]->GetEnemyMove( j ) != clsEnemy::enEM_DEATH ){
+				if (m_vsmpEnemyMgr[i]->GetEnemyMove(j) != clsEnemy::enEM_DEATH){
 					//自機が生きてるとき.
-					if( !m_pPlayer->GetDead() ){
+					if (!m_pPlayer->GetDead()){
 						//===== いつでも動いているあたり判定 =====//.
 						//自機から敵への攻撃.
 						//攻撃中.
-						if( m_pPlayer->GetAttackImpact() ){
+						if (m_pPlayer->GetAttackImpact()){
 							//かかと落とし中.
-							if( m_pPlayer->isJumpAtk() ){
+							if (m_pPlayer->isJumpAtk()){
 								//降下中.
-								if( m_pPlayer->GetJumpAtkImpact() ){
+								if (m_pPlayer->GetJumpAtkImpact()){
 									//キックの範囲.
-									if( m_pCollision->HitCylind(
+									if (m_pCollision->HitCylind(
 										m_pPlayer->GetPointerSubCol(),
-										m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
+										m_vsmpEnemyMgr[i]->GetPointerEnemyCol(j)))
 									{
-										m_vsmpEnemyMgr[i]->Dead( j );
-										m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
-										m_pXInput->SetVibPowerR( usVIB_KICK_POWER, iVIB_KICK_TIME );
+										m_vsmpEnemyMgr[i]->Dead(j);
+										m_pCollision->PlaySe(clsCollision::enSOUND_ARBIA_KICK);
+										m_pXInput->SetVibPowerR(usVIB_KICK_POWER, iVIB_KICK_TIME);
 										break;
 									}
 								}
@@ -3167,83 +2838,82 @@ void clsMain::SceneMain()
 							//通常キック.
 							else{
 								//キックの範囲.
-								if( m_pCollision->HitSect(
+								if (m_pCollision->HitSect(
 									m_pPlayer->GetPointerSubCol(),
-									m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
+									m_vsmpEnemyMgr[i]->GetPointerEnemyCol(j)))
 								{
-									m_vsmpEnemyMgr[i]->Dead( j );
-									m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
-									m_pXInput->SetVibPowerR( usVIB_KICK_POWER, iVIB_KICK_TIME );
+									m_vsmpEnemyMgr[i]->Dead(j);
+									m_pCollision->PlaySe(clsCollision::enSOUND_ARBIA_KICK);
+									m_pXInput->SetVibPowerR(usVIB_KICK_POWER, iVIB_KICK_TIME);
 									break;
 								}
 							}
 							//敵に接触で敵が死ぬ.
-							if( m_pCollision->HitCylind(
+							if (m_pCollision->HitCylind(
 								m_pPlayer->GetPointerCol(),
-								m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
+								m_vsmpEnemyMgr[i]->GetPointerEnemyCol(j)))
 							{
-								m_vsmpEnemyMgr[i]->Dead( j );
-								m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
-								m_pXInput->SetVibPowerR( usVIB_KICK_POWER, iVIB_KICK_TIME );
+								m_vsmpEnemyMgr[i]->Dead(j);
+								m_pCollision->PlaySe(clsCollision::enSOUND_ARBIA_KICK);
+								m_pXInput->SetVibPowerR(usVIB_KICK_POWER, iVIB_KICK_TIME);
 								break;
 							}
 						}
 						//自機が攻撃中以外.
 						else{
 							//敵に接触で自機が死ぬ.
-							if( m_pCollision->HitCylind(
+							if (m_pCollision->HitCylind(
 								m_pPlayer->GetPointerCol(),
-								m_vsmpEnemyMgr[i]->GetPointerEnemyCol( j ) ) )
+								m_vsmpEnemyMgr[i]->GetPointerEnemyCol(j)))
 							{
 								m_pPlayer->Dead();
-								m_vsmpEnemyMgr[i]->Lost( j );
-								m_pCollision->PlaySe( clsCollision::enSOUND_ENEMY );
+								m_vsmpEnemyMgr[i]->Lost(j);
+								m_pCollision->PlaySe(clsCollision::enSOUND_ENEMY);
 								break;
 							}
 						}
 
-
 						//===== モード別あたり判定 =====//.
-						switch( m_vsmpEnemyMgr[i]->GetEnemyMove( j ) )
+						switch (m_vsmpEnemyMgr[i]->GetEnemyMove(j))
 						{
-						case clsEnemy::enEM_WALK:
-							//自機発見.
-							//範囲内.
-							if( m_pCollision->HitSect(
-								m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
-								m_pPlayer->GetPointerCol() ) )
-							{
-								//敵が見つけれる状態で見つかった時.
-								if( m_vsmpEnemyMgr[i]->Discover( j ) ){
-									//発見情報更新.
-									m_ResUiState.iDisc ++;
-									m_smpUiManagar->SetDisc( m_ResUiState.iDisc );
-								}
-							}
-							break;
-						case clsEnemy::enEM_RUN:
-							//攻撃開始範囲.
-							if( m_pCollision->HitSect(
-								m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
-								m_pPlayer->GetPointerCol() ) )
-							{
-								m_vsmpEnemyMgr[i]->Attack( j );
-							}
-							break;
-						case clsEnemy::enEM_ATK:
-							//攻撃のインパクト(判定のある時間か?).
-							if( m_vsmpEnemyMgr[i]->GetAttackImpact( j ) ){
-								//攻撃範囲.
-								if( m_pCollision->HitSect(
-									m_vsmpEnemyMgr[i]->GetPointerEnemySubCol( j ),
-									m_pPlayer->GetPointerCol() ) )
+							case clsEnemy::enEM_WALK:
+								//自機発見.
+								//範囲内.
+								if (m_pCollision->HitSect(
+									m_vsmpEnemyMgr[i]->GetPointerEnemySubCol(j),
+									m_pPlayer->GetPointerCol()))
 								{
-									m_pPlayer->Dead();
-									m_vsmpEnemyMgr[i]->Win( j );
-									m_pCollision->PlaySe( clsCollision::enSOUND_ENEMY_SRASH );
+									//敵が見つけれる状態で見つかった時.
+									if (m_vsmpEnemyMgr[i]->Discover(j)){
+										//発見情報更新.
+										m_ResUiState.iDisc++;
+										m_smpUiManagar->SetDisc(m_ResUiState.iDisc);
+									}
 								}
-							}
-							break;
+								break;
+							case clsEnemy::enEM_RUN:
+								//攻撃開始範囲.
+								if (m_pCollision->HitSect(
+									m_vsmpEnemyMgr[i]->GetPointerEnemySubCol(j),
+									m_pPlayer->GetPointerCol()))
+								{
+									m_vsmpEnemyMgr[i]->Attack(j);
+								}
+								break;
+							case clsEnemy::enEM_ATK:
+								//攻撃のインパクト(判定のある時間か?).
+								if (m_vsmpEnemyMgr[i]->GetAttackImpact(j)){
+									//攻撃範囲.
+									if (m_pCollision->HitSect(
+										m_vsmpEnemyMgr[i]->GetPointerEnemySubCol(j),
+										m_pPlayer->GetPointerCol()))
+									{
+										m_pPlayer->Dead();
+										m_vsmpEnemyMgr[i]->Win(j);
+										m_pCollision->PlaySe(clsCollision::enSOUND_ENEMY_SRASH);
+									}
+								}
+								break;
 						}
 					}
 				}
@@ -3252,189 +2922,180 @@ void clsMain::SceneMain()
 	}
 	//----- 敵 終わり -----//.
 
-
-
-
 	//----- 床槍 -----//.
-	for( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++){
 		//動き.
-		m_vsmpSpiaFloorMgr[i]->Move( GetEar() );
+		m_vsmpSpiaFloorMgr[i]->Move(GetEar());
 
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaFloorMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpSpiaFloorMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
 			//生きてるとき.
-			if( !m_pPlayer->GetDead() ){
+			if (!m_pPlayer->GetDead()){
 				//槍とのあたり判定.
-				for( int j=0; j<m_vsmpSpiaFloorMgr[i]->GetSpiaMax(); j++ )
+				for (int j = 0; j < m_vsmpSpiaFloorMgr[i]->GetSpiaMax(); j++)
 				{
-					if( m_pCollision->HitCylind(
-						m_vsmpSpiaFloorMgr[i]->GetPointerSpiaCol( j ),
-						m_pPlayer->GetPointerCol() ) )
+					if (m_pCollision->HitCylind(
+						m_vsmpSpiaFloorMgr[i]->GetPointerSpiaCol(j),
+						m_pPlayer->GetPointerCol()))
 					{
 						m_pPlayer->Dead();
-						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
+						m_pCollision->PlaySe(clsCollision::enSOUND_SPIA);
 						break;
 					}
 				}
 			}
 			//自機と槍壁のあたり判定.
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaFloorMgr[i]->GetWallPointer() );
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpSpiaFloorMgr[i]->GetWallPointer());
 		}
 	}
 
-
 	//----- 壁槍 -----//.
-	for ( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++){
 		//動き.
-		m_vsmpSpiaWallMgr[i]->Move( GetEar() );
+		m_vsmpSpiaWallMgr[i]->Move(GetEar());
 
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpSpiaWallMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpSpiaWallMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
 			//生きてるとき.
-			if( !m_pPlayer->GetDead() ){
+			if (!m_pPlayer->GetDead()){
 				//槍とのあたり判定.
-				for( int j=0; j<m_vsmpSpiaWallMgr[i]->GetSpiaMax(); j++ )
+				for (int j = 0; j < m_vsmpSpiaWallMgr[i]->GetSpiaMax(); j++)
 				{
 					//左側.
-					if( m_pCollision->HitBox(
-						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol( false, j ),
-						m_pPlayer->GetPointerCol() ) )
+					if (m_pCollision->HitBox(
+						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol(false, j),
+						m_pPlayer->GetPointerCol()))
 					{
 						m_pPlayer->Dead();
-						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
+						m_pCollision->PlaySe(clsCollision::enSOUND_SPIA);
 						break;
 					}
 					//右側.
-					if( m_pCollision->HitBox(
-						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol( true, j ),
-						m_pPlayer->GetPointerCol() ) )
+					if (m_pCollision->HitBox(
+						m_vsmpSpiaWallMgr[i]->GetPointerSpiaCol(true, j),
+						m_pPlayer->GetPointerCol()))
 					{
 						m_pPlayer->Dead();
-						m_pCollision->PlaySe( clsCollision::enSOUND_SPIA );
+						m_pCollision->PlaySe(clsCollision::enSOUND_SPIA);
 						break;
 					}
 				}
 			}
 
 			//壁.
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallLCol() );
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallRCol() );
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallLCol());
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpSpiaWallMgr[i]->GetWallRCol());
 		}
 	}
 
 	//----- 振り子 -----//.
 	char* cPendBoneName = (char*)PEND_BONE_NAME;//ﾎﾞｰﾝ名.
-	for( int i=0; i<m_vsmpPend.size(); i++ ){
+	for (int i = 0; i < m_vsmpPend.size(); i++){
 		//振り子動き.
-		m_vsmpPend[i]->Move( GetEar() );
+		m_vsmpPend[i]->Move(GetEar());
 		//透過基準設定.
-		m_vsmpPend[i]->SetAlphaFlg( m_pPlayer->GetPositionZ() );
+		m_vsmpPend[i]->SetAlphaFlg(m_pPlayer->GetPositionZ());
 
 		//振り子のあたり判定.
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpPend[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpPend[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
 			//座標ｾｯﾄはﾚﾝﾀﾞｰでやっている（1ﾌﾚｰﾑ遅れるけど許してね）.
-			if( !m_pPlayer->GetDead() ){
+			if (!m_pPlayer->GetDead()){
 				//ﾋｯﾄ.
-				if( m_pCollision->HitBox(
+				if (m_pCollision->HitBox(
 					m_vsmpPend[i]->GetPointerCol(),
-					m_pPlayer->GetPointerCol() ) )
+					m_pPlayer->GetPointerCol()))
 				{
 					m_pPlayer->Dead();
-					m_pCollision->PlaySe( clsCollision::enSOUND_PEND );
+					m_pCollision->PlaySe(clsCollision::enSOUND_PEND);
 					break;
 				}
 			}
 		}
 	}
 
-
-
-
 	//========== 地形とのあたり判定 ==========//.
 
-//	//----- 自機と壁の壁あたり判定 -----//.
-//	for( int i=0; i<m_vpWall.size(); i++ ){
-//		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vpWall[i]->GetPositionZ() ) ){
-//			m_pCollision->WallJudge( m_pPlayer, m_vpWall[i] );
-//		}
-//	}
+	//	//----- 自機と壁の壁あたり判定 -----//.
+	//	for( int i=0; i<m_vpWall.size(); i++ ){
+	//		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vpWall[i]->GetPositionZ() ) ){
+	//			m_pCollision->WallJudge( m_pPlayer, m_vpWall[i] );
+	//		}
+	//	}
 	//----- 自機と床との壁あたり判定 -----//.
-	for( int i=0; i<m_vsmpFloor.size(); i++ ){
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpFloor[i].get() );
+	for (int i = 0; i < m_vsmpFloor.size(); i++){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpFloor[i].get());
 		}
 	}
 	//----- 自機と丸足場の壁あたり判定 -----//.
-	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepCil[i]->GetPositionZ() ) ){
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpStepCil[i].get() );
+	for (int i = 0; i < m_vsmpStepCil.size(); i++){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpStepCil[i]->GetPositionZ())){
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpStepCil[i].get());
 		}
 	}
 	//----- 自機と四角足場の壁あたり判定 -----//.
-	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
-		if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepBox[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpStepBox[i].get() );
+	for (int i = 0; i < m_vsmpStepBox.size(); i++){
+		if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpStepBox[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpStepBox[i].get());
 		}
 	}
 	//----- ゴールの壁あたり判定と動作 -----//.
-	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
-		if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer() );
-			m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer() );
+	for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
+		if ( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1){
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer());
+			m_pCollision->WallJudge(m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer());
 			//蹴破られ.
-			if( m_pPlayer->GetAttackImpact() ){
+			if (m_pPlayer->GetAttackImpact()){
 				//壊れてないとき.
-				if( !m_vsmpGoalMgr[i]->GetBoxOpened() ){
+				if (!m_vsmpGoalMgr[i]->GetBoxOpened()){
 					//キックの範囲.
-					if( m_pCollision->HitSect(
+					if (m_pCollision->HitSect(
 						m_pPlayer->GetPointerSubCol(),
-						m_vsmpGoalMgr[i]->GetBoxHitColPointer() ) )
+						m_vsmpGoalMgr[i]->GetBoxHitColPointer()))
 					{
 						//箱を開ける.
 						m_vsmpGoalMgr[i]->BoxBreak();
 
-						m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
-						m_pXInput->SetVibPowerR( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
+						m_pXInput->SetVibPowerL(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
+						m_pXInput->SetVibPowerR(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
 						break;
 					}
 				}
 			}
-			m_vsmpGoalMgr[i]->Move( GetEar() );
+			m_vsmpGoalMgr[i]->Move(GetEar());
 		}
 	}
 
-
 	//----- 自機と門との壁あたり判定と動作 -----//.
-	for( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
+	for (int i = 0; i < m_vsmpDoorMgr.size(); i++){
 		//壊れてないとき.
-		if( !m_vsmpDoorMgr[i]->GetDoorBroken() ){
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
+		if (!m_vsmpDoorMgr[i]->GetDoorBroken()){
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ())){
 				//扉の壁判定.
-				m_pCollision->WallJudge( m_pPlayer, m_vsmpDoorMgr[i]->GetWallColPointer() );
+				m_pCollision->WallJudge(m_pPlayer, m_vsmpDoorMgr[i]->GetWallColPointer());
 				//蹴破られ.
-				if( m_pPlayer->GetAttackImpact() ){
+				if (m_pPlayer->GetAttackImpact()){
 					//かかと落とし中.
-					if( m_pPlayer->isJumpAtk() ){
+					if (m_pPlayer->isJumpAtk()){
 						//降下中.
-						if( m_pPlayer->GetJumpAtkImpact() ){
+						if (m_pPlayer->GetJumpAtkImpact()){
 							//キックの範囲.
-							if( m_pCollision->HitSect(
+							if (m_pCollision->HitSect(
 								m_pPlayer->GetPointerSubCol(),
-								m_vsmpDoorMgr[i]->GetDoorHitColPointer() ) )
+								m_vsmpDoorMgr[i]->GetDoorHitColPointer()))
 							{
 								//ドアの破壊と復活位置更新.
-								m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[i]->DoorBreak() );
+								m_pPlayer->UpdateReSpawnPos(m_vsmpDoorMgr[i]->DoorBreak());
 								//ドアを破って兵士を倒す.
-								for( int j=0; j<m_vsmpEnemyMgr.size(); j++ ){
+								for (int j = 0; j < m_vsmpEnemyMgr.size(); j++){
 									//ドアで死ぬ人.
-									if( m_vsmpEnemyMgr[j]->GetDoorDeader() ){
-										if( isCutOutForHit( m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
+									if (m_vsmpEnemyMgr[j]->GetDoorDeader()){
+										if (isCutOutForHit(m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ())){
 											m_vsmpEnemyMgr[j]->DoorTimerStart();
-											m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
-
+											m_pCollision->PlaySe(clsCollision::enSOUND_ARBIA_KICK);
 										}
 									}
 								}
-								m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
-								m_pXInput->SetVibPowerR( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
+								m_pXInput->SetVibPowerL(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
+								m_pXInput->SetVibPowerR(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
 								break;
 							}
 						}
@@ -3442,25 +3103,24 @@ void clsMain::SceneMain()
 					//通常攻撃.
 					else{
 						//キックの範囲.
-						if( m_pCollision->HitSect(
+						if (m_pCollision->HitSect(
 							m_pPlayer->GetPointerSubCol(),
-							m_vsmpDoorMgr[i]->GetDoorHitColPointer() ) )
+							m_vsmpDoorMgr[i]->GetDoorHitColPointer()))
 						{
 							//ドアの破壊と復活位置更新.
-							m_pPlayer->UpdateReSpawnPos( m_vsmpDoorMgr[i]->DoorBreak() );
+							m_pPlayer->UpdateReSpawnPos(m_vsmpDoorMgr[i]->DoorBreak());
 							//ドアを破って兵士を倒す.
-							for( int j=0; j<m_vsmpEnemyMgr.size(); j++ ){
+							for (int j = 0; j < m_vsmpEnemyMgr.size(); j++){
 								//ドアで死ぬ人.
-								if( m_vsmpEnemyMgr[j]->GetDoorDeader() ){
-									if( isCutOutForHit( m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
+								if (m_vsmpEnemyMgr[j]->GetDoorDeader()){
+									if (isCutOutForHit(m_vsmpEnemyMgr[j]->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ())){
 										m_vsmpEnemyMgr[j]->DoorTimerStart();
-										m_pCollision->PlaySe( clsCollision::enSOUND_ARBIA_KICK );
-
+										m_pCollision->PlaySe(clsCollision::enSOUND_ARBIA_KICK);
 									}
 								}
 							}
-							m_pXInput->SetVibPowerL( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
-							m_pXInput->SetVibPowerR( usVIB_DOOR_POWER, iVIB_DOOR_TIME );
+							m_pXInput->SetVibPowerL(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
+							m_pXInput->SetVibPowerR(usVIB_DOOR_POWER, iVIB_DOOR_TIME);
 							break;
 						}
 					}
@@ -3469,75 +3129,73 @@ void clsMain::SceneMain()
 		}
 		//壊れている時.
 		else{
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ() ) ){
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpDoorMgr[i]->GetPositionZ())){
 				//最初の門をくぐるとタイマーが動き出す.
-				if( !i ){
-					if( m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ() ){
-						m_smpUiManagar->SetTimerStop( false );
+				if (!i){
+					if (m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ()){
+						m_smpUiManagar->SetTimerStop(false);
 					}
 				}
 				//二つめの門をくぐるとアクション説明が引っ込む.
-				else if( i == 1 ){
-					if( m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ() ){
+				else if (i == 1){
+					if (m_pPlayer->GetPositionZ() > m_vsmpDoorMgr[i]->GetPositionZ()){
 						m_smpUiManagar->ActTxtOut();
 					}
 				}
 
 				//壁判定.
-				m_pCollision->WallJudge( m_pPlayer, m_vsmpDoorMgr[i]->GetGateColPointer() );
+				m_pCollision->WallJudge(m_pPlayer, m_vsmpDoorMgr[i]->GetGateColPointer());
 				//天井に頭を打つとプレイヤーの上下移動量反転.
-				if( m_pCollision->CeilingJudge(
+				if (m_pCollision->CeilingJudge(
 					m_pPlayer,
 					m_pPlayer->GetHeight(),
-					m_vsmpDoorMgr[i]->GetGateColPointer() ) )
+					m_vsmpDoorMgr[i]->GetGateColPointer()))
 				{
 					m_pPlayer->HeadHitToCeiling();
 				}
 			}
 			//透過.
-			m_vsmpDoorMgr[i]->SetAlphaFlg( GetEar() );
+			m_vsmpDoorMgr[i]->SetAlphaFlg(GetEar());
 			//動作.
-			m_vsmpDoorMgr[i]->Move( GetEar() );
+			m_vsmpDoorMgr[i]->Move(GetEar());
 		}
 	}
-
 
 	//========== 自機と床のあたり判定 ==========//.
 	m_pPlayer->m_fFloorY = 0.0f;//地面の高さ初期化.
 	bool bGroundFlg = false;
 	bool bCutGroundCheck = false;	//地面の上にいるならそれ以上のチェックはいらないので、そのためのフラグ.
-	m_pPlayer->SetGroundFlg( bGroundFlg );
-
+	m_pPlayer->SetGroundFlg(bGroundFlg);
 
 	//----- 落とし穴の蓋 -----//.//落とし穴は最初に判定しないとダメ.
 	//宙に浮いてるとき.
-	if( !bCutGroundCheck ){
+	if (!bCutGroundCheck){
 		//落とし穴の数分回す.
-		for( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
+		for (int i = 0; i < m_vsmpCoverMgr.size(); i++){
 			//動作.
-			m_vsmpCoverMgr[i]->Move( GetEar() );
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpCoverMgr[i]->GetPositionZ() ) ){
+			m_vsmpCoverMgr[i]->Move(GetEar());
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpCoverMgr[i]->GetPositionZ())){
 				//開いている時は乗れない.
-				if( m_vsmpCoverMgr[i]->isCanStmp() )
+				if (m_vsmpCoverMgr[i]->isCanStmp())
 				{
-					for( char j=0; j<m_vsmpCoverMgr[i]->GetCoverMax(); j++ ){
-						if( m_pCollision->FloorJudge(
+					for (char j = 0; j < m_vsmpCoverMgr[i]->GetCoverMax(); j++){
+						if (m_pCollision->FloorJudge(
 							m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
-							m_vsmpCoverMgr[i]->GetCoverPointer( j ),
-							bGroundFlg ) )
+							m_vsmpCoverMgr[i]->GetCoverPointer(j),
+							bGroundFlg))
 						{
 							//着地時のみ.
-							if( bGroundFlg ){
+							if (bGroundFlg){
 								//かかと落としで乗る.
-								if( m_pPlayer->isJumpAtk() ){
+								if (m_pPlayer->isJumpAtk()){
 									//急に開く.
-									m_vsmpCoverMgr[i]->StmpCovorStrong( GetEar() );
+									m_vsmpCoverMgr[i]->StmpCovorStrong(GetEar());
 								}
 								//普通に乗る.
 								else{
 									//ぎしぎし.
-									m_vsmpCoverMgr[i]->StmpCovor( GetEar() );
-									m_pXInput->SetVibPowerL( usVIB_COVER_POWER, iVIB_COVER_TIME, iVIB_COVER_DEC );
+									m_vsmpCoverMgr[i]->StmpCovor(GetEar());
+									m_pXInput->SetVibPowerL(usVIB_COVER_POWER, iVIB_COVER_TIME, iVIB_COVER_DEC);
 								}
 							}
 							bCutGroundCheck = true;
@@ -3549,17 +3207,17 @@ void clsMain::SceneMain()
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
 
 	//----- 普通床 -----//.
-	if( !bCutGroundCheck ){
-		for( int i=0; i<m_vsmpFloor.size(); i++ ){
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-				if( m_pCollision->FloorJudge(
+	if (!bCutGroundCheck){
+		for (int i = 0; i < m_vsmpFloor.size(); i++){
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpFloor[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpFloor[i].get(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//breakしないと別の床の情報に上書きされる.
@@ -3567,81 +3225,80 @@ void clsMain::SceneMain()
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
 
 	//----- 動く丸足場 -----//.
-	for( int i=0; i<m_vsmpStepCil.size(); i++ ){
+	for (int i = 0; i < m_vsmpStepCil.size(); i++){
 		m_vsmpStepCil[i]->Move();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
 	}
-	if( !bCutGroundCheck ){
-		for( int i=0; i<m_vsmpStepCil.size(); i++ ){
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepCil[i]->GetPositionZ() ) ){
-				if( m_pCollision->FloorJudge(
+	if (!bCutGroundCheck){
+		for (int i = 0; i < m_vsmpStepCil.size(); i++){
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpStepCil[i]->GetPositionZ())){
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpStepCil[i].get(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//乗っていたら運ぶ.
-					if( bGroundFlg ){
+					if (bGroundFlg){
 						//足場の移動量を更新.
-						m_pPlayer->AddPositionZ( m_vsmpStepCil[i]->GetCarryRangeZ() );
+						m_pPlayer->AddPositionZ(m_vsmpStepCil[i]->GetCarryRangeZ());
 					}
 					//breakしないと別の床の情報に上書きされる.
 					break;
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
-
 
 	//----- 動く四角足場 -----//.
-	for( int i=0; i<m_vsmpStepBox.size(); i++ ){
+	for (int i = 0; i < m_vsmpStepBox.size(); i++){
 		m_vsmpStepBox[i]->Move();	//こいつは外に出しておかないとbreakのせいで乗っている足場以外が止まってしまう.
 	}
-	if( !bCutGroundCheck ){
-		for( int i=0; i<m_vsmpStepBox.size(); i++ ){
-			if( isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpStepBox[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA ) ){
-				if( m_pCollision->FloorJudge(
+	if (!bCutGroundCheck){
+		for (int i = 0; i < m_vsmpStepBox.size(); i++){
+			if (isCutOutForHit(m_pPlayer->GetPositionZ(), m_vsmpStepBox[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fONE_BROCK_HIT_AREA)){
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpStepBox[i].get(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//乗っていたら運ぶ.
-					if( bGroundFlg ){
+					if (bGroundFlg){
 						//足場の移動量を更新.
-						m_pPlayer->AddPositionX( m_vsmpStepBox[i]->GetCarryRangeX() );
+						m_pPlayer->AddPositionX(m_vsmpStepBox[i]->GetCarryRangeX());
 					}
 					//breakしないと別の床の情報に上書きされる.
 					break;
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
 
 	//----- ゴール床 -----//.
-	if( !bCutGroundCheck ){
-		for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
-			if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
+	if (!bCutGroundCheck){
+		for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
+			if ( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1){
 				//宝箱.
-				if( m_pCollision->FloorJudge(
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetTrBoxColPointer(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//breakしないと別の床の情報に上書きされる.
 					break;
 				}
 				//床判定.
-				if( m_pCollision->FloorJudge(
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetFloorColPointer(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//breakしないと別の床の情報に上書きされる.
@@ -3649,34 +3306,32 @@ void clsMain::SceneMain()
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
 
-
-
 	//死んだら戻ってくる.
-	if( m_pPlayer->GetDead() ){
+	if (m_pPlayer->GetDead()){
 		//タイマーとめる.
-		m_smpUiManagar->SetTimerStop( true );
-		m_iRespawnTimer ++;
-		if( m_iRespawnTimer > iDEAD_TIME ){
+		m_smpUiManagar->SetTimerStop(true);
+		m_iRespawnTimer++;
+		if (m_iRespawnTimer > iDEAD_TIME){
 			//シーン初期化(リスポーン).
-			if( m_pPlayer->GetHp() > 0 ){
-				if( m_smpUiManagar->GetBlackIdle() ){
+			if (m_pPlayer->GetHp() > 0){
+				if (m_smpUiManagar->GetBlackIdle()){
 					//暗転;
-					m_smpUiManagar->BlackStart( fBLACK_SPD_FAST );
+					m_smpUiManagar->BlackStart(fBLACK_SPD_FAST);
 				}
-				else if( m_smpUiManagar->GetBlackEnd() ){
+				else if (m_smpUiManagar->GetBlackEnd()){
 					InitMain();
 				}
 			}
 			//ゲームオーバー.
 			else{
-				if( m_smpUiManagar->GetBlackIdle() ){
+				if (m_smpUiManagar->GetBlackIdle()){
 					//暗転;
-					m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
+					m_smpUiManagar->BlackStart(fBLACK_SPD_SLOW);
 				}
-				else if( m_smpUiManagar->GetBlackEnd() ){
+				else if (m_smpUiManagar->GetBlackEnd()){
 					InitOver();
 				}
 			}
@@ -3685,22 +3340,22 @@ void clsMain::SceneMain()
 	//生きている時に.
 	else{
 		//穴に落ちたら.
-		if( m_pPlayer->GetPositionY() < fDROP_DOWN_Y ){
+		if (m_pPlayer->GetPositionY() < fDROP_DOWN_Y){
 			m_pPlayer->Dead();
-//			m_pCollision->PlaySe( clsCollision::enSOUND_DROP_DOWN );
+			//			m_pCollision->PlaySe( clsCollision::enSOUND_DROP_DOWN );
 		}
 
 		//ゴール.
-		if ( !m_vsmpGoalMgr.empty() )
+		if (!m_vsmpGoalMgr.empty())
 		{
-			if( m_vsmpGoalMgr[0]->GetBoxOpened() ){
+			if (m_vsmpGoalMgr[0]->GetBoxOpened()){
 				InitResult();
-//				//暗転開始.
-//				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW, false );
-//				//暗転終了.
-//				if( m_smpUiManagar->GetBlackEnd() ){
-//					InitResult();
-//				}
+				//				//暗転開始.
+				//				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW, false );
+				//				//暗転終了.
+				//				if( m_smpUiManagar->GetBlackEnd() ){
+				//					InitResult();
+				//				}
 			}
 		}
 	}
@@ -3709,81 +3364,81 @@ void clsMain::SceneResult()
 {
 	const int iSILENCE_TIME = 30;
 
-	switch( m_enResultSceneMode )
+	switch (m_enResultSceneMode)
 	{
-	case enRSM_SILENCE://静かになる.
-		//リザルトBGM進行.
-		m_iResultTimer ++;
-		if( m_iResultTimer > iSILENCE_TIME ){
-			//ジングル再生.
-			m_pBgm[enBGM_RESULT]->SeekToStart();
-			m_pBgm[enBGM_RESULT]->Play( true );
+		case enRSM_SILENCE://静かになる.
+			//リザルトBGM進行.
+			m_iResultTimer++;
+			if (m_iResultTimer > iSILENCE_TIME){
+				//ジングル再生.
+				m_pBgm[enBGM_RESULT]->SeekToStart();
+				m_pBgm[enBGM_RESULT]->Play(true);
 
-			m_iResultTimer = 0;
-			m_enResultSceneMode = enRSM_JINGLE;
-		}
-		break;
-
-	case enRSM_JINGLE:
-		//ジングルが止まったら.
-		if( m_pBgm[enBGM_RESULT]->IsStopped() ){
-			//UIの用が終わっていたら.
-			if( m_smpUiManagar->isCanBgmRePlay() ){
-				m_pBgm[enBGM_RESULT]->Stop();
-				m_pBgm[enBGM_MAIN]->Play( true );
-				m_enResultSceneMode = enRSM_LOOP;
+				m_iResultTimer = 0;
+				m_enResultSceneMode = enRSM_JINGLE;
 			}
-		}
-		break;
+			break;
 
-	case enRSM_LOOP:
-		//ループ.
-		if( m_pBgm[enBGM_MAIN]->IsStopped() ){
-			m_pBgm[enBGM_MAIN]->SeekToStart();
-			m_pBgm[enBGM_MAIN]->Play( true );
-		}
-		break;
+		case enRSM_JINGLE:
+			//ジングルが止まったら.
+			if (m_pBgm[enBGM_RESULT]->IsStopped()){
+				//UIの用が終わっていたら.
+				if (m_smpUiManagar->isCanBgmRePlay()){
+					m_pBgm[enBGM_RESULT]->Stop();
+					m_pBgm[enBGM_MAIN]->Play(true);
+					m_enResultSceneMode = enRSM_LOOP;
+				}
+			}
+			break;
 
-	default:
-		m_enResultSceneMode = enRSM_SILENCE;
-		break;
+		case enRSM_LOOP:
+			//ループ.
+			if (m_pBgm[enBGM_MAIN]->IsStopped()){
+				m_pBgm[enBGM_MAIN]->SeekToStart();
+				m_pBgm[enBGM_MAIN]->Play(true);
+			}
+			break;
+
+		default:
+			m_enResultSceneMode = enRSM_SILENCE;
+			break;
 	}
 
-	m_pPlayer->Move( GetEar() );
+	m_pPlayer->Move(GetEar());
 
 	//----- ｶﾒﾗ -----//.
 	CameraMgr();
 
 	//----- 耳の位置 -----//.
-	SetEar( m_pPlayer->GetPositionZ(), m_Camera.vEye.z );
+	SetEar(m_pPlayer->GetPositionZ(), m_Camera.vEye.z);
 
 	//----- ゴールの壁あたり判定と動作 -----//.
-	for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
-		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer() );
-		m_pCollision->WallJudge( m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer() );
-		m_vsmpGoalMgr[i]->Move( GetEar() );
+	for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
+		m_pCollision->WallJudge(m_pPlayer, m_vsmpGoalMgr[i]->GetFloorColPointer());
+		m_pCollision->WallJudge(m_pPlayer, m_vsmpGoalMgr[i]->GetTrBoxColPointer());
+		m_vsmpGoalMgr[i]->Move(GetEar());
 	}
 	//----- ゴール床 -----//.
 	bool bGroundFlg = false;
 	bool bCutGroundCheck = false;	//地面の上にいるならそれ以上のチェックはいらないので、そのためのフラグ.
-	if( !bCutGroundCheck ){
-		for( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
-			if( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1 ){
+	if (!bCutGroundCheck){
+		for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
+			if ( /*isCutOutForHit( m_pPlayer->GetPositionZ(), m_vsmpGoalMgr[i]->GetPositionZ(), fONE_BROCK_HIT_AREA, fGOAL_TREASURE_HIT_AREA )*/ 1){
 				//宝箱.
-				if( m_pCollision->FloorJudge(
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetTrBoxColPointer(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//breakしないと別の床の情報に上書きされる.
 					break;
 				}
 				//床判定.
-				if( m_pCollision->FloorJudge(
+				if (m_pCollision->FloorJudge(
 					m_pPlayer, m_pPlayer->GetColToFloorRange(), m_pPlayer->m_fFloorY,
 					m_vsmpGoalMgr[i]->GetFloorColPointer(),
-					bGroundFlg ) )
+					bGroundFlg))
 				{
 					bCutGroundCheck = true;
 					//breakしないと別の床の情報に上書きされる.
@@ -3791,78 +3446,70 @@ void clsMain::SceneResult()
 				}
 			}
 		}
-		m_pPlayer->SetGroundFlg( bGroundFlg );
+		m_pPlayer->SetGroundFlg(bGroundFlg);
 	}
-
 
 	//宝箱の画面上の座標を宝石の出現位置にする.
 	m_smpUiManagar->SetJewelAppPos(
 		ConvDimPos(
-			m_smpUiManagar->GetJewelAppPos(),
-			m_vsmpGoalMgr[0]->GetBoxPos() ) );
-
-
-
-
-
-
+		m_smpUiManagar->GetJewelAppPos(),
+		m_vsmpGoalMgr[0]->GetBoxPos()));
 
 	//決定ボタン.
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
-	GETKEY_DOWN( 'Z' ) bPushEnter = true;
-	GETKEY_DOWN( 'A' ) bPushEnter = true;
+	if (m_pXInput->IsPressEnter(XINPUT_GAMEPAD_A))bPushEnter = true;
+	GETKEY_DOWN('Z') bPushEnter = true;
+	GETKEY_DOWN('A') bPushEnter = true;
 
-	if( m_smpUiManagar->GetBlackIdle() ){
+	if (m_smpUiManagar->GetBlackIdle()){
 		//タイトルへ.
-		if( bPushEnter ){
+		if (bPushEnter){
 			//
-			m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
+			m_smpUiManagar->BlackStart(fBLACK_SPD_SLOW);
 			m_pSe[enSe_EXIT]->SeekPlay();
 		}
 	}
 	//暗転終了.
-	else if( m_smpUiManagar->GetBlackEnd() ){
+	else if (m_smpUiManagar->GetBlackEnd()){
 		InitEndroll();
 	}
 }
 void clsMain::SceneEnding()
 {
 	//ループ.
-	if( m_pBgm[enBGM_ENDROLL]->IsStopped() ){
+	if (m_pBgm[enBGM_ENDROLL]->IsStopped()){
 		m_pBgm[enBGM_ENDROLL]->SeekToStart();
-		m_pBgm[enBGM_ENDROLL]->Play( true );
+		m_pBgm[enBGM_ENDROLL]->Play(true);
 	}
 
 	//短押し.
 	bool bPushEnterEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnterEnter = true;
-	GETKEY_DOWN( 'Z' ) bPushEnterEnter = true;
-	GETKEY_DOWN( 'A' ) bPushEnterEnter = true;
+	if (m_pXInput->IsPressEnter(XINPUT_GAMEPAD_A))bPushEnterEnter = true;
+	GETKEY_DOWN('Z') bPushEnterEnter = true;
+	GETKEY_DOWN('A') bPushEnterEnter = true;
 
 	//長押し.
 	bool bPushEnterStay = false;
-	if( m_pXInput->IsPressStay( XINPUT_GAMEPAD_A ) )bPushEnterStay = true;
-	GETKEY_STAY( 'Z' ) bPushEnterStay = true;
-	GETKEY_STAY( 'A' ) bPushEnterStay = true;
-
+	if (m_pXInput->IsPressStay(XINPUT_GAMEPAD_A))bPushEnterStay = true;
+	GETKEY_STAY('Z') bPushEnterStay = true;
+	GETKEY_STAY('A') bPushEnterStay = true;
 
 	//暗転が動いていない.
-	if( m_smpUiManagar->GetBlackIdle() ){
+	if (m_smpUiManagar->GetBlackIdle()){
 		//加速.
-		m_smpUiManagar->SetPushButtun( bPushEnterStay );
+		m_smpUiManagar->SetPushButtun(bPushEnterStay);
 		//スタッフロールが終わったら.
-		if ( m_smpUiManagar->GetEndRollEnd() ){
+		if (m_smpUiManagar->GetEndRollEnd()){
 			//終了.
-			if( bPushEnterEnter ){
+			if (bPushEnterEnter){
 				//タイトルへ.
-				m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW, false );
+				m_smpUiManagar->BlackStart(fBLACK_SPD_SLOW, false);
 				m_pSe[enSe_ENTER]->SeekPlay();
 			}
 		}
 	}
 	//暗転終了.
-	else if( m_smpUiManagar->GetBlackEnd() ){
+	else if (m_smpUiManagar->GetBlackEnd()){
 		InitTitle();
 	}
 }
@@ -3870,22 +3517,21 @@ void clsMain::SceneOver()
 {
 	m_pPlayer->MoveOverScene();
 
-
 	bool bPushEnter = false;
-	if( m_pXInput->IsPressEnter( XINPUT_GAMEPAD_A ) )bPushEnter = true;
-	GETKEY_DOWN( 'Z' ) bPushEnter = true;
-	GETKEY_DOWN( 'A' ) bPushEnter = true;
+	if (m_pXInput->IsPressEnter(XINPUT_GAMEPAD_A))bPushEnter = true;
+	GETKEY_DOWN('Z') bPushEnter = true;
+	GETKEY_DOWN('A') bPushEnter = true;
 
-	if( m_smpUiManagar->GetBlackIdle() ){
+	if (m_smpUiManagar->GetBlackIdle()){
 		//タイトルへ.
-		if( bPushEnter ){
+		if (bPushEnter){
 			//
-			m_smpUiManagar->BlackStart( fBLACK_SPD_SLOW );
+			m_smpUiManagar->BlackStart(fBLACK_SPD_SLOW);
 			m_pSe[enSe_ENTER]->SeekPlay();
 		}
 	}
 	//暗転終了.
-	else if( m_smpUiManagar->GetBlackEnd() ){
+	else if (m_smpUiManagar->GetBlackEnd()){
 		InitTitle();
 	}
 }
@@ -3894,156 +3540,135 @@ void clsMain::SceneOver()
 void clsMain::RenderTitle()
 {
 	//壁.
-	if ( !m_vsmpWall.empty() ){
-		for ( int i=0; i<m_vsmpWall.size(); i++ ){
-			m_vsmpWall[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpWall.empty()){
+		for (int i = 0; i < m_vsmpWall.size(); i++){
+			m_vsmpWall[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//床.
-	if ( !m_vsmpFloor.empty() ){
-		for ( int i=0; i<m_vsmpFloor.size(); i++ ){
-			m_vsmpFloor[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpFloor.empty()){
+		for (int i = 0; i < m_vsmpFloor.size(); i++){
+			m_vsmpFloor[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
-
-
 
 	//プレイヤー(アルビア)表示.
-	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	m_pPlayer->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 
 	//ドア.
-	if ( !m_vsmpDoorMgr.empty() ){
-		for ( int i=0; i<m_vsmpDoorMgr.size(); i++ ){
-			m_vsmpDoorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpDoorMgr.empty()){
+		for (int i = 0; i < m_vsmpDoorMgr.size(); i++){
+			m_vsmpDoorMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
-
-
-
 }
 void clsMain::RenderMain()
 {
-
 #ifdef Inoue
 	//壁.
-	if ( !m_vsmpWall.empty() ){
-		for ( int i=0; i<m_vsmpWall.size(); i++ ){
-			m_vsmpWall[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpWall.empty()){
+		for (int i = 0; i < m_vsmpWall.size(); i++){
+			m_vsmpWall[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//床.
-	if ( !m_vsmpFloor.empty() ){
-		for ( int i=0; i<m_vsmpFloor.size(); i++ ){
-			m_vsmpFloor[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpFloor.empty()){
+		for (int i = 0; i < m_vsmpFloor.size(); i++){
+			m_vsmpFloor[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//足場丸型.
-	if ( !m_vsmpStepCil.empty() ){
-		for ( int i=0; i<m_vsmpStepCil.size(); i++ ){
-			m_vsmpStepCil[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpStepCil.empty()){
+		for (int i = 0; i < m_vsmpStepCil.size(); i++){
+			m_vsmpStepCil[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//足場四角型.
-	if ( !m_vsmpStepBox.empty() ){
-		for ( int i=0; i<m_vsmpStepBox.size(); i++ ){
-			m_vsmpStepBox[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpStepBox.empty()){
+		for (int i = 0; i < m_vsmpStepBox.size(); i++){
+			m_vsmpStepBox[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//落とし穴.
-	if ( !m_vsmpCoverMgr.empty() ){
-		for ( int i=0; i<m_vsmpCoverMgr.size(); i++ ){
-			m_vsmpCoverMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpCoverMgr.empty()){
+		for (int i = 0; i < m_vsmpCoverMgr.size(); i++){
+			m_vsmpCoverMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//ゴール.
-	if ( !m_vsmpGoalMgr.empty() ){
-		for ( int i=0; i<m_vsmpGoalMgr.size(); i++ ){
-			m_vsmpGoalMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpGoalMgr.empty()){
+		for (int i = 0; i < m_vsmpGoalMgr.size(); i++){
+			m_vsmpGoalMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 
 #endif //#ifdef Inoue.
 
-
 	//プレイヤー(アルビア)表示.
-	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
-
+	m_pPlayer->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 
 #ifdef Inoue
 	//敵.
-	if ( !m_vsmpEnemyMgr.empty() ){
-		for (int i=0; i<m_vsmpEnemyMgr.size(); i++ ){
-			m_vsmpEnemyMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpEnemyMgr.empty()){
+		for (int i = 0; i < m_vsmpEnemyMgr.size(); i++){
+			m_vsmpEnemyMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//床槍.
-	if ( !m_vsmpSpiaFloorMgr.empty() ){
-		for ( int i=0; i<m_vsmpSpiaFloorMgr.size(); i++ ){
-			m_vsmpSpiaFloorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpSpiaFloorMgr.empty()){
+		for (int i = 0; i < m_vsmpSpiaFloorMgr.size(); i++){
+			m_vsmpSpiaFloorMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//壁槍.
-	if ( !m_vsmpSpiaWallMgr.empty() ){
-		for ( int i=0; i<m_vsmpSpiaWallMgr.size(); i++ ){
-			m_vsmpSpiaWallMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpSpiaWallMgr.empty()){
+		for (int i = 0; i < m_vsmpSpiaWallMgr.size(); i++){
+			m_vsmpSpiaWallMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//屋根.
-	if ( !m_vsmpCeiling.empty() ){
-		for (int i = 0; i < m_vsmpCeiling.size(); i++ )
+	if (!m_vsmpCeiling.empty()){
+		for (int i = 0; i < m_vsmpCeiling.size(); i++)
 		{
-			m_vsmpCeiling[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+			m_vsmpCeiling[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 	//ペンデュラム(逆順なのは透過の都合).
-	if ( !m_vsmpPend.empty() ){
-		for ( int i=m_vsmpPend.size()-1; i>=0; i-- ){
-			m_vsmpPend[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
-			m_vsmpPend[i]->GetBonePos( PEND_BONE_NAME );
+	if (!m_vsmpPend.empty()){
+		for (int i = m_vsmpPend.size() - 1; i >= 0; i--){
+			m_vsmpPend[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
+			m_vsmpPend[i]->GetBonePos(PEND_BONE_NAME);
 		}
 	}
 	//ドア(逆順なのは透過の都合).
-	if ( !m_vsmpDoorMgr.empty() ){
-		for ( int i=m_vsmpDoorMgr.size()-1; i>=0; i-- ){
-			m_vsmpDoorMgr[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpDoorMgr.empty()){
+		for (int i = m_vsmpDoorMgr.size() - 1; i >= 0; i--){
+			m_vsmpDoorMgr[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 
-	if ( !m_vsmpTest.empty() ){
-		for ( int i=0; i<m_vsmpTest.size(); i++ ){
-			m_vsmpTest[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	if (!m_vsmpTest.empty()){
+		for (int i = 0; i < m_vsmpTest.size(); i++){
+			m_vsmpTest[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 		}
 	}
 #endif //#ifdef Inoue.
 
-
-
-
-
-
-
-
-
-
-
-//	//ﾊﾟｰﾃｨｸﾙの表示.
-//	if( m_pParticle->m_bDispFlg ){
-//		SetDepth( false );	//Zﾃｽﾄ:OFF.
-//		//※ﾊﾟｰﾃｨｸﾙ1粒をﾎﾟｲﾝﾄｽﾌﾟﾗｲﾄ1枚として500枚描画.
-//		int particleMax = m_pParticle->GetMaxParticle();
-//		for( int i=0; i<particleMax; i++ ){
-//			//現在のi番目の粒の位置を取得.
-//			D3DXVECTOR3 vParticlePos = m_pParticle->GetParticlePos( i );
-//			//i番目の粒を表示.
-//			m_pParticle->Render( m_mView, m_mProj, m_Camera.vEye, vParticlePos );
-//		}
-//		//ﾊﾟｰﾃｨｸﾙの移動処理.
-//		m_pParticle->Run();
-//		SetDepth( true );	//Zﾃｽﾄ:ON.
-//	}
-
-
-
+	//	//ﾊﾟｰﾃｨｸﾙの表示.
+	//	if( m_pParticle->m_bDispFlg ){
+	//		SetDepth( false );	//Zﾃｽﾄ:OFF.
+	//		//※ﾊﾟｰﾃｨｸﾙ1粒をﾎﾟｲﾝﾄｽﾌﾟﾗｲﾄ1枚として500枚描画.
+	//		int particleMax = m_pParticle->GetMaxParticle();
+	//		for( int i=0; i<particleMax; i++ ){
+	//			//現在のi番目の粒の位置を取得.
+	//			D3DXVECTOR3 vParticlePos = m_pParticle->GetParticlePos( i );
+	//			//i番目の粒を表示.
+	//			m_pParticle->Render( m_mView, m_mProj, m_Camera.vEye, vParticlePos );
+	//		}
+	//		//ﾊﾟｰﾃｨｸﾙの移動処理.
+	//		m_pParticle->Run();
+	//		SetDepth( true );	//Zﾃｽﾄ:ON.
+	//	}
 
 	////------------------------------
 	////	Effekseerｸﾗｽのﾚﾝﾀﾞﾘﾝｸﾞ.
@@ -4071,39 +3696,34 @@ void clsMain::RenderMain()
 
 #ifdef _DEBUG
 	//定規.
-	for( int i=0; i<m_iBlkAryMax; i++ ){
-		m_ppBlkAry[i]->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
+	for (int i = 0; i < m_iBlkAryMax; i++){
+		m_ppBlkAry[i]->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 	}
 
 	//ﾚｲの表示(垂直).
 	m_pRayV->m_Ray.vPos = m_pPlayer->GetPosition();
 	//回転値を自機に合わせる.
 	m_pRayV->m_Ray.fYaw = m_pPlayer->GetRotationY();
-		m_pRayV->Render( m_mView, m_mProj );
+	m_pRayV->Render(m_mView, m_mProj);
 
 	//ﾚｲの表示(前後).
 	m_pRayFB->m_Ray.vPos = m_pPlayer->GetPosition();
 	//回転値を自機に合わせる.
 	m_pRayFB->m_Ray.fYaw = m_pPlayer->GetRotationY();
-		m_pRayFB->Render( m_mView, m_mProj );
+	m_pRayFB->Render(m_mView, m_mProj);
 
 	//ﾚｲの表示(左右).
 	m_pRayH->m_Ray.vPos = m_pPlayer->GetPosition();
 	//回転値を自機に合わせる.
 	m_pRayH->m_Ray.fYaw = m_pPlayer->GetRotationY();
-		m_pRayH->Render( m_mView, m_mProj );
-
-
-
-
+	m_pRayH->Render(m_mView, m_mProj);
 
 #endif//#if _DEBUG
 }
 void clsMain::RenderOver()
 {
 	//プレイヤー(アルビア)表示.
-	m_pPlayer->Render( m_mView, m_mProj, m_vLight, m_Camera.vEye );
-
+	m_pPlayer->Render(m_mView, m_mProj, m_vLight, m_Camera.vEye);
 }
 void clsMain::RenderResult()
 {
@@ -4111,7 +3731,6 @@ void clsMain::RenderResult()
 }
 void clsMain::RenderEnding()
 {
-
 }
 
 void clsMain::RenderDebugText()
@@ -4128,11 +3747,10 @@ void clsMain::RenderDebugText()
 			"Ply:x[%f],y[%f],z[%f],",
 			m_pPlayer->GetPositionX(),
 			m_pPlayer->GetPositionY(),
-			m_pPlayer->GetPositionZ() );
+			m_pPlayer->GetPositionZ());
 
 		m_pText->Render(strDbgTxt, 0, dbgtxty);
 		dbgtxty += 10;
-
 
 		sprintf_s(strDbgTxt,
 			"PlyRotY:[%f]",
@@ -4228,180 +3846,179 @@ void clsMain::NowLoading()
 
 	for (LoadStep = 0; LoadStep <= 6; LoadStep++)
 	{
-		m_pLoadGage->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f), 453.0f , -2.0f) );
+		m_pLoadGage->SetPos(D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w / 2.0f), 453.0f, -2.0f));
 		LoadGageUVTarget = (0.5f - (0.5f / 100.0f) * LoadGage);
-		m_pLoadGage->SetPatarnU( LoadGageUVTarget );
+		m_pLoadGage->SetPatarnU(LoadGageUVTarget);
 
 		LoadRender();
 		switch (LoadStep)
 		{
-		case 0:
-			m_pResource->InitStaticModel( m_hWnd, m_pDevice, m_pDeviceContext);
-			m_pResource->InitSkinModel( m_hWnd, m_pDevice, m_pDeviceContext);
-			LoadGage += 10;
-			break;
-		case 1:
-			m_pResource->CreateStaticModel(
-				"Data\\Test\\Test.x",
-				clsResource::enST_MODEL_Plane );
-			//通常壁.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\kabe.X",
-				clsResource::enST_MODEL_WALL );
+			case 0:
+				m_pResource->InitStaticModel(m_hWnd, m_pDevice, m_pDeviceContext);
+				m_pResource->InitSkinModel(m_hWnd, m_pDevice, m_pDeviceContext);
+				LoadGage += 10;
+				break;
+			case 1:
+				m_pResource->CreateStaticModel(
+					"Data\\Test\\Test.x",
+					clsResource::enST_MODEL_Plane);
+				//通常壁.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\kabe.X",
+					clsResource::enST_MODEL_WALL);
 
-			//壁面無し壁.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\kabe_2.X",
-				clsResource::enST_MODEL_WALL_NOT_WALL );
+				//壁面無し壁.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\kabe_2.X",
+					clsResource::enST_MODEL_WALL_NOT_WALL);
 
-			//壁面無し通常床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_2.X",
-				clsResource::enST_MODEL_FLOOR_NOT_WALL_NORMAL );
+				//壁面無し通常床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_2.X",
+					clsResource::enST_MODEL_FLOOR_NOT_WALL_NORMAL);
 
-			//壁面無し左の半分床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_hanbun_L_2.X",
-				clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_L );
+				//壁面無し左の半分床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_hanbun_L_2.X",
+					clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_L);
 
-			//壁面無し右の半分床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_hanbun_R_2.X",
-				clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_R );
+				//壁面無し右の半分床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_hanbun_R_2.X",
+					clsResource::enST_MODEL_FLOOR_NOT_WALL_HALF_R);
 
-			//壁面無しペンデュラム床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_kizu_2.X",
-				clsResource::enST_MODEL_FLOOR_NOT_WALL_PEND );
+				//壁面無しペンデュラム床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_kizu_2.X",
+					clsResource::enST_MODEL_FLOOR_NOT_WALL_PEND);
 
-			//通常床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka.X",
-				clsResource::enST_MODEL_FLOOR_NORMAL );
+				//通常床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka.X",
+					clsResource::enST_MODEL_FLOOR_NORMAL);
 
-			//左の半分床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_hanbun_L.X",
-				clsResource::enST_MODEL_FLOOR_HALF_L );
+				//左の半分床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_hanbun_L.X",
+					clsResource::enST_MODEL_FLOOR_HALF_L);
 
-			//右の半分床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_hanbun_R.X",
-				clsResource::enST_MODEL_FLOOR_HALF_R );
-			//ペンデュラム床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\yuka_kizu.X",
-				clsResource::enST_MODEL_FLOOR_PEND );
-			//縦移動床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\StepCylinder.X",
-				clsResource::enST_MODEL_STEP_CIL );
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\StepCylinder_Big.X",
-				clsResource::enST_MODEL_STEP_CIL_BIG );
-			//横移動床.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\StepBox.X",
-				clsResource::enST_MODEL_STEP_BOX );
+				//右の半分床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_hanbun_R.X",
+					clsResource::enST_MODEL_FLOOR_HALF_R);
+				//ペンデュラム床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\yuka_kizu.X",
+					clsResource::enST_MODEL_FLOOR_PEND);
+				//縦移動床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\StepCylinder.X",
+					clsResource::enST_MODEL_STEP_CIL);
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\StepCylinder_Big.X",
+					clsResource::enST_MODEL_STEP_CIL_BIG);
+				//横移動床.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\StepBox.X",
+					clsResource::enST_MODEL_STEP_BOX);
 
-			//ドアモデルを確認する.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\mon.X",
-				clsResource::enST_MODEL_MON);
-			LoadGage += 50;
-			break;
-		case 2:
-			//ゴールモデルを確認する.
-			m_pResource->CreateStaticModel(
-				"Data\\TrRoom\\gool.X",
-				clsResource::enST_MODEL_GOOL );
-			//宝箱のあたり判定
-			m_pResource->CreateStaticModel(
-				"Data\\TrRoom\\TrBoxCol.X",
-				clsResource::enST_MODEL_TR_BOX_COL );
+				//ドアモデルを確認する.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\mon.X",
+					clsResource::enST_MODEL_MON);
+				LoadGage += 50;
+				break;
+			case 2:
+				//ゴールモデルを確認する.
+				m_pResource->CreateStaticModel(
+					"Data\\TrRoom\\gool.X",
+					clsResource::enST_MODEL_GOOL);
+				//宝箱のあたり判定
+				m_pResource->CreateStaticModel(
+					"Data\\TrRoom\\TrBoxCol.X",
+					clsResource::enST_MODEL_TR_BOX_COL);
 
-			//普通槍.
-			m_pResource->CreateStaticModel(
-				"Data\\Trap\\Spia.x",
-				clsResource::enST_MODEL_SPIA );
-			//壁槍.
-			m_pResource->CreateStaticModel(
-				"Data\\Trap\\SpiaOfWall.x",
-				clsResource::enST_MODEL_SPIA_OF_WALL );
+				//普通槍.
+				m_pResource->CreateStaticModel(
+					"Data\\Trap\\Spia.x",
+					clsResource::enST_MODEL_SPIA);
+				//壁槍.
+				m_pResource->CreateStaticModel(
+					"Data\\Trap\\SpiaOfWall.x",
+					clsResource::enST_MODEL_SPIA_OF_WALL);
 
-			//槍の柱部分の壁判定用.
-			m_pResource->CreateStaticModel(
-				"Data\\Trap\\SpiaWallHit.x",
-				clsResource::enST_MODEL_SPIA_WALL );
+				//槍の柱部分の壁判定用.
+				m_pResource->CreateStaticModel(
+					"Data\\Trap\\SpiaWallHit.x",
+					clsResource::enST_MODEL_SPIA_WALL);
 
-			//左側の落とし穴の蓋.
-			m_pResource->CreateStaticModel(
-				"Data\\Trap\\otosiana_L.x",
-				clsResource::enST_MODEL_COVER_L );
+				//左側の落とし穴の蓋.
+				m_pResource->CreateStaticModel(
+					"Data\\Trap\\otosiana_L.x",
+					clsResource::enST_MODEL_COVER_L);
 
-			//右側の落とし穴の蓋.
-			m_pResource->CreateStaticModel(
-				"Data\\Trap\\otosiana_R.x",
-				clsResource::enST_MODEL_COVER_R );
-			//定規用のブロック.
-			m_pResource->CreateStaticModel(
-				"Data\\Jikken\\1_1_1_kijyun.x",
-				clsResource::enST_MODEL_BLOCK );
+				//右側の落とし穴の蓋.
+				m_pResource->CreateStaticModel(
+					"Data\\Trap\\otosiana_R.x",
+					clsResource::enST_MODEL_COVER_R);
+				//定規用のブロック.
+				m_pResource->CreateStaticModel(
+					"Data\\Jikken\\1_1_1_kijyun.x",
+					clsResource::enST_MODEL_BLOCK);
 
-			//天井.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\Ceiling.X",
-				clsResource::enST_MODEL_CEILING );
+				//天井.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\Ceiling.X",
+					clsResource::enST_MODEL_CEILING);
 
-			//テスト用.
-			m_pResource->CreateStaticModel(
-				"Data\\Stage\\tobira.X",
-				clsResource::enST_MODEL_TEST );
+				//テスト用.
+				m_pResource->CreateStaticModel(
+					"Data\\Stage\\tobira.X",
+					clsResource::enST_MODEL_TEST);
 
-			//=====Skin Model=====.
-			//アルビア.
-			m_pResource->CreateSkinModel(
-				"Data\\Player\\Arbia.X",
-				clsResource::enSK_MODEL_PLAYER );
+				//=====Skin Model=====.
+				//アルビア.
+				m_pResource->CreateSkinModel(
+					"Data\\Player\\Arbia.X",
+					clsResource::enSK_MODEL_PLAYER);
 
-			//ドア.
-			m_pResource->CreateSkinModel(
-				"Data\\Stage\\tobira.X",
-				clsResource::enSK_MODEL_DOOR );
+				//ドア.
+				m_pResource->CreateSkinModel(
+					"Data\\Stage\\tobira.X",
+					clsResource::enSK_MODEL_DOOR);
 
-			//敵.
-			m_pResource->CreateSkinModel(
-				"Data\\Enemy\\Enemy.X",
-				clsResource::enSK_MODEL_ENEMY );
-			//ペンデュラム.
-			m_pResource->CreateSkinModel(
-				"Data\\Trap\\Pendulum.X",
-				clsResource::enSK_MODEL_PENDULUM );
-			//宝箱.
-			m_pResource->CreateSkinModel(
-				"Data\\TrRoom\\TrRoomBox.X",
-				clsResource::enSK_MODEL_TR_BOX );
-
-			LoadGage += 10;
-			break;
-		case 3:
-			LoadGage += 10;
-			break;
-		case 4:
-			LoadGage += 10;
-			break;
-		case 5:
-			ReadMesh();
-			LoadGage += 10;
-			break;
-		case 6:
-			//タイトル用の初期化を入れる.
-			InitTitle();
-			m_pBgm[enBGM_START_UP]->Stop();
-			LoadGage += 10;
-			break;
-		default:
-			break;
+				//敵.
+				m_pResource->CreateSkinModel(
+					"Data\\Enemy\\Enemy.X",
+					clsResource::enSK_MODEL_ENEMY);
+				//ペンデュラム.
+				m_pResource->CreateSkinModel(
+					"Data\\Trap\\Pendulum.X",
+					clsResource::enSK_MODEL_PENDULUM);
+				//宝箱.
+				m_pResource->CreateSkinModel(
+					"Data\\TrRoom\\TrRoomBox.X",
+					clsResource::enSK_MODEL_TR_BOX);
+				LoadGage += 10;
+				break;
+			case 3:
+				LoadGage += 10;
+				break;
+			case 4:
+				LoadGage += 10;
+				break;
+			case 5:
+				ReadMesh();
+				LoadGage += 10;
+				break;
+			case 6:
+				//タイトル用の初期化を入れる.
+				InitTitle();
+				m_pBgm[enBGM_START_UP]->Stop();
+				LoadGage += 10;
+				break;
+			default:
+				break;
 		}
 	}
 }
@@ -4411,39 +4028,39 @@ void clsMain::LoadSpriteInit()
 {
 	m_pLoadBack = make_unique<clsSprite2D>();
 	m_pLoadBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\Black.png");
-	m_pLoadBack->SetPos( D3DXVECTOR3 (0.0f, 0.0f, 0.0f) );
-	m_pLoadBack->SetPatarnU( 0.0f );
-	m_pLoadBack->SetPatarnV( 0.0f );
-	m_pLoadBack->SetAlpha( 1.0f );
+	m_pLoadBack->SetPos(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_pLoadBack->SetPatarnU(0.0f);
+	m_pLoadBack->SetPatarnV(0.0f);
+	m_pLoadBack->SetAlpha(1.0f);
 
 	m_pLoadTxt = new clsSprite2D;
 	m_pLoadTxt->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadBack.png");
-	m_pLoadTxt->SetDispW(m_pLoadTxt->GetSs().Base.w/2);
-	m_pLoadTxt->SetDispH(m_pLoadTxt->GetSs().Base.h/2);
+	m_pLoadTxt->SetDispW(m_pLoadTxt->GetSs().Base.w / 2);
+	m_pLoadTxt->SetDispH(m_pLoadTxt->GetSs().Base.h / 2);
 	m_pLoadTxt->UpDateSpriteSs();
-	m_pLoadTxt->SetPos( WND_W/2-m_pLoadTxt->GetSs().Disp.w/2 , m_pLoadTxt->GetSs().Disp.h );
-	m_pLoadTxt->SetPatarnU( 0.0f );
-	m_pLoadTxt->SetPatarnV( 0.0f );
-	m_pLoadTxt->SetAlpha( 1.0f );
+	m_pLoadTxt->SetPos(WND_W / 2 - m_pLoadTxt->GetSs().Disp.w / 2, m_pLoadTxt->GetSs().Disp.h);
+	m_pLoadTxt->SetPatarnU(0.0f);
+	m_pLoadTxt->SetPatarnV(0.0f);
+	m_pLoadTxt->SetAlpha(1.0f);
 
 	ss_LoadGage.Disp.w = 960.0f;
 	ss_LoadGage.Disp.h = 50.0f;
-	ss_LoadGage.Stride.w = ss_LoadGage.Disp.w/2;
+	ss_LoadGage.Stride.w = ss_LoadGage.Disp.w / 2;
 	ss_LoadGage.Stride.h = ss_LoadGage.Disp.h;
 	m_pLoadGage = new clsGageSprite2D;
 	m_pLoadGage->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGarge2.png", ss_LoadGage);
-	m_pLoadGage->SetPos( D3DXVECTOR3(0.0f, 0.0f, 0.0f ) );
-	m_pLoadGage->SetPatarnU( 0.0f );
-	m_pLoadGage->SetPatarnV( 0.0f );
-	m_pLoadGage->SetAlpha( 1.0f );
+	m_pLoadGage->SetPos(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_pLoadGage->SetPatarnU(0.0f);
+	m_pLoadGage->SetPatarnV(0.0f);
+	m_pLoadGage->SetAlpha(1.0f);
 
 	m_pLoadGageBack = make_unique<clsSprite2D>();
 	m_pLoadGageBack->Init(m_pDevice, m_pDeviceContext, "Data\\Load\\LoadGargeType.png");
 	m_pLoadGageBack->SetDispW(960.0f);
 	m_pLoadGageBack->SetDispH(50.0f);
 	m_pLoadGageBack->UpDateSpriteSs();
-	m_pLoadGageBack->SetPos( D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w/2.0f), 453.0f , -2.0f) );
-	m_pLoadGageBack->SetAlpha( 1.0f );
+	m_pLoadGageBack->SetPos(D3DXVECTOR3(WND_W / 2.0f - (ss_LoadGage.Disp.w / 2.0f), 453.0f, -2.0f));
+	m_pLoadGageBack->SetAlpha(1.0f);
 
 	LoadGage = 0;
 	LoadGageUVTarget = 0.0f;
@@ -4469,7 +4086,6 @@ void clsMain::LoadRender()
 	m_pLoadTxt->Render();
 
 	SetDepth(true);
-
 
 	//ﾚﾝﾀﾞﾘﾝｸﾞされたｲﾒｰｼﾞを表示.
 	m_pSwapChain->Present(0, 0);

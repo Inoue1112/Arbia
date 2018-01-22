@@ -1,43 +1,37 @@
 #include "GameObject.h"
 #include "Main.h"
 
-
-
-
-clsGameObject::	clsGameObject()
-		//: m_vPos( 0.0f, 0.0f, 0.0f )
-		//, m_vRot( 0.0f, 0.0f, 0.0f )
-		//, m_fScale( 1.0f )
+clsGameObject::clsGameObject()
+//: m_vPos( 0.0f, 0.0f, 0.0f )
+//, m_vRot( 0.0f, 0.0f, 0.0f )
+//, m_fScale( 1.0f )
 {
-	m_vPos = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
-	m_vRot = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	m_vPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_vRot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_fScale = 1.0f;
 }
-
 
 clsGameObject::~clsGameObject()
 {
 }
 
-
-
 //============================================================
 //ˆÊ’uÝ’è.
 //============================================================
 //Ý’è.
-void clsGameObject::SetPosition( D3DXVECTOR3 vPos )
-{	
+void clsGameObject::SetPosition(D3DXVECTOR3 vPos)
+{
 	m_vPos = vPos;
 }
-void clsGameObject::SetPositionX( float fPosX )
+void clsGameObject::SetPositionX(float fPosX)
 {
 	m_vPos.x = fPosX;
 }
-void clsGameObject::SetPositionY( float fPosY )
+void clsGameObject::SetPositionY(float fPosY)
 {
 	m_vPos.y = fPosY;
 }
-void clsGameObject::SetPositionZ( float fPosZ )
+void clsGameObject::SetPositionZ(float fPosZ)
 {
 	m_vPos.z = fPosZ;
 }
@@ -59,37 +53,36 @@ float clsGameObject::GetPositionZ()
 	return m_vPos.z;
 }
 //‘«‚µ‚±‚Ý.
-void clsGameObject::AddPosition( D3DXVECTOR3 vMove )
+void clsGameObject::AddPosition(D3DXVECTOR3 vMove)
 {
-	SetPosition( GetPosition() + vMove );
+	SetPosition(GetPosition() + vMove);
 }
-void clsGameObject::AddPositionX( float fMoveX )
+void clsGameObject::AddPositionX(float fMoveX)
 {
-	SetPositionX( GetPositionX() + fMoveX );
+	SetPositionX(GetPositionX() + fMoveX);
 }
-void clsGameObject::AddPositionY( float fMoveY )
+void clsGameObject::AddPositionY(float fMoveY)
 {
-	SetPositionY( GetPositionY() + fMoveY );
+	SetPositionY(GetPositionY() + fMoveY);
 }
-void clsGameObject::AddPositionZ( float fMoveZ )
+void clsGameObject::AddPositionZ(float fMoveZ)
 {
-	SetPositionZ( GetPositionZ() + fMoveZ );
+	SetPositionZ(GetPositionZ() + fMoveZ);
 }
-
 
 //============================================================
 //‰ñ“]Ý’è.
 //============================================================
 //Ý’è.
-void clsGameObject::SetRotation( D3DXVECTOR3 vRot )
-{ 
+void clsGameObject::SetRotation(D3DXVECTOR3 vRot)
+{
 	m_vRot = vRot;
 }
-void clsGameObject::SetRotationY( float fRotY )
+void clsGameObject::SetRotationY(float fRotY)
 {
 	m_vRot.y = fRotY;
 }
-void clsGameObject::SetRotationZ( float fRotZ )
+void clsGameObject::SetRotationZ(float fRotZ)
 {
 	m_vRot.z = fRotZ;
 }
@@ -111,31 +104,31 @@ float clsGameObject::GetRotationZ()
 	return m_vRot.z;
 }
 //‘«‚µ‚±‚Ý.
-void clsGameObject::AddRotation( D3DXVECTOR3 vMove )
+void clsGameObject::AddRotation(D3DXVECTOR3 vMove)
 {
 	D3DXVECTOR3 theta = GetRotation() + vMove;
-	ThetaOverGuard( theta.x );
-	ThetaOverGuard( theta.y );
-	ThetaOverGuard( theta.z );
-	SetRotation( theta );
+	ThetaOverGuard(theta.x);
+	ThetaOverGuard(theta.y);
+	ThetaOverGuard(theta.z);
+	SetRotation(theta);
 }
-void clsGameObject::AddRotationY( float fMoveY )
+void clsGameObject::AddRotationY(float fMoveY)
 {
 	float theta = GetRotationY() + fMoveY;
-	ThetaOverGuard( theta );
-	SetRotationY( theta );
+	ThetaOverGuard(theta);
+	SetRotationY(theta);
 }
-void clsGameObject::AddRotationZ( float fMoveZ )
+void clsGameObject::AddRotationZ(float fMoveZ)
 {
 	float theta = GetRotationZ() + fMoveZ;
-	ThetaOverGuard( theta );
-	SetRotationZ( theta );
+	ThetaOverGuard(theta);
+	SetRotationZ(theta);
 }
 
 //============================================================
 //ŠgkÝ’è.
 //============================================================
-void clsGameObject::SetScale( float fScale )
+void clsGameObject::SetScale(float fScale)
 {
 	m_fScale = fScale;
 }
@@ -144,36 +137,34 @@ float clsGameObject::GetScale()
 	return m_fScale;
 }
 
-
 //============================================================
 //	360`0‚É”[‚ß‚é.
 //============================================================
-void clsGameObject::ThetaOverGuard( float& theta )
+void clsGameObject::ThetaOverGuard(float& theta)
 {
 #define THETA_MAX (float)( M_PI * 2.0 )
-	if( theta > THETA_MAX ){
+	if (theta > THETA_MAX){
 		theta -= THETA_MAX;
 	}
-	else if( theta < 0.0f ){
+	else if (theta < 0.0f){
 		theta += THETA_MAX;
 	}
 }
-void clsGameObject::ThetaOverGuard( double& theta )
+void clsGameObject::ThetaOverGuard(double& theta)
 {
 #define THETA_MAX ( M_PI * 2.0 )
-	if( theta > THETA_MAX ){
+	if (theta > THETA_MAX){
 		theta -= THETA_MAX;
 	}
-	else if( theta < 0.0 ){
+	else if (theta < 0.0){
 		theta += THETA_MAX;
 	}
 }
-
 
 //==================================================
 //	‹——£‚Å‰¹—Ê‚ð•Ï‚¦‚é.
 //==================================================
-int clsGameObject::ChangeVolumeDistance( float fEarPosZ, float fThisPosZ )
+int clsGameObject::ChangeVolumeDistance(float fEarPosZ, float fThisPosZ)
 {
 	const float VOL_DEAD_RANGE_NEAR = 24.0f;//‰¹‚ªÁ‚¦‚é‹——£.
 	const float VOL_DEAD_RANGE_BACK = -8.0f;//‰¹‚ªÁ‚¦‚é‹——£.
@@ -188,26 +179,25 @@ int clsGameObject::ChangeVolumeDistance( float fEarPosZ, float fThisPosZ )
 
 	//—£‚ê‚Ä‚¢‚é‚Æ‰¹‚ðo‚³‚È‚¢.
 	//Žè‘O‚·‚¬‚é(Player‚ª).
-	if( fRange > VOL_DEAD_RANGE_NEAR ){
+	if (fRange > VOL_DEAD_RANGE_NEAR){
 		return 0;
 	}
 	//‰œ‚·‚¬‚é(Player‚ª).
-	else if( fRange < VOL_DEAD_RANGE_BACK ){
+	else if (fRange < VOL_DEAD_RANGE_BACK){
 		return 0;
 	}
 	//ŠÔ‹ß‚¾‚ÆÅ‘å.
-	else if( fRange == 0.0f ){
+	else if (fRange == 0.0f){
 		return iVOL_MAX;
 	}
 
-	
 	//‰¹—Ê•Ï‰».
 	int vol;
-	vol = (int)( (float)iVOL_MAX / fRange );//”½”ä—á.//int‚ÌŒvŽZ‚·‚é‚ÆVS‚ª‰ó‚ê‚é‚©‚ç(float)‚É‚µ‚Ä‚©‚ç(int)‚É–ß‚·.
+	vol = (int)((float)iVOL_MAX / fRange);//”½”ä—á.//int‚ÌŒvŽZ‚·‚é‚ÆVS‚ª‰ó‚ê‚é‚©‚ç(float)‚É‚µ‚Ä‚©‚ç(int)‚É–ß‚·.
 
 	//‰œ‘¤‚È‚ç¬‚³‚­‚È‚é‚Ì‚ð‘¬‚­‚·‚é.
-	if( fRange < 0.0f ){
-		vol = (int)( (float)vol / VOL_BACK_RATE );//”½”ä—á.
+	if (fRange < 0.0f){
+		vol = (int)((float)vol / VOL_BACK_RATE);//”½”ä—á.
 	}
 
 	return vol;

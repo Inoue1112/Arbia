@@ -7,14 +7,14 @@ cbuffer global
 };
 
 //ÊÞ°Ã¯¸½¼ª°ÀÞ.
-float4 VS( float4 Pos : POSITION ) : SV_Position
+float4 VS(float4 Pos : POSITION) : SV_Position
 {
-	Pos = mul( Pos, g_mWVP );
+	Pos = mul(Pos, g_mWVP);
 	return Pos;
 }
 
 //Ëß¸¾Ù¼ª°ÀÞ.
-float4 PS( float4 Pos : SV_Position ) : SV_Target
+float4 PS(float4 Pos : SV_Position) : SV_Target
 {
 	return g_vColor;
 }

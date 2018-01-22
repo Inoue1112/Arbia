@@ -7,7 +7,6 @@
 #include "Sp2DMgrLives.h"
 #include "Sp2DMgrDiscover.h"
 
-
 namespace MainScene{
 	const WHSIZE_FLOAT ICONPOS = { 1050.0f, 5.0f };
 	const WHSIZE_FLOAT ICONSIZE = { 108.0f, 108.0f };
@@ -15,14 +14,13 @@ namespace MainScene{
 	const WHSIZE_FLOAT CENTER_POS = { WND_W / 2, WND_H / 2 };
 }
 
-
 class clsSp2dMgrMain
 {
 public:
 	clsSp2dMgrMain();
 	~clsSp2dMgrMain();
 
-	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void Init(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
 	void InitSetPos();
 	void Render();
 	void ActTxtMove();
@@ -43,26 +41,26 @@ public:
 	void ReSetLives(){
 		m_smpLives->ReSet();
 	}
-	void SetLives( int iHp ){
-		m_smpLives->SetNum( iHp );
+	void SetLives(int iHp){
+		m_smpLives->SetNum(iHp);
 	}
 
 	void ReSetDisc(){
 		m_smpDisc->ReSet();
 	}
-	void SetDisc( int iDisc ){
-		m_smpDisc->SetNum( iDisc );
+	void SetDisc(int iDisc){
+		m_smpDisc->SetNum(iDisc);
 	}
 
-	void SetTimerStop( bool bStop ){
-		m_smpTimerGrp->SetStop( bStop );
+	void SetTimerStop(bool bStop){
+		m_smpTimerGrp->SetStop(bStop);
 	}
 
 	//ïœâªó .
-	void MoveStartTopTxt(float fMovePoint )
+	void MoveStartTopTxt(float fMovePoint)
 	{
 		m_iMoveTopTxtPoint = 0.0f;
-		m_bMoveTopTxt      = true;
+		m_bMoveTopTxt = true;
 		m_fMoveTopTxtPoint = fMovePoint;
 	}
 
@@ -70,12 +68,12 @@ public:
 	{
 		if (m_bMoveTopTxt)
 		{
-			m_smpTimerGrp->AddPos( D3DXVECTOR3( 0.0f, m_fMoveTopTxtPoint, 0.0f ) );
-			m_smpDisc->AddPos( D3DXVECTOR3( 0.0f, m_fMoveTopTxtPoint, 0.0f ) );
-			m_smpLives->AddPos( D3DXVECTOR3( 0.0f,m_fMoveTopTxtPoint, 0.0f ) );
+			m_smpTimerGrp->AddPos(D3DXVECTOR3(0.0f, m_fMoveTopTxtPoint, 0.0f));
+			m_smpDisc->AddPos(D3DXVECTOR3(0.0f, m_fMoveTopTxtPoint, 0.0f));
+			m_smpLives->AddPos(D3DXVECTOR3(0.0f, m_fMoveTopTxtPoint, 0.0f));
 			if (m_iMoveTopTxtPoint < MainScene::ICONSIZE.h)
 			{
-				m_iMoveTopTxtPoint+=m_fMoveTopTxtPoint;
+				m_iMoveTopTxtPoint += m_fMoveTopTxtPoint;
 			}
 			else
 			{
@@ -100,6 +98,5 @@ private:
 	unique_ptr<clsDiscover> m_smpDisc;		//î≠å©êî.
 	unique_ptr<clsLives> m_smpLives;		//écã@.
 #endif//#ifdef Tahara
-
 };
 #endif //#ifndef _SP_2D_MANAGER_MAIN_SCENE_H_

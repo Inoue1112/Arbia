@@ -26,14 +26,12 @@ struct VS_OUTPUT
 	float2	Tex			: TEXCOORD3;
 };
 
-
-
 //--------------------------------------
 //	頂点(ﾊﾞｰﾃｯｸｽ)ｼｪｰﾀﾞ.
 //--------------------------------------
-VS_OUTPUT VS( float4 Pos	: POSITION,	//位置.
-			  float4 Normal	: NORMAL,	//法線.
-			  float2 Tex	: TEXCOORD )//ﾃｸｽﾁｬ.
+VS_OUTPUT VS(float4 Pos	: POSITION,	//位置.
+	float4 Normal : NORMAL,	//法線.
+	float2 Tex : TEXCOORD)//ﾃｸｽﾁｬ.
 {
 	VS_OUTPUT output = (VS_OUTPUT)0;//初期化.
 
@@ -42,11 +40,11 @@ VS_OUTPUT VS( float4 Pos	: POSITION,	//位置.
 
 	//光沢.
 	//板ﾎﾟﾘに法線を掛ける.
-	output.Normal = mul( Normal, (float3x3)g_mW );
-	output.Light  = g_vLightDir;
+	output.Normal = mul(Normal, (float3x3)g_mW);
+	output.Light = g_vLightDir;
 
-	float3 PosWorld = mul( Pos, g_mW );
-	output.EyeVector= g_vEye - PosWorld;
+	float3 PosWorld = mul(Pos, g_mW);
+		output.EyeVector = g_vEye - PosWorld;
 
 	output.Tex = Tex;
 
@@ -60,29 +58,29 @@ VS_OUTPUT VS( float4 Pos	: POSITION,	//位置.
 //--------------------------------------
 //	ﾋﾟｸｾﾙｼｪｰﾀﾞ.
 //--------------------------------------
-float4 PS( VS_OUTPUT input ) : SV_Target
+float4 PS(VS_OUTPUT input) : SV_Target
 {
 	//光沢.
-	float3 Normal  = normalize( input.Normal );
-	float3 LightDir= normalize( input.Light );
-	float3 ViewDir = normalize( input.EyeVector );
-	float4 NL      = saturate( dot( Normal, LightDir ) );
+	float3 Normal = normalize(input.Normal);
+	float3 LightDir = normalize(input.Light);
+	float3 ViewDir = normalize(input.EyeVector);
+	float4 NL = saturate(dot(Normal, LightDir));
 
 	//Reflect:反射.
 	//	面の反射値を求める.
-	float3 Reflect = normalize( 2 * NL * Normal - LightDir );
+	float3 Reflect = normalize(2 * NL * Normal - LightDir);
 	//Specular(ｽﾍﾟｷｭﾗ) :反射色.
 	//Ambient(ｱﾝﾋﾞｴﾝﾄ) :環境色.
 	//Diffuse(ﾃﾞｨﾌｭｰｽﾞ):拡散反射色.
 	//Emissive(ｴﾐｯｼﾌﾞ) :自己発光色.
 	float4 Specular
-		= 2 * pow( saturate( dot( Reflect, ViewDir ) ), 2 );
+	= 2 * pow(saturate(dot(Reflect, ViewDir)), 2);
 
 	float4 color
-		= g_texColor.Sample( g_samLinear, input.Tex );//色を返す.
+		= g_texColor.Sample(g_samLinear, input.Tex);//色を返す.
 	color = color + color * Specular;
 
-	return color;	
+	return color;
 }
 
 // normalize()	:正規化する.

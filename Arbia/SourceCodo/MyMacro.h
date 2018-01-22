@@ -1,14 +1,12 @@
 #ifndef _MY_MACRO_H_	//²Ý¸Ù°ÄÞ¶Þ°ÄÞ.
 #define _MY_MACRO_H_
 
-
 //============================================================
 //	Ï¸Û.
 //============================================================
 
 //´×°Ò¯¾°¼Þ.
 #define ERR_MSG(str,title)	{MessageBox(NULL,str,title,MB_OK);}
-
 
 //‰ð•ú.
 #define SAFE_RELEASE(x)		if(x){(x)->Release();	(x)=NULL;}
@@ -17,7 +15,7 @@
 
 //·°ÎÞ°ÄÞ“ü—Í.
 //‰Ÿ‚µ‚Ä‚¢‚éŠÔ.
-#define GETKEY_STAY(x) if (GetAsyncKeyState(x) & 0x8000)	
+#define GETKEY_STAY(x) if (GetAsyncKeyState(x) & 0x8000)
 //‰Ÿ‚µ‚½‚Æ‚«‚¾‚¯.
 #define GETKEY_DOWN(x) if (GetAsyncKeyState(x) & 0x0001)
 
