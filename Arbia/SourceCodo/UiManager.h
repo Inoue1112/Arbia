@@ -1,6 +1,7 @@
 #ifndef _UI_MANAGER_H_
 #define _UI_MANAGER_H_
 
+
 #include "Mymacro.h"
 #include "Sp2DMgrActTxt.h"
 
@@ -12,7 +13,11 @@
 
 #include "SceneManager.h"
 
+
+
+
 using namespace std;
+
 
 class clsUiManagar
 {
@@ -20,7 +25,7 @@ public:
 	clsUiManagar();
 	~clsUiManagar();
 
-	void Init(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+	void Init( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
 	void Delete();
 
 	void ChangeTitleInit();
@@ -34,6 +39,8 @@ public:
 	void ChangeEndingInit();
 	void SceneEnding();
 
+
+
 	void RenderTitle();
 	void RenderMain();
 	void RenderResult();
@@ -45,8 +52,8 @@ public:
 
 	//暗転機能が動いているかどうかbyInoue.
 	bool GetBlackIdle(){
-		if (m_smpBlack->m_BlackMode == Idle &&
-			m_smpWhite->m_BlackMode == Idle)
+		if( m_smpBlack->m_BlackMode == Idle &&
+			m_smpWhite->m_BlackMode == Idle )
 		{
 			return true;
 		}
@@ -55,8 +62,8 @@ public:
 
 	//暗転しきった瞬間を知らせるbyTahara.
 	bool GetBlackEnd(){
-		if (m_smpBlack->m_BlackMode == Change ||
-			m_smpWhite->m_BlackMode == Change)
+		if( m_smpBlack->m_BlackMode == Change ||
+			m_smpWhite->m_BlackMode == Change )
 		{
 			return true;
 		}
@@ -75,15 +82,20 @@ public:
 	void ReSetTimer(){
 		m_smpMainScene->ReSetTimer();
 	}
-	void SetLives(int iHp){
-		m_smpMainScene->SetLives(iHp);
+	void SetLives( int iHp ){
+		m_smpMainScene->SetLives( iHp );
 	}
-	void SetDisc(int iDisc){
-		m_smpMainScene->SetDisc(iDisc);
+	void SetDisc( int iDisc ){
+		m_smpMainScene->SetDisc( iDisc );
 	}
 
-	void SetTimerStop(bool bStop){
-		m_smpMainScene->SetTimerStop(bStop);
+	void SetTimerStop( bool bStop ){
+		m_smpMainScene->SetTimerStop( bStop );
+	}
+
+	//三点セット.
+	void AddPosYUiSet( float fMove ){
+		m_smpMainScene->AddPosYUiSet( fMove );
 	}
 
 	//アクション文字引っ込む.
@@ -92,8 +104,8 @@ public:
 	}
 
 	//宝石.
-	void SetJewelAppPos(D3DXVECTOR3 vPos){
-		m_smpResult->SetJewelAppPos(vPos);
+	void SetJewelAppPos( D3DXVECTOR3 vPos ){
+		m_smpResult->SetJewelAppPos( vPos );
 	}
 	D3DXVECTOR3 GetJewelAppPos(){
 		return m_smpResult->GetJewelAppPos();
@@ -103,14 +115,21 @@ public:
 	bool isCanBgmRePlay(){
 		return m_smpResult->isCanBgmRePlay();
 	}
+	bool isCanResEnd(){
+		return m_smpResult->isCanEnd();
+	}
+	void ResEndPos(){
+		m_smpResult->ResEndPos();
+	}
 
 	//ラップ + 時間セット.
-	void SetJewelState(UI_STATE_RESULT ResUiState){
+	void SetJewelState( UI_STATE_RESULT ResUiState ){
 		ResUiState.iTime = m_smpMainScene->GetTime();
-		m_smpResult->SetJewelState(ResUiState);
+		m_smpResult->SetJewelState( ResUiState );
 	}
 
 #endif//#ifdef Tahara
+
 
 	//タイトルの透過開始.//Trueなら透過していくfalseなら何もしない.
 	void SetTitleTransFlg(bool TransFlg)
@@ -133,7 +152,10 @@ public:
 	//メインの上のテキストを下におろして表示する関数.
 	void TopMainTxtMoveStart()
 	{
-		m_smpMainScene->MoveStartTopTxt(0.7f);
+#ifdef Tahara
+		const float fUI_IN_SPD = 1.5f;
+#endif //Tahara
+		m_smpMainScene->MoveStartTopTxt(fUI_IN_SPD);
 	}
 
 private:
@@ -143,10 +165,12 @@ private:
 
 	void InitPos();
 
+
 	unique_ptr<clsSprite2D> m_smpBlack;	//暗転用.
 	unique_ptr<clsSprite2D> m_smpWhite;	//暗転用.
 
 	//void ActTxtPosChange(bool );
+
 
 	unique_ptr<clsSprite2D> m_smpXButton;	//Xボタンねぇでやんす.
 	unique_ptr<clsSprite2D> m_smpAButton;	//Aボタンねぇでやんす.
@@ -168,6 +192,8 @@ private:
 	unique_ptr<clsSp2dMgrOver> m_smpOverScene;
 
 	unique_ptr<clsSprite2D> m_pTestSpr2D;
+
+
 };
 
 #endif //#ifndef _UI_MANAGER_H_

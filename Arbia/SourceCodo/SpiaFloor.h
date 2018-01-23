@@ -3,6 +3,9 @@
 
 #include "CharaStatic.h"
 
+
+
+
 class clsSpiaFloor
 	: public clsCharaStatic
 {
@@ -25,11 +28,11 @@ public:
 		enSOUND_VIB = 0,
 		enSOUND_UP,
 		enSOUND_DOWN,
-
+		  
 		enSOUND_MAX,	//ç≈ëÂêî.
 	};
 
-	virtual void Init(bool bFlg = false);//true = çÇÇ¢Ç‚Ç¬.
+	virtual void Init( bool bFlg = false );//true = çÇÇ¢Ç‚Ç¬.
 
 	enSound Move();
 
@@ -39,12 +42,15 @@ public:
 
 private:
 
+
+
 	enSpeaFloorMode m_Mode;
 	int		m_iTimer;
 	float	m_fChangeRange;
 	float	m_fRootY;
 	bool	m_bVib;
 	bool	m_bSpnRight;
+
 };
 
 #endif//#ifndef _C_SPIA_FLOOR_H_

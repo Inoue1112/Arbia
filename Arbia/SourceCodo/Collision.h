@@ -5,10 +5,16 @@
 
 #include "Sound.h"
 
+
 class clsCharaSkin;
 class clsCharaStatic;
 
 class clsCollisionRay;
+
+
+
+
+
 
 //‚ ‚½‚è”»’è—p½Ã°À½.
 struct COL_STATE
@@ -28,9 +34,11 @@ struct COL_STATE
 	float		fCenterX;	//X‚Ì’†S‚Ö‚Ì‹——£(•Ç‘„‚È‚ç‘„‚Ì•äæ‚ÌªŒ³‚©‚ç”¼•ª);
 
 	COL_STATE(){
-		ZeroMemory(this, sizeof(COL_STATE));
+		ZeroMemory( this, sizeof( COL_STATE ) );
 	}
 };
+
+
 
 class clsCollision
 {
@@ -38,44 +46,54 @@ public:
 	clsCollision();
 	~clsCollision();
 
-	void CreateSe(HWND hWnd);
+	void CreateSe( HWND hWnd );
 
 	void Release();
 
+
 	//BOX‚Ì‚ ‚½‚è”»’è.
-	bool HitBox(COL_STATE* Attker, COL_STATE* Target);
+	bool HitBox( COL_STATE* Attker, COL_STATE* Target );
+
 
 	//‘ÎÛ‚Æ‚Ì‹——£‚ğZo‚·‚é(‰~‚Æ‚µ‚Ä‚àg‚¦‚é).
-	float LengthComp(D3DXVECTOR3 Attker, D3DXVECTOR3 Target);
+	float LengthComp( D3DXVECTOR3 Attker, D3DXVECTOR3 Target );
 
 	//‰~’Œ.
-	bool HitCylind(COL_STATE* Attacker, COL_STATE* Target);
+	bool HitCylind( COL_STATE* Attacker, COL_STATE* Target );
 
 	//–Ú•W‚Æ‚ÌŠp“x.
-	float SetTarYaw(D3DXVECTOR3 Attker, D3DXVECTOR3 Target);//OpponentDirect
+	float SetTarYaw( D3DXVECTOR3 Attker, D3DXVECTOR3 Target);//OpponentDirect
 
 	//Šp“x”»’è.
-	bool ThetaCheck(double dMyTheta, double dTargTheta, int iSarchTheta);
+	bool ThetaCheck( double dMyTheta, double dTargTheta, int iSarchTheta );
 
 	//îŒ`Áª¯¸.
-	bool HitSect(COL_STATE* Attacker, COL_STATE* Target);
+	bool HitSect( COL_STATE* Attacker, COL_STATE* Target );
+
+
+
+
+
 
 	//•Ç‚Ì‚ ‚½‚è”»’èŠÖ˜A.
-	void WallJudge(clsCharaSkin* pWalker, clsCharaStatic* pWall);
+	void WallJudge( clsCharaSkin* pWalker, clsCharaStatic* pWall );
+
 
 	//°‚Æ‚Ì”»’è.
-	bool FloorJudge(
-		clsCharaSkin* pWalker,
+	bool FloorJudge( 
+		clsCharaSkin* pWalker, 
 		float fRange,
 		float& fLandY,//‰º‚É°‚ª‚ ‚é‚Ætrue‚ª•Ô‚Á‚Ä‚­‚é.
 		clsCharaStatic* pFloor,
-		bool& bFlg);
+		bool& bFlg );
 
 	//“Vˆä‚Æ‚Ì”»’è.
-	bool CeilingJudge(
-		clsCharaSkin* pWalker,
+	bool CeilingJudge( 
+		clsCharaSkin* pWalker, 
 		float fWalkerHeight,
-		clsCharaStatic* pFloor);
+		clsCharaStatic* pFloor );
+
+
 
 	//----- ÚGŒø‰Ê‰¹ -----///.
 	//‰¹‚Ìí—Ş.
@@ -95,15 +113,20 @@ public:
 		enSOUND_MAX,	//Å‘å”.
 	};
 
+
 	//‰¹Ä¶.
-	void PlaySe(enSound enSe);
+	void PlaySe( enSound enSe );
+
+
 
 private:
 	////360`0‚É”[‚ß‚é.
-	void ThetaOverGuard(float& theta);
-	void ThetaOverGuard(double& theta);
+	void ThetaOverGuard( float& theta );
+	void ThetaOverGuard( double& theta );
 
 	clsCollisionRay*	m_pRay;
+
+
 
 	//Œø‰Ê‰¹.
 	clsSound**	m_ppSe;

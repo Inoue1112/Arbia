@@ -1,6 +1,7 @@
 #ifndef _C_COMMON_H_
 #define _C_COMMON_H_
 
+
 //²İ¸Ù°ÄŞ.
 #include "Global.h"
 
@@ -26,7 +27,8 @@ public:
 	virtual ~clsCommon(){};
 
 	//“§‰ß(±ÙÌ§ÌŞÚİÄŞ)İ’è‚ÌØ‚è‘Ö‚¦.
-	void SetBlend(bool flg);
+	void SetBlend( bool flg );
+
 
 	//«±ÌßØ‚Éˆê‚Â.
 	ID3D11Device*			m_pDevice11;		//ÃŞÊŞ²½µÌŞ¼Şª¸Ä.
@@ -34,7 +36,9 @@ public:
 
 	ID3D11BlendState*		m_pBlendState;	//ÌŞÚİÄŞ½Ã°Ä.
 
+
 private:
+
 };
 
 #endif//#define _C_COMMON_H_

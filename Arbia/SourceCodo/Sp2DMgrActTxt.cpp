@@ -34,6 +34,7 @@ void clsActTxt::Move(float PlusSize)
 		default:
 			break;
 	}
+
 }
 void clsActTxt::InStart()
 {

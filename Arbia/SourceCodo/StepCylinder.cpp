@@ -8,6 +8,7 @@ const float fSPD_MAX = 1.0f / 32.0f;
 //‰Á‘¬“x.
 const float fACCEL = fSPD_MAX / 32.0f;
 
+
 clsStepCyl::clsStepCyl()
 {
 }
@@ -16,7 +17,7 @@ clsStepCyl::~clsStepCyl()
 {
 }
 
-void clsStepCyl::CreateMove(bool bNorth)
+void clsStepCyl::CreateMove( bool bNorth )
 {
 	//Šî“_.
 	m_vStartPos = m_vPos;
@@ -24,7 +25,7 @@ void clsStepCyl::CreateMove(bool bNorth)
 	//ƒtƒ‰ƒO.
 	m_bInitFlg = bNorth;
 	Init();
-	//	m_vRot.y = (float)M_PI_2;
+//	m_vRot.y = (float)M_PI_2;
 }
 
 void clsStepCyl::Init()
@@ -34,7 +35,7 @@ void clsStepCyl::Init()
 	m_fMovePower = -fSPD_MAX;
 	m_vPos = m_vStartPos;
 	//“ì‚ÖŒü‚©‚¤Start‚È‚ç.
-	if (m_bInitFlg){
+	if( m_bInitFlg ){
 		m_fMovePower *= -1.0f;		//ˆÚ“®—Ê‹t“].
 		m_vPos.z = m_fGoalPosZ;//ˆÊ’u‚ðŒü‚±‚¤‚Ö.
 	}
@@ -44,28 +45,28 @@ void clsStepCyl::Init()
 void clsStepCyl::Move()
 {
 	//–k‚ÖGO.
-	if (m_bNorthFlg){
+	if( m_bNorthFlg ){
 		//‰Á‘¬.
 		m_fMovePower += fACCEL;
 		//‘¬“x§ŒÀ.
-		if (m_fMovePower > fSPD_MAX){
+		if( m_fMovePower > fSPD_MAX ){
 			m_fMovePower = fSPD_MAX;
 		}
 
 		//•ûŒü“]Š·.
-		if (m_vPos.z > m_fGoalPosZ){
+		if( m_vPos.z > m_fGoalPosZ ){
 			m_bNorthFlg = false;
 		}
 	}
 	//“ì‚ÖGO.
 	else{
 		m_fMovePower -= fACCEL;
-
-		if (m_fMovePower < -fSPD_MAX){
+		
+		if( m_fMovePower < -fSPD_MAX ){
 			m_fMovePower = -fSPD_MAX;
 		}
 
-		if (m_vPos.z < m_vStartPos.z){
+		if( m_vPos.z < m_vStartPos.z ){
 			m_bNorthFlg = true;
 		}
 	}
@@ -73,3 +74,4 @@ void clsStepCyl::Move()
 	//ˆÚ“®.
 	m_vPos.z += m_fMovePower;
 }
+

@@ -7,6 +7,8 @@
 
 #include "Sound.h"
 
+
+
 class clsDoorMgr
 	: public clsGameObject
 {
@@ -14,8 +16,8 @@ public:
 	clsDoorMgr();
 	~clsDoorMgr();
 
-	void Create(HWND hWnd, ID3D11Device* pDevice,
-		ID3D11DeviceContext* pContext, int iNo = -1);
+	void Create( HWND hWnd, ID3D11Device* pDevice, 
+		ID3D11DeviceContext* pContext, int iNo = -1 );
 	void Init();
 	void ReStart();
 
@@ -23,22 +25,26 @@ public:
 	void UpDateModel(){};
 
 	//描画.
-	virtual void Render(D3DXMATRIX &mView, D3DXMATRIX &mProj,
-		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye);
+	virtual void Render( D3DXMATRIX &mView, D3DXMATRIX &mProj,
+		D3DXVECTOR3 &vLight, D3DXVECTOR3 &vEye );
 
-	virtual void SetPosition(D3DXVECTOR3 vPos);
+	virtual void SetPosition( D3DXVECTOR3 vPos );
 
-	void Move(float fEarZ);
+
+	void Move( float fEarZ );
 
 	//蹴られたとき.
 	//戻り値はプレイヤーの初期化位置の更新座標.
 	D3DXVECTOR3 DoorBreak();
 
+
 	//あたり判定用.
-	void SetColPos(D3DXVECTOR3 vPos);
+	void SetColPos( D3DXVECTOR3 vPos );
+
 
 	//透過フラグの設定.
-	void SetAlphaFlg(float fPlayerZ);
+	void SetAlphaFlg( float fPlayerZ );
+
 
 	//門との壁あたり判定用.
 	clsCharaStatic*	GetGateColPointer(){
@@ -56,6 +62,7 @@ public:
 		return m_bBreak;
 	}
 
+
 	float GetAlp(){
 		return m_fAlpha;
 	}
@@ -68,7 +75,7 @@ public:
 
 private:
 	//効果音.
-	void PlaySe( /*enSound enSe*/);
+	void PlaySe( /*enSound enSe*/ );
 	clsSound*	m_pSe;
 	float		m_fEarZ;
 
@@ -91,6 +98,7 @@ private:
 	bool	m_bAlpha;//モデルのRender()に渡す引数.
 	bool	m_bAlphaChange;//透過値をどちらに変えているか.
 
+
 	//ｱﾆﾒｰｼｮﾝ番号.
 	enum enAnimation
 	{
@@ -103,8 +111,10 @@ private:
 	enAnimation m_enAnimNo;
 	void Animation();
 	//アニメーションモードを変更.
-	void ChangeAnimMode(enAnimation anim);
+	void ChangeAnimMode( enAnimation anim );
 	double m_dAnimTimer;
 };
+
+
 
 #endif//#ifndef _DOOR_MANAGER_H_

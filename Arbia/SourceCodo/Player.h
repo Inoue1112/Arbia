@@ -1,11 +1,14 @@
 #ifndef _C_PLAYER_H_
 #define _C_PLAYER_H_
 
+
 #include "CharaSkin.h"
 
 #include "Sound.h"
 
+
 #include "CXInput.h"
+
 
 #include "Effects.h"
 
@@ -19,44 +22,49 @@ public:
 	//自機動きの種類.
 	enum enPLAYER_MOVE
 	{
-		enPM_IDLE = 0,//停止.
+		enPM_IDLE	= 0,//停止.
 		enPM_RUN,		//走り.
 		enPM_ATK,		//攻撃.
 		enPM_JUM_ATK,	//ｼﾞｬﾝﾌﾟ攻撃.
 		enPM_DEAD		//ﾐｽ.
 	};//m_enMove
 
-	void Create(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11);
+void Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11 );
 	virtual void Init();
+
 
 	COL_STATE* GetPointerSubCol(){
 		return &m_colSub;
 	}
 
+
 	//ラジコン操作Update.
 	void UpdateDir();
 
-	void Input(clsXInput* const xInput);
+	void Input( clsXInput* const xInput );
 
-	void Move(float fEarZ);
+	void Move( float fEarZ );
 	void Rerease();
 
 	void Dead();
 
 	//ジャンプ開始.
-	void SetJump(bool bDropout = false);
+	void SetJump( bool bDropout = false );
 
 	//ステージスタート.
 	void Spawn();
 	//復活.
 	void ReSpawn();
 	//復活地点更新.
-	void UpdateReSpawnPos(D3DXVECTOR3 vPos){
+	void UpdateReSpawnPos( D3DXVECTOR3 vPos ){
 		m_vReSpawnPos = vPos;
 	}
 
+
 	//通常攻撃開始.
 	void Kick();
+
+
 
 	//Getｼﾘｰｽﾞ.
 	bool GetDead(){
@@ -75,13 +83,14 @@ public:
 	bool GetGroundFlg(){
 		return m_bLanding;
 	};
-	void SetGroundFlg(bool bFlg){
+	void SetGroundFlg( bool bFlg ){
 		m_bLanding = bFlg;
 	};
 
+
 	//カメラが見上げる?(ジャンプ攻撃中なら見上げる).
 	bool isCamLookUp(){
-		if (m_enMove == enPM_JUM_ATK){
+		if( m_enMove == enPM_JUM_ATK ){
 			return true;
 		}
 		return false;
@@ -91,6 +100,7 @@ public:
 	bool GetAttackImpact(){
 		return m_bAtkImpact;
 	}
+
 
 	//背の高さを返す（天井のあたり判定用）.
 	float GetHeight();//const float COL_PLAYER_H  = 2.0f;.
@@ -104,13 +114,15 @@ public:
 
 	//かかと落とし中フラグ返す.
 	bool isJumpAtk(){
-		if (m_enMove == enPM_JUM_ATK){
+		if( m_enMove == enPM_JUM_ATK ){
 			return true;
 		}
 		return false;
 	}
 	//かかと落とし降下中フラグ.
 	bool GetJumpAtkImpact();
+
+
 
 	//メイン以外.
 	void InitTitleScene();
@@ -122,6 +134,7 @@ public:
 	int		m_iTitleTimer;
 	bool	m_bTitleSpnFlg;
 
+
 private:
 
 	//ｷｯｸ範囲.
@@ -131,17 +144,21 @@ private:
 	//減速関数.
 	void Deceleration();
 
+
 	//子分.
-	void Input_Move(clsXInput* const xInput);
-	void Input_Action(clsXInput* const xInput);
-	void Input_Action_Jump(clsXInput* const xInput);
-	void Input_Action_Atk(clsXInput* const xInput);
+	void Input_Move( clsXInput* const xInput );
+	void Input_Action( clsXInput* const xInput );
+		void Input_Action_Jump( clsXInput* const xInput );
+		void Input_Action_Atk( clsXInput* const xInput );
 	clsXInput* m_pXInput;
+
+
 
 	void Move_Move();
 	void Move_Action();
-	void Move_Action_Jump();
-	void Move_Action_Atk();
+		void Move_Action_Jump();
+		void Move_Action_Atk();
+
 
 	enPLAYER_MOVE m_enMove;
 
@@ -151,7 +168,9 @@ private:
 
 	float	m_fJumpEnagy;//j_energy.
 
+
 	int		m_iJumpTimer;//Player_JumpTimer
+
 
 	bool	m_bJumpAtkTopFlg;//頂点でしか発動しない.//PlayerJumpAtkTopFlg.
 	bool	m_bJumpSpdDown;//ジャンプ中に減速してよいか.
@@ -160,13 +179,23 @@ private:
 
 	D3DXVECTOR3 m_vReSpawnPos;//復活地点.
 
+
 	int		m_iHp;//残機数.
 
 	float	m_fOldY;
 
+
+
+
+
+
+
+
 	//走りアニメーション用フラグ.
 	bool	m_bRunning;//走っているか否か.
 	bool	m_bAtkImpact;//攻撃の瞬間.
+
+
 
 #if 0
 	//ｱﾆﾒｰｼｮﾝ番号.
@@ -180,7 +209,7 @@ private:
 		enANIM_RUN_END_R,	//enANIM_RUNNING_Rからつなぐ.
 		enANIM_RUN_END_L,
 
-		enANIM_JUMP_START,
+		enANIM_JUMP_START,	
 		enANIM_JUMP_UP,		//上昇.
 		enANIM_JUMP_U_TURN,	//上下運動エネルギーの転換.
 		enANIM_JUMP_FALL,	//下降.
@@ -209,7 +238,7 @@ private:
 		enANIM_RUN_END_R,	//enANIM_RUNNING_Rからつなぐ.
 		enANIM_RUN_END_L,	//enANIM_RUNNING_Lからつなぐ.
 
-		enANIM_JUMP_START,
+		enANIM_JUMP_START,	
 		enANIM_JUMP_UP,		//上昇.
 		enANIM_JUMP_U_TURN,	//上下運動エネルギーの転換.
 		enANIM_JUMP_FALL,	//下降.
@@ -233,7 +262,8 @@ private:
 	enAnimation m_enAnimNo;
 	void Animation();
 	//アニメーションモードを変更.
-	void ChangeAnimMode(enAnimation anim);
+	void ChangeAnimMode( enAnimation anim );
+
 
 	//音の種類.
 	enum enPlayerSound
@@ -249,22 +279,34 @@ private:
 		enPS_MAX,	//最大数.
 	};
 	//効果音.
-	void PlaySe(enPlayerSound enSe);
+	void PlaySe( enPlayerSound enSe );
 	clsSound**	m_ppSe;
 	float		m_fEarZ;	//耳の位置(トラップ群と違い引数にするのがやばかったので).
 
-	void SetSe(HWND hWnd);
+	void SetSe( HWND hWnd );
+
+
+
 
 	//移動補助.
-	bool InputUp(clsXInput* const xInput);
-	bool InputDown(clsXInput* const xInput);
-	bool InputLeft(clsXInput* const xInput);
-	bool InputRight(clsXInput* const xInput);
+	bool InputUp( clsXInput* const xInput );
+	bool InputDown( clsXInput* const xInput );
+	bool InputLeft( clsXInput* const xInput );
+	bool InputRight( clsXInput* const xInput );
 
+
+	//エフェクト.
 	//名前省略用.
 	clsEffects*				m_pEffect;
 	//ハンドル eh = EffekseerHandle.
-	::Effekseer::Handle		m_ehOne;
+	::Effekseer::Handle		m_ehWave;//衝撃波.
+	::Effekseer::Handle		m_ehStep[4];//足跡.
+
+	//足跡エフェクト再生.
+	void PlayStepEff();
 };
+
+
+
 
 #endif//#ifndef _C_PLAYER_H_
