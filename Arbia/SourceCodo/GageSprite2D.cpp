@@ -124,6 +124,7 @@ HRESULT clsGageSprite2D::InitShader()
 	}
 	SAFE_RELEASE(pCompiledShader);
 
+
 	//HLSLからﾋﾟｸｾﾙｼｪｰﾀﾞのﾌﾞﾛﾌﾞを作成.
 	if (FAILED(
 		D3DX11CompileFromFile(
@@ -187,14 +188,14 @@ HRESULT clsGageSprite2D::InitModel(GAGE_SPRITE_STATE ss)
 	float fH = ss.Disp.h;	//表示ｽﾌﾟﾗｲﾄ高さ.
 	float fU = ss.Stride.w / ss.Disp.w;	//1ｺﾏあたりの幅.
 	float fV = ss.Stride.h / ss.Disp.h;	//1ｺﾏあたりの高さ.
-
+	
 	//板ﾎﾟﾘ(四角形)の頂点を作成.
 	SpriteVertex vertices[] =
 	{
 		//頂点座標(x,y,z)_______________/ UV座標(u,v).
 		D3DXVECTOR3(0.0f, fH, 0.0f), D3DXVECTOR2(0.0f, fV),			//頂点1 : 左下.
-		D3DXVECTOR3(0.0f, 0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f),	//頂点2 : 左上.
-		D3DXVECTOR3(fW, fH, 0.0f), D3DXVECTOR2(fU, fV),				//頂点3 : 右下.
+		D3DXVECTOR3(0.0f, 0.0f, 0.0f),	D3DXVECTOR2(0.0f, 0.0f),	//頂点2 : 左上.
+		D3DXVECTOR3(fW, fH, 0.0f), D3DXVECTOR2(fU,fV),				//頂点3 : 右下.
 		D3DXVECTOR3(fW, 0.0f, 0.0f), D3DXVECTOR2(fU, 0.0f)			//頂点4 : 右上.
 	};
 	//最大要素数を算出する.
@@ -223,7 +224,7 @@ HRESULT clsGageSprite2D::InitModel(GAGE_SPRITE_STATE ss)
 	//頂点ﾊﾞｯﾌｧをｾｯﾄ.
 	UINT stride = sizeof(SpriteVertex);//ﾃﾞｰﾀ間隔.
 	UINT offset = 0;
-	m_pDeviceContext11->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &stride, &offset);
+	m_pDeviceContext11->IASetVertexBuffers(0, 1,&m_pVertexBuffer, &stride, &offset);
 
 	//ﾃｸｽﾁｬ用のｻﾝﾌﾟﾗｰ構造体.
 	D3D11_SAMPLER_DESC SamDesc;
@@ -292,7 +293,7 @@ void clsGageSprite2D::Render()
 	{
 		//ﾜｰﾙﾄﾞ行列を渡す.
 		D3DXMATRIX m = mWorld;
-		D3DXMatrixTranspose(&m, &m);	//行列を転置する.
+		D3DXMatrixTranspose(&m, &m);	//行列を転置する.					
 		//行列の計算方法がDirectXとGPUで異なる為.
 		cd.mW = m;
 

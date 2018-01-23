@@ -15,6 +15,7 @@ using namespace std;
 #include <d3dx9tex.h>
 #define ALIGN16 _declspec( align( 16 ) )
 
+
 //============================================================
 //	構造体.
 //============================================================
@@ -57,87 +58,89 @@ enum en_BlackMode
 	Out,
 };
 
+
 //============================================================
 //	ｽﾌﾟﾗｲﾄ2Dｸﾗｽ.
 //============================================================
 class clsSprite2D
 	: public clsCommon
 {
+
 public:
 	clsSprite2D();	//ｺﾝｽﾄﾗｸﾀ.
 	virtual ~clsSprite2D();	//ﾃﾞｽﾄﾗｸﾀ.
 
 	//初期化.
-	HRESULT Init(ID3D11Device* pDevice11,
+	HRESULT Init( ID3D11Device* pDevice11,
 		ID3D11DeviceContext* pContext11,
-		LPSTR fileName);
+		LPSTR fileName );
 
 	//スプライトを画面外へ.
 	void InitSetPos()
 	{
-		m_vPos = D3DXVECTOR3(WND_W, WND_H, 0.0f);
+		m_vPos = D3DXVECTOR3( WND_W, WND_H, 0.0f );
 	}
 
-	void SetPos(D3DXVECTOR3 Pos)
+	void SetPos( D3DXVECTOR3 Pos )
 	{
 		m_vPos = Pos;
 	}
 
-	void AddPosX(float Add)
+	void AddPosX( float Add )
 	{
 		m_vPos.x += Add;
 	}
 
-	void AddPosY(float Add)
+	void AddPosY( float Add )
 	{
 		m_vPos.y += Add;
 	}
 
-	void AddPosZ(float Add)
+	void AddPosZ( float Add )
 	{
 		m_vPos.z += Add;
 	}
 
-	void SetPosX(float PosX)
+	void SetPosX( float PosX )
 	{
 		m_vPos.x = PosX;
 	}
 
-	void SetPosY(float PosY)
+	void SetPosY( float PosY )
 	{
 		m_vPos.y = PosY;
 	}
 
-	void SetPosZ(float PosZ)
+	void SetPosZ( float PosZ )
 	{
 		m_vPos.z = PosZ;
 	}
 
-	void SetPos(float x, float y, float z = 0.0f)
+	void SetPos( float x, float y, float z = 0.0f )
 	{
 		m_vPos.x = x;
 		m_vPos.y = y;
 		m_vPos.z = z;
 	}
 
-	void SetAlpha(float Alpha)
+	void SetAlpha( float Alpha )
 	{
 		m_fAlpha = Alpha;
 	}
 
-	void AddAlpha(float Alpha)
+	void AddAlpha( float Alpha )
 	{
 		m_fAlpha += Alpha;
 	}
 
 	//横のパターン.
-	void SetPatarnU(float Patarn)
+	void SetPatarnU( float Patarn )
 	{
 		m_fPatternNo.x = Patarn;
 	}
 
 	//縦のパターン.
-	void SetPatarnV(float Patarn)
+	void SetPatarnV( float Patarn )
 	{
 		m_fPatternNo.y = Patarn;
 	}
@@ -156,49 +159,49 @@ public:
 		float StrideW = 1,	    //縦コマ数.
 		float StrideH = 1)	    //横コマ数.
 	{
-		m_SState.Base.h = BaseH;		//元画像高さ.
-		m_SState.Base.w = BaseW;		//元画像幅.
+		m_SState.Base.h		= BaseH;		//元画像高さ.
+		m_SState.Base.w		= BaseW;		//元画像幅.
 		if (DispH < 0)
 		{
 			m_SState.Disp.h = m_SState.Base.h;
 		}
 		else
 		{
-			m_SState.Disp.h = DispH;		//表示高さ.
+			m_SState.Disp.h		= DispH;		//表示高さ.
 		}
 		if (DispW < 0)
 		{
-			m_SState.Disp.w = m_SState.Base.w;	//表示幅.
+			m_SState.Disp.w		= m_SState.Base.w;	//表示幅.
 		}
 		else
 		{
-			m_SState.Disp.w = DispW;		//表示幅.
+			m_SState.Disp.w		= DispW;		//表示幅.
 		}
-		m_SState.Stride.h = StrideH;		//縦コマ数.
-		m_SState.Stride.w = StrideW;		//横コマ数.
+		m_SState.Stride.h	= StrideH;		//縦コマ数.
+		m_SState.Stride.w	= StrideW;		//横コマ数.
 	}
 
-	void SetDispH(float DispH)
+	void SetDispH( float DispH )
 	{
 		m_SState.Disp.h = DispH;
 	}
 
-	void SetDispW(float DispW)
+	void SetDispW( float DispW )
 	{
 		m_SState.Disp.w = DispW;
 	}
 
-	void AddDispH(float DispH)
+	void AddDispH( float DispH )
 	{
 		m_SState.Disp.h += DispH;
 	}
 
-	void AddDispW(float DispW)
+	void AddDispW( float DispW )
 	{
 		m_SState.Disp.w += DispW;
 	}
 
-	void MulDisp(float Disp)
+	void MulDisp( float Disp )
 	{
 		MulPoint = Disp;
 		m_SState.Disp.w = MulPoint * m_SState.Base.w;
@@ -218,8 +221,8 @@ public:
 	WHSIZE_FLOAT GetCenterDisp()
 	{
 		WHSIZE_FLOAT tmp;
-		tmp.w = m_SState.Disp.w / 2;
-		tmp.h = m_SState.Disp.h / 2;
+		tmp.w = m_SState.Disp.w/2;
+		tmp.h = m_SState.Disp.h/2;
 		return tmp;
 	}
 
@@ -232,7 +235,7 @@ public:
 	virtual void UpDateSpriteSs();
 
 	//点滅用.
-	void Flashing(float ChaAmo);
+	void Flashing( float ChaAmo );
 
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)(※DX9MESH内とMain内で2つ存在するので注意).
 	virtual void Render();
@@ -245,10 +248,11 @@ protected:
 	//ｼｪｰﾀﾞ作成.
 	HRESULT InitShader();
 	////ﾓﾃﾞﾙ作成.
-	virtual HRESULT InitModel(SPRITE_STATE ss);
+	virtual HRESULT InitModel( SPRITE_STATE ss );
 	//ﾃｸｽﾁｬ作成.
-	HRESULT CreateTexture(LPSTR fileName,
-		ID3D11ShaderResourceView** pTex);
+	HRESULT CreateTexture( LPSTR fileName,
+		ID3D11ShaderResourceView** pTex );
+
 
 	bool			m_bFlashing;
 
@@ -264,8 +268,11 @@ protected:
 
 	float			m_fAlpha;	//ｱﾙﾌｧ値.
 
+
+
 	SPRITE_STATE	m_SState;	//ｽﾌﾟﾗｲﾄ情報.
 	POINTFLOAT		m_fPatternNo;//ﾏｽ目番号.
+
 
 	//↓ﾓﾃﾞﾙの種類ごとに用意.
 	ID3D11VertexShader*		m_pVertexShader;	//頂点ｼｪｰﾀﾞ.
@@ -279,5 +286,6 @@ protected:
 
 	ID3D11SamplerState*		m_pSampleLinear;//ﾃｸｽﾁｬのｻﾝﾌﾟﾗｰ:/ﾃｸｽﾁｬに各種ﾌｨﾙﾀをかける.
 };
+
 
 #endif//#define _SPRITE_2D_H_

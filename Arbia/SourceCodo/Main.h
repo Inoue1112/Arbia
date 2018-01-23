@@ -23,9 +23,13 @@
 #include "Particle.h"
 #include "Ray.h"		//ﾚｲ表示ｸﾗｽ.
 
+
 #include "Sound.h"		//ｻｳﾝﾄﾞｸﾗｽ.
 
+
+
 #include "Effects.h"//Effekseerを管理するｸﾗｽ.
+
 
 #include "Player.h"
 
@@ -63,11 +67,14 @@
 
 #pragma comment( lib, "d3dx10.lib" )//「D3DX～」の定義使用時に必要.
 
+
+
 //============================================================
 //	定数.
 //============================================================
 #define WND_TITLE	"怪盗アルビア"
 #define APR_NAME	"Arbia"
+
 
 //============================================================
 //	構造体.
@@ -88,7 +95,7 @@ struct StagePatarunSet
 
 	//↓二つは同時に出ない.
 	int  iFloor;		// 0:床無し1:通常床 2:半分床右側.
-	// 3:半分床左側 4:ペンデュラム床.
+					// 3:半分床左側 4:ペンデュラム床.
 
 	//絶対に床あり.
 	int   iEnemy;		// 0:何もないよ 1～:敵の設置.
@@ -115,6 +122,8 @@ struct StagePatarunSet
 	bool bTest;
 };
 
+
+
 //============================================================
 //	ﾒｲﾝｸﾗｽ.
 //============================================================
@@ -123,6 +132,7 @@ class clsMain
 public:
 	clsMain();	//ｺﾝｽﾄﾗｸﾀ.
 	~clsMain();	//ﾃﾞｽﾄﾗｸﾀ.
+
 
 	//ｳｨﾝﾄﾞｳ初期化関数.
 	HRESULT InitWindow(
@@ -133,7 +143,7 @@ public:
 	//ｳｨﾝﾄﾞｳ関数(ﾒｯｾｰｼﾞ毎の処理).
 	LRESULT MsgProc(
 		HWND hWnd, UINT uMsg,
-		WPARAM wParam, LPARAM lParam);
+		WPARAM wParam, LPARAM lParam );
 
 	//ﾒｯｾｰｼﾞﾙｰﾌﾟ.
 	void Loop();
@@ -141,6 +151,9 @@ public:
 	void AppMain();
 	//描画(ﾚﾝﾀﾞﾘﾝｸﾞ)(※DX9MESH内とMain内で2つ存在するので注意).
 	void Render();
+
+
+
 
 	//DirectX初期化.
 	HRESULT InitD3D();
@@ -151,41 +164,50 @@ public:
 	HRESULT ReadMesh();
 
 	//ｽﾌｨｱ作成.
-	HRESULT InitSphere(clsDX9Mesh* pMesh, float fScale = 0.7f);
+	HRESULT InitSphere( clsDX9Mesh* pMesh, float fScale = 0.7f );
 	//ｽﾌｨｱ衝突判定関数.
-	bool Collision(clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget);
+	bool Collision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget );
 
 	//ﾊﾞｳﾝﾃﾞｨﾝｸﾞﾎﾞｯｸｽ作成.
-	HRESULT InitBBox(clsDX9Mesh* pMesh);
+	HRESULT InitBBox( clsDX9Mesh* pMesh );
 	//ﾎﾞｯｸｽ衝突判定関数.
-	bool BBoxCollision(clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget);
+	bool BBoxCollision( clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget );
+
+
 
 	//ﾚｲとﾒｯｼｭのあたり判定.
 	bool Intersect(
 		clsDX9Mesh* pAttacker, clsDX9Mesh* pTarget,
-		float* pfDistance, D3DXVECTOR3* pvIntersect);
+		float* pfDistance, D3DXVECTOR3* pvIntersect );
 	//交差位置のﾎﾟﾘｺﾞﾝの頂点を見つける.
 	HRESULT FindVerticesOnPoly(
 		LPD3DXMESH pTarget, DWORD dwPolyIndex,
-		D3DXVECTOR3* pVecVertices);
+		D3DXVECTOR3* pVecVertices );
 	//壁のあたり判定関連.
-	void WallJudge(clsDX9Mesh* pAttacker, clsDX9Mesh* pWall);
+	void WallJudge( clsDX9Mesh* pAttacker, clsDX9Mesh* pWall );
 	//回転値調整.
-	void DirOverGuard(float* fYaw);
+	void DirOverGuard( float* fYaw );
+
+
+
 
 	//深度ﾃｽﾄ(Zﾃｽﾄ)　ON/OFF切替.
-	void SetDepth(bool bFlg);
+	void SetDepth( bool bFlg );
+
 
 	//ﾎﾞｰﾝの座標をとる(ﾗｯﾌﾟ関数).
-	void GetPosFromBone(clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVECTOR3& Pos);
+	void GetPosFromBone( clsD3DXSKINMESH* skinMesh, char BoneName[], D3DXVECTOR3& Pos );
 
 	//ｶﾒﾗ関数.
 	void Camera();
 	//ﾌﾟﾛｼﾞｪｸｼｮﾝ関数.
 	void Proj();
 
+
 	//ｼﾞｮｲｽﾃｨｯｸ.
 	clsXInput* m_pXInput;
+
+
 
 	//あたり判定.
 	clsCollision*	m_pCollision;
@@ -213,6 +235,7 @@ public:
 	int LoadGage;
 	float LoadGageUVTarget;
 #endif//#ifdef START_LOADING_DISPLAY
+
 
 	unique_ptr<clsFile>	m_pTestData;
 
@@ -249,7 +272,7 @@ public:
 
 	inline void StageSet();
 	inline void StageModelSet();
-	inline void StageModelSetErrMsg(int StageNum, const char* ERR_MSG);
+	inline void StageModelSetErrMsg( int StageNum, const char* ERR_MSG );
 	inline void StageDetatchModelSet();
 
 	void SceneTitle();
@@ -301,31 +324,41 @@ public:
 	//リザルトで数える.
 	int m_iResultTimer;
 
+
 	//シーンの初期化.
 	void InitTitle();
 	//メインシーン(ステージ)の初期化.
-	void InitMain(bool bFirstFlg = false);//bFirstFlg = 一回目(Mainシーン中で使う場合はfalse, タイトルから来た場合はtrue).
+	void InitMain( bool bFirstFlg = false );//bFirstFlg = 一回目(Mainシーン中で使う場合はfalse, タイトルから来た場合はtrue).
 	void InitResult();
 	void InitEndroll();
 	void InitOver();
 
+
 	//ｶﾒﾗ.
 	void CameraMgr();
-	bool Stoker(D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos);
-	void CameraTargetSet();
-	void CameraLookSet();
-	float CameraLengthComp(float Attker, float Target);
-	float m_fCameraLookFloor;	//見る高さの保存用.
-	float m_fCameraLookFloorOld;//足場が真下にないときに使う時.
+		bool Stoker( D3DXVECTOR3& Pos, D3DXVECTOR3 TargetPos );
+		void CameraTargetSet();
+		void CameraLookSet();
+		float CameraLengthComp( float Attker, float Target );
+		float m_fCameraLookFloor;	//見る高さの保存用.
+		float m_fCameraLookFloorOld;//足場が真下にないときに使う時.
+
+
+
+
 
 	//一瞬で振り向かない(徐々に振り向く).
 	void YawSpnToTarg(
 		float& NowYaw, float TarYaw,
-		float TurnSpd, float TurnStop = 0.1f);
+		float TurnSpd, float TurnStop = 0.1f );
+
 
 	////360～0に納める.
-	void ThetaOverGuard_M(float& theta);
-	void ThetaOverGuard_M(double& theta);
+	void ThetaOverGuard_M( float& theta );
+	void ThetaOverGuard_M( double& theta );
+
+
+
 
 private:
 	HWND	m_hWnd;	//ｳｨﾝﾄﾞｳﾊﾝﾄﾞﾙ.
@@ -337,6 +370,8 @@ private:
 	ID3D11RenderTargetView*	m_pBackBuffer_TexRTV;//ﾚﾝﾀﾞｰﾀｰｹﾞｯﾄﾋﾞｭｰ.
 	ID3D11Texture2D*		m_pBackBuffer_DSTex;//ﾊﾞｯｸﾊﾞｯﾌｧ.
 	ID3D11DepthStencilView*	m_pBackBuffer_DSTexDSV;//ﾃﾞﾌﾟｽｽﾃﾝｼﾙﾋﾞｭｰ.
+
+
 
 	D3DXVECTOR3		m_vLight;	//ﾗｲﾄの方向.
 
@@ -355,6 +390,8 @@ private:
 	float m_fAlphaPoint;
 #endif //Inoue
 
+
+
 	//板ﾎﾟﾘｺﾞﾝ用.
 	clsSprite*		m_pExplosion;//爆発用.
 
@@ -367,27 +404,37 @@ private:
 	//深度(Z)ﾃｽﾄ設定.
 	ID3D11DepthStencilState* m_pDepthStencilState;
 
+
+
+
 	//ﾚｲ表示ｸﾗｽ.
 	clsRay*			m_pRayV;	//垂直.
 	clsRay*			m_pRayFB;	//前後.
 	clsRay*			m_pRayH;	//左右.
+
+
 
 	//ﾌﾟﾚｲﾔｰ.
 	clsPlayer*			m_pPlayer;
 	int					m_iRespawnTimer;
 
 	//ゲームオーバー用敵.
-	//	clsEnemy*			m_pOverEnemy[4];
+//	clsEnemy*			m_pOverEnemy[4];
 
 	//定規.
 	int					m_iBlkAryMax;
 	clsCharaStatic**	m_ppBlkAry;
 
+
 	//ﾘｿｰｽｸﾗｽ.
 	clsResource*		m_pResource;
 
+
 	//ﾌｧｲﾙ読込.
 	clsFile*	m_pFile;
+
+
+
 
 	//ｻｳﾝﾄﾞｸﾗｽ.
 	enum enBgm
@@ -411,26 +458,35 @@ private:
 	};
 	clsSound*	m_pSe[enSe_MAX];
 	void CreateSound();
+	
+
+
 
 	//効果音の音量を決めるセット.
 	float m_fEar;	//耳(音量基準)の位置.
-	void SetEar(float player, float cam){
+	void SetEar( float player, float cam ){
 		const float fOffset = 2.0f;
-		m_fEar = (player + cam) / 2.0f + fOffset;
+		m_fEar = ( player + cam ) / 2.0f + fOffset;
 	}
 	float GetEar(){
 		return m_fEar;
 	}
 
+
+
+
+
 	//for文の処理の無駄を減らす.
 	//あたり判定計算する?.//Used.
-	bool isCutOutForHit(float fPlayerZ, float fObjZ, float fBack = -1.0f, float fOpposite = -1.0f);
+	bool isCutOutForHit( float fPlayerZ, float fObjZ, float fBack = -1.0f, float fOpposite = -1.0f );
 	//動き計算する?.//まだ使っていない.
-	bool isCutOutForMove(float fPlayerZ, float fObjZ, float fBack = -1.0f, float fOpposite = -1.0f);
+	bool isCutOutForMove( float fPlayerZ, float fObjZ, float fBack = -1.0f, float fOpposite = -1.0f );
+
+
 
 #ifdef Tahara
 	//ConvDimPosの事前準備.
-	void SetViewPort10(D3D11_VIEWPORT* Vp){
+	void SetViewPort10( D3D11_VIEWPORT* Vp ){
 		m_ViewPort.TopLeftX = Vp->TopLeftX;
 		m_ViewPort.TopLeftY = Vp->TopLeftY;
 		m_ViewPort.MaxDepth = Vp->MaxDepth;
@@ -440,20 +496,22 @@ private:
 	};
 
 	//3D座標のスクリーン( 2D )座標変換.dimensions(次元) conversion(変換)
-	D3DXVECTOR3 ConvDimPos(D3DXVECTOR3 v2DPos, D3DXVECTOR3 v3DPos){
+	D3DXVECTOR3 ConvDimPos( D3DXVECTOR3 v2DPos, D3DXVECTOR3 v3DPos ){
 		D3DXMATRIX mWorld;
-		D3DXMatrixIdentity(&mWorld);
-		D3DXVec3Project(&v2DPos, &v3DPos, &m_ViewPort, &m_mProj, &m_mView, &mWorld);
+		D3DXMatrixIdentity( &mWorld );
+		D3DXVec3Project( &v2DPos, &v3DPos, &m_ViewPort, &m_mProj, &m_mView, &mWorld );
 		return v2DPos;
 	}
 
 	D3D10_VIEWPORT m_ViewPort;//2DSp用.
 
+
+
 	//リザルトの宝石用.
 	UI_STATE_RESULT m_ResUiState;//リザルトに必要な情報.
 	//ラップ.
 	void SetJewelState(){
-		m_smpUiManagar->SetJewelState(m_ResUiState);
+		m_smpUiManagar->SetJewelState( m_ResUiState );
 	}
 	//リザルトの宝石用情報を渡せるように加工する.
 	void UpDateJewelState(){
@@ -461,4 +519,16 @@ private:
 	}
 
 #endif//#ifdef Tahara
+
+
+
+
+	//エフェクト.
+	//名前省略用.
+	clsEffects*				m_pEffect;
+	::Effekseer::Handle		m_ehKickHit[2];	//アルビアがやられたとき(二体までしか同時に出ない).
+	::Effekseer::Handle		m_ehSlashHit;	//敵の攻撃が当たった時.
+	//エフェクト再生.
+	void PlayEffKick( D3DXVECTOR3 pvPos );
+	void PlayEffSlash( D3DXVECTOR3 pvPos );
 };

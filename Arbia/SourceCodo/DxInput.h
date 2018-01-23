@@ -60,6 +60,8 @@ enum enPStickSlopeMode
 	enPSSM_High
 };
 
+
+
 class clsDxInput
 {
 public:
@@ -67,29 +69,30 @@ public:
 	~clsDxInput();
 
 	//DirectInput‰Šúİ’è.
-	bool initDI(HWND hWnd);
+	bool initDI( HWND hWnd );
 
 	//“ü—Íî•ñXVŠÖ”.
 	HRESULT UpdateInputState();
 
 	//“ü—Íî•ñ‚ğ’Ç‰Á‚·‚éŠÖ”.add:‰Á‚¦‚é.
-	void AddInputState(enPKey enKey);
+	void AddInputState( enPKey enKey );
 
 	//“ü—Íî•ñ‚ğ‰Šú‰»‚·‚éŠÖ”.
 	void InitInputState();
 
 	//“ü—ÍÁª¯¸‚·‚éŠÖ”.
-	bool IsPressKeyEnter(enPKey enKey);
-	bool IsPressKeyStay(enPKey enKey);
-	bool IsPressKeyExit(enPKey enKey);
+	bool IsPressKeyEnter( enPKey enKey );
+	bool IsPressKeyStay( enPKey enKey );
+	bool IsPressKeyExit( enPKey enKey );
 
 	//½Ã¨¯¸‚ÌŠp“x.
-	float GetStickTheta(LONG lY, LONG lX);
+	float GetStickTheta( LONG lY, LONG lX );
 	//½Ã¨¯¸‚ÌŒX‚«.
-	float GetStickSlope(LONG lY, LONG lX);
+	float GetStickSlope( LONG lY, LONG lX );
 
 	//½Ã¨¯¸‚ÌŒX‚«‚©‚ç“|‚µ‹ï‡‚ğ”»’è‚·‚é.
-	enPStickSlopeMode	GetStickSlopeMode(float slope);
+	enPStickSlopeMode	GetStickSlopeMode( float slope );
+
 
 	float				m_fStickTheta;//Ò²İ‚É“n‚·Šp“x.
 	enPStickSlopeMode	m_enStickSlope;//Ò²İ‚É“n‚·½Ã¨¯¸‚Ì“|‚µ‹ï‡.
@@ -101,6 +104,8 @@ private:
 	unsigned int	m_uInputState;//“ü—Íî•ñ.
 	unsigned int	m_uInputStateOld;//“ü—Íî•ñ.
 	float m_fStickSlope;//½Ã¨¯¸‹——£.
+
 };
+
 
 #endif//#ifndef _DX_INPUT_H_

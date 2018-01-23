@@ -7,3 +7,4 @@ clsFloor::clsFloor()
 clsFloor::~clsFloor()
 {
 }
+

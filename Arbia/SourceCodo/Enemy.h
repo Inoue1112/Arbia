@@ -1,17 +1,22 @@
 #ifndef _C_ENEMY_H_
 #define _C_ENEMY_H_
 
+
 #include "CharaSkin.h"
 
 #include "Collision.h"
 
 const int TURN_POS_NO_MAX = 4;
 
+
+
+
+
 class clsEnemy
-	: public clsCharaSkin
+		: public clsCharaSkin
 {
 public:
-	//敵の動きの種類.
+//敵の動きの種類.
 	enum enENEMY_MOVE
 	{
 		enEM_WALK = 0,
@@ -22,24 +27,29 @@ public:
 		enEM_WIN,
 	};//m_enMove.
 
-	clsEnemy();
+clsEnemy();
 	~clsEnemy();
 
-	void Create(HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11, int iNo, int jNo);
-	virtual void Init(float fStartZ);
+	void Create( HWND hWnd, ID3D11Device* pDevice11, ID3D11DeviceContext* pContext11, int iNo, int jNo );
+	virtual void Init( float fStartZ );
 
 	//敵動き.
-	void Move(float fEarZ);
+	void Move( float fEarZ );
 	//死亡処理.
-	void Dead(bool FlgPlayerJumpAtk = false);
+	void Dead( bool FlgPlayerJumpAtk = false );
+
+
 
 	//ﾀｰﾝ.
-	void SetTurnPos(float x, float z, float SecondX, float SecondZ, bool bReverse, bool bSecond);
-	void Turn(int TargetNo);
+	void SetTurnPos( float x, float z, float SecondX, float SecondZ, bool bReverse, bool bSecond );
+	void Turn( int TargetNo );
+
+
+
 
 	//ﾀｰﾝPosをｾｯﾄ.
-	void AddTurnPos(D3DXVECTOR3 vPos){
-		for (int i = 0; i < TURN_POS_NO_MAX; i++){
+	void AddTurnPos( D3DXVECTOR3 vPos ){
+		for( int i=0; i<TURN_POS_NO_MAX; i++ ){
 			m_colTurn[i].vPos += vPos;
 		}
 	}
@@ -50,7 +60,7 @@ public:
 	}
 
 	//発見.
-	bool Discover(bool bSoundFlg = true);
+	bool Discover( bool bSoundFlg = true );
 	//戻る.
 	void Back();
 	//見失い.
@@ -61,17 +71,22 @@ public:
 	//勝利.
 	void Win();
 
+
 	COL_STATE	m_colSub;	//索敵,攻撃範囲.
 	COL_STATE	m_colTurn[TURN_POS_NO_MAX];	//角.
 	int			m_iTarNo;	//TargetNumber.//追いかけるPosのNo.
+
+
+
 
 	//攻撃の瞬間フラグを返す.
 	bool GetAttackImpact(){
 		return m_bAtkImpact;
 	}
 
+
 	//追いかけるときに必要.
-	void GetSarchTarget(D3DXVECTOR3 vPos){
+	void GetSarchTarget( D3DXVECTOR3 vPos ){
 		m_vTargetPos = vPos;
 	}
 
@@ -86,20 +101,25 @@ private:
 	float m_fStartZ;
 
 	//敵動き子分.
-	void Move_Walk();
-	void Move_Run();
-	void Move_Atk();
-	void Move_Stop();
+	void Move_Walk ();
+	void Move_Run  ();
+	void Move_Atk  ();
+	void Move_Stop ();
 	void Move_Death();//死亡の動き.
 
+
 	//目標との角度.
-	float OpponentDirect(D3DXVECTOR3 Attker, D3DXVECTOR3 Target);//
+	float OpponentDirect( D3DXVECTOR3 Attker, D3DXVECTOR3 Target );//
+
+
 
 	//見失う処理の発動を判定する.
 	bool isLostRange();
 
 	//勝利者.
 	void Winner();
+
+
 
 	void UpdateDir();
 
@@ -112,6 +132,8 @@ private:
 	int			m_iAtkTimer;
 	bool		m_bAtkImpact;//攻撃の瞬間.
 	bool		m_bWin;//攻撃終了後に勝利モーションへ移行するフラグ.
+
+
 
 	//見失った直後に追いかけないタイマー.
 	int m_iReDiscTimer;//ReDiscoverTimer.
@@ -141,7 +163,7 @@ private:
 	enAnimation m_enAnimNo;
 	void Animation();
 	//アニメーションモードを変更.
-	void ChangeAnimMode(enAnimation anim);
+	void ChangeAnimMode( enAnimation anim );
 
 	//音の種類.
 	enum enSound
@@ -154,9 +176,12 @@ private:
 		enSOUND_MAX,	//最大数.
 	};
 	//効果音.
-	void PlaySe(enSound enSe);
+	void PlaySe( enSound enSe );
 	clsSound**	m_ppSe;
 	float		m_fEarZ;	//耳の位置(トラップ群と違い引数にするのがやばかったので).
+
+
 };
+
 
 #endif//#ifndef _C_ENEMY_H_
